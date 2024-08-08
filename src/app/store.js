@@ -10,7 +10,8 @@ import {
   REHYDRATE,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import {userReducer} from "../features/usersSlice";
+import { userReducer } from "../features/usersSlice";
+import { dataReducer } from "../features/dataSlice";
 
 const usersPersistConfig = {
   key: 'ticketup:user',
@@ -20,6 +21,7 @@ const usersPersistConfig = {
 
 const rootReducer = combineReducers({
   userState: persistReducer(usersPersistConfig, userReducer),
+  dataState: persistReducer(usersPersistConfig, dataReducer),
 });
 
 export const store = configureStore({
@@ -27,7 +29,14 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredActions: [
+          FLUSH,
+          REHYDRATE,
+          PAUSE,
+          PERSIST,
+          PURGE,
+          REGISTER
+        ],
       },
     });
   },

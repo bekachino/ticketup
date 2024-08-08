@@ -1,0 +1,12 @@
+.my-applications {
+  overflow-x: auto;
+}
+
+.table-container,
+.table-container table {
+  height: 100%;
+}
+
+.table-container table {
+  min-width: unset;
+}

@@ -9,7 +9,7 @@ import Neactivka from "./containers/Neactivka/Neactivka";
 import Zhaloba from "./containers/Zhaloba/Zhaloba";
 
 const App = () => {
-  const userToken = useAppSelector((state) => state.userState.user);
+  const { user } = useAppSelector((state) => state.userState);
   
   const publicRoutes = (
     <>
@@ -34,12 +34,12 @@ const App = () => {
       <Toolbar/>
       <Routes>
         <Route path='*'
-          element={userToken ? <Navigate to='/my-applications'
+          element={user ? <Navigate to='/my-applications'
             replace/> : <Navigate to='/sign-in'
             replace/>}/>
-        {userToken ? privateRoutes : publicRoutes}
+        {user ? privateRoutes : publicRoutes}
       </Routes>
-      {userToken && <BottomNav/>}
+      {user && <BottomNav/>}
     </div>
   );
 }
