@@ -1,19 +1,8 @@
-.nav-links-mobile {
-  display: none;
-}
-
-.mobile-nav-bar a {
-  color: #FFFFFF!important;
-  text-decoration: none!important;
-  width: 100%;
+.toolbar header {
+  background-color: #222222;
+  background-image: unset;
 }
 
 .nav-link {
   font-size: 12px!important;
-}
-
-@media (max-width: 220px) {
-  .nav-links-mobile {
-    display: flex;
-  }
 }

@@ -11,8 +11,10 @@ const AppToolbar = () => {
   const location = useLocation();
   
   return (
-    <Box sx={{ flexGrow: 1 }}
-      className='toolbar'>
+    <Box
+      sx={{ flexGrow: 1 }}
+      className='toolbar'
+    >
       <AppBar position='static'>
         <Toolbar>
           <Typography variant='h6'

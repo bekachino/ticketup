@@ -4,6 +4,10 @@
   width: 100% !important;
 }
 
+.bottom-nav .MuiBottomNavigation-root {
+  background-color: #222222;
+}
+
 .bottom-nav .MuiBottomNavigation-root button {
   max-width: unset!important;
 }
