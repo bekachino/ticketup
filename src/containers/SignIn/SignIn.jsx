@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import {
-  Alert, Avatar, Box, Container, Grid, TextField, Typography
-} from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import React, { useState } from 'react';
+import { Alert, Avatar, Container, TextField, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { signIn } from "../../features/userThunk";
-import { Link, useNavigate } from "react-router-dom";
 import { LoadingButton } from "@mui/lab";
 import LockIcon from '@mui/icons-material/Lock';
 import { deepPurple } from "@mui/material/colors";

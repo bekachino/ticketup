@@ -28,4 +28,4 @@ const DataSlice = createSlice({
 });
 
 export const dataReducer = DataSlice.reducer;
-export const {} = DataSlice.actions;
+//export const {} = DataSlice.actions;

@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { isAxiosError } from "axios";
 import axiosApi from "../axiosApi";
 import { SMTH_WENT_WRONG } from "../constants";
 
