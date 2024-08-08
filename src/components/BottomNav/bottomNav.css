@@ -1,0 +1,15 @@
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100% !important;
+}
+
+.bottom-nav .MuiBottomNavigation-root button {
+  max-width: unset!important;
+}
+
+@media (max-width: 220px) {
+  .bottom-nav {
+    display: none;
+  }
+}

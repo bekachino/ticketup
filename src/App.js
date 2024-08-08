@@ -1,7 +1,8 @@
 import { useAppSelector } from "./app/hooks";
 import { Routes, Route, Navigate } from "react-router-dom";
-import './App.css';
 import Toolbar from "./components/Toolbar/Toolbar";
+import BottomNav from "./components/BottomNav/BottomNav";
+import './App.css';
 
 const App = () => {
   const userToken = useAppSelector((state) => state.userState.user);
@@ -26,6 +27,7 @@ const App = () => {
             replace/>}/>
         {userToken ? privateRoutes : publicRoutes}
       </Routes>
+      <BottomNav/>
     </div>
   );
 }

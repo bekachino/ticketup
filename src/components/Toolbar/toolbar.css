@@ -1,7 +1,3 @@
-.nav-links {
-  display: flex;
-}
-
 .nav-links-mobile {
   display: none;
 }
@@ -16,11 +12,7 @@
   font-size: 12px!important;
 }
 
-@media (max-width: 1180px) {
-  .nav-links {
-    display: none;
-  }
-  
+@media (max-width: 220px) {
   .nav-links-mobile {
     display: flex;
   }
