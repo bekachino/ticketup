@@ -41,7 +41,7 @@ const SignIn = () => {
       maxWidth='xs'
       onSubmit={submitFormHandler}
     >
-      <Avatar sx={{ bgcolor: deepPurple[500], m: 'auto' }}>
+      <Avatar sx={{ bgcolor: deepPurple[500], m: '0 auto' }}>
         <LockIcon style={{ color: 'white' }}/>
       </Avatar>
       <Typography component='h1'

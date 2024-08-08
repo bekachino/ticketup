@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { getApplications } from "../../features/dataThunk";
 import {
+  Button,
   LinearProgress,
   Paper,
   Table,
@@ -9,8 +10,10 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow
+  TableRow,
+  TextField
 } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
 import './myApplications.css';
 
 const MyApplications = () => {
@@ -19,13 +22,43 @@ const MyApplications = () => {
     applications,
     applicationsLoading
   } = useAppSelector((state) => state.dataState);
+  const [searchWord, setSearchWord] = useState('');
   
   useEffect(() => {
     dispatch(getApplications());
   }, [dispatch]);
   
+  const applicationsBySearchWord = useCallback(() => {
+    return applications.filter(app => app?.hydra_abbon_ls.includes(searchWord) || app?.first_name.toLowerCase().includes(searchWord?.toLowerCase()) || app?.last_name?.toLowerCase().includes(searchWord?.toLowerCase()) || app?.primary_phone.includes(searchWord) || app?.hydra_address?.toLowerCase().includes(searchWord?.toLowerCase()));
+  }, [
+    applications,
+    searchWord
+  ]);
+  
   return (
     <div className='my-applications'>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          gap: '10px',
+          padding: '15px 20px',
+          width: '100%',
+        }}
+      >
+        <TextField
+          label='Поиск...'
+          variant='outlined'
+          className='search-application'
+          value={searchWord}
+          onChange={e => setSearchWord(e.target.value)}
+          size='small'
+        />
+        <Button
+          variant='outlined'
+          color='success'
+        ><AddIcon/></Button>
+      </div>
       <TableContainer
         component={Paper}
         className='table-container'
@@ -58,20 +91,26 @@ const MyApplications = () => {
               >Адрес</TableCell>
               <TableCell
                 align='center'
+                sx={{ minWidth: '170px' }}
+              >Статус</TableCell>
+              <TableCell
+                align='center'
                 sx={{ minWidth: '100px' }}
               >ID</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {applications.map((row) => (
+            {(
+              applicationsBySearchWord() || []
+            )?.map((row) => (
               <TableRow
                 key={row.name}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell align='center'>{row?.hydra_abbon_ls}</TableCell>
                 <TableCell align='center'>{`${row?.first_name} ${row?.last_name}`}</TableCell>
                 <TableCell align='center'>{row?.primary_phone}</TableCell>
                 <TableCell align='center'>{row?.hydra_address}</TableCell>
+                <TableCell align='center'>{row?.status}</TableCell>
                 <TableCell align='center'>{row?.id}</TableCell>
               </TableRow>
             ))}
