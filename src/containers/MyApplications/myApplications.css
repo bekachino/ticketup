@@ -1,4 +1,5 @@
 .my-applications {
+  flex-grow: 1;
   overflow-x: auto;
 }
 
@@ -8,5 +9,12 @@
 }
 
 .table-container table {
+  position: relative;
   min-width: unset;
+}
+
+.my-applications-progress-bar {
+  position: absolute!important;
+  top: 0;
+  width: 100%;
 }
