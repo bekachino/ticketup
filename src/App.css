@@ -17,3 +17,13 @@ body,
 #root {
   min-height: 100vh;
 }
+
+.App {
+  padding: 64px 0 56px;
+}
+
+@media (max-width: 599px) {
+  .App {
+    padding-top: 56px;
+  }
+}
