@@ -4,8 +4,7 @@ import { signIn } from "./userThunk";
 const initialState = {
   user: '',
   signInLoading: false,
-  signUpLoading: false,
-  authorizationError: '',
+  signInError: '',
 };
 
 const UsersSlice = createSlice({
@@ -16,7 +15,7 @@ const UsersSlice = createSlice({
   }, extraReducers: (builder) => {
     builder.addCase(signIn.pending, (state) => {
       state.user = '';
-      state.authorizationError = '';
+      state.signInError = '';
       state.signInLoading = true;
     });
     builder.addCase(signIn.fulfilled, (state, { payload: res }) => {
@@ -25,7 +24,7 @@ const UsersSlice = createSlice({
     });
     builder.addCase(signIn.rejected, (state, { payload: error }) => {
       state.signInLoading = false;
-      state.authorizationError = error || 'Произошла ошибка. Попробуйте позже';
+      state.signInError = error || 'Произошла ошибка. Попробуйте позже';
     });
   },
 });

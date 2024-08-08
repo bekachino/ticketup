@@ -2,6 +2,7 @@ import { useAppSelector } from "./app/hooks";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Toolbar from "./components/Toolbar/Toolbar";
 import BottomNav from "./components/BottomNav/BottomNav";
+import SignIn from "./containers/SignIn/SignIn";
 import './App.css';
 
 const App = () => {
@@ -9,6 +10,7 @@ const App = () => {
   
   const publicRoutes = (
     <>
+      <Route path='sign-in' element={<SignIn/>}></Route>
     </>
   );
   
