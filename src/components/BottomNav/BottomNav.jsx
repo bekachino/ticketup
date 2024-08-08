@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../app/hooks";
 import { logout } from "../../features/usersSlice";
 import Box from '@mui/material/Box';
@@ -12,6 +12,13 @@ import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Typography from "@mui/material/Typography";
 import './bottomNav.css';
+import { useLocation, useNavigate } from "react-router-dom";
+
+const tabs = {
+  '/my-applications': 0,
+  '/neactivka-list': 1,
+  '/zhaloba-list': 2,
+};
 
 const modalStyle = {
   position: 'absolute',
@@ -27,37 +34,48 @@ const modalStyle = {
 };
 
 const BottomNav = () => {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [value, setValue] = useState(0);
+  const [currentTab, setCurrentTab] = useState();
   const [open, setOpen] = useState(false);
   
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  
+  useEffect(() => {
+    if (currentTab !== tabs[pathname]) {
+      setCurrentTab(tabs[pathname] || 0);
+    }
+  }, [currentTab, pathname]);
   
   return (
     <Box sx={{ width: 500 }}
       className='bottom-nav'>
       <BottomNavigation
         showLabels
-        value={value}
+        value={currentTab}
         onChange={(event, newValue) => {
           if (newValue === 3) {
             return handleOpen();
           }
-          setValue(newValue);
+          setCurrentTab(newValue);
         }}
       >
         <BottomNavigationAction
           label='Заявки'
           icon={<ViewListIcon/>}
+          onClick={() => navigate('/my-applications')}
         />
         <BottomNavigationAction
           label='Неактивка'
           icon={<PeopleIcon/>}
+          onClick={() => navigate('/neactivka-list')}
         />
         <BottomNavigationAction
           label='Жалобы'
           icon={<ThumbDownAltIcon/>}
+          onClick={() => navigate('/zhaloba-list')}
         />
         <BottomNavigationAction
           label='Выйти'

@@ -4,18 +4,28 @@ import Toolbar from "./components/Toolbar/Toolbar";
 import BottomNav from "./components/BottomNav/BottomNav";
 import SignIn from "./containers/SignIn/SignIn";
 import './App.css';
+import MyApplications from "./containers/MyApplications/MyApplications";
+import Neactivka from "./containers/Neactivka/Neactivka";
+import Zhaloba from "./containers/Zhaloba/Zhaloba";
 
 const App = () => {
   const userToken = useAppSelector((state) => state.userState.user);
   
   const publicRoutes = (
     <>
-      <Route path='sign-in' element={<SignIn/>}></Route>
+      <Route path='sign-in'
+        element={<SignIn/>}/>
     </>
   );
   
   const privateRoutes = (
     <>
+      <Route path='my-applications'
+        element={<MyApplications/>}/>
+      <Route path='neactivka-list'
+        element={<Neactivka/>}/>
+      <Route path='zhaloba-list'
+        element={<Zhaloba/>}/>
     </>
   );
   
