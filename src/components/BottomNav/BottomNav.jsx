@@ -8,8 +8,11 @@ import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useState } from "react";
 import './bottomNav.css';
+import { useAppDispatch } from "../../app/hooks";
+import { logout } from "../../features/usersSlice";
 
 const BottomNav = () => {
+  const dispatch = useAppDispatch();
   const [value, setValue] = useState(0);
   
   return (
@@ -19,7 +22,9 @@ const BottomNav = () => {
         showLabels
         value={value}
         onChange={(event, newValue) => {
-          if (newValue === 3) return;
+          if (newValue === 3) {
+            return dispatch(logout());
+          }
           setValue(newValue);
         }}
       >

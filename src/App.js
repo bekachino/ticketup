@@ -27,7 +27,7 @@ const App = () => {
             replace/>}/>
         {userToken ? privateRoutes : publicRoutes}
       </Routes>
-      <BottomNav/>
+      {userToken && <BottomNav/>}
     </div>
   );
 }
