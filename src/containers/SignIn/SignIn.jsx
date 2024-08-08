@@ -35,9 +35,12 @@ const SignIn = () => {
   };
   
   return (
-    <Container className='sign-in'
+    <Container
+      className='sign-in'
       component='form'
-      maxWidth='xs'>
+      maxWidth='xs'
+      onSubmit={submitFormHandler}
+    >
       <Avatar sx={{ bgcolor: deepPurple[500], m: 'auto' }}>
         <LockIcon style={{ color: 'white' }}/>
       </Avatar>

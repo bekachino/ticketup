@@ -2,9 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { signIn } from "./userThunk";
 
 const initialState = {
-  user: '',
-  signInLoading: false,
-  signInError: '',
+  user: '', signInLoading: false, signInError: '',
 };
 
 const UsersSlice = createSlice({
@@ -24,7 +22,7 @@ const UsersSlice = createSlice({
     });
     builder.addCase(signIn.rejected, (state, { payload: error }) => {
       state.signInLoading = false;
-      state.signInError = error || 'Произошла ошибка. Попробуйте позже';
+      state.signInError = error;
     });
   },
 });
