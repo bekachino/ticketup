@@ -42,7 +42,7 @@ const MyApplications = () => {
           display: 'flex',
           justifyContent: 'space-between',
           gap: '10px',
-          padding: '15px 20px',
+          padding: '15px',
           width: '100%',
         }}
       >
@@ -57,6 +57,7 @@ const MyApplications = () => {
         <Button
           variant='outlined'
           color='success'
+          sx={{width: '80px'}}
         ><AddIcon/></Button>
       </div>
       <TableContainer
@@ -75,15 +76,15 @@ const MyApplications = () => {
             <TableRow>
               <TableCell
                 align='center'
-                sx={{ minWidth: '120px' }}
+                sx={{ minWidth: '100px' }}
               >Гидра ЛС</TableCell>
               <TableCell
                 align='center'
-                sx={{ minWidth: '180px' }}
+                sx={{ minWidth: '150px' }}
               >ФИО</TableCell>
               <TableCell
                 align='center'
-                sx={{ minWidth: '150px' }}
+                sx={{ minWidth: '130px' }}
               >Номер телефона</TableCell>
               <TableCell
                 align='center'
@@ -91,11 +92,11 @@ const MyApplications = () => {
               >Адрес</TableCell>
               <TableCell
                 align='center'
-                sx={{ minWidth: '170px' }}
+                sx={{ minWidth: '130px' }}
               >Статус</TableCell>
               <TableCell
                 align='center'
-                sx={{ minWidth: '100px' }}
+                sx={{ minWidth: '70px' }}
               >ID</TableCell>
             </TableRow>
           </TableHead>

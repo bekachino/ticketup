@@ -8,6 +8,11 @@
   min-width: unset;
 }
 
+.table-container table th,
+.table-container table td {
+  font-size: 12px;
+}
+
 .my-applications-progress-bar {
   position: absolute!important;
   top: 0;
