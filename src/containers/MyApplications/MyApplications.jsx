@@ -5,6 +5,7 @@ import {
   Button,
   LinearProgress,
   Paper,
+  Snackbar,
   Table,
   TableBody,
   TableCell,
@@ -20,13 +21,19 @@ const MyApplications = () => {
   const dispatch = useAppDispatch();
   const {
     applications,
-    applicationsLoading
+    applicationsLoading,
+    applicationsError,
   } = useAppSelector((state) => state.dataState);
   const [searchWord, setSearchWord] = useState('');
+  const [snackBarOpen, setSnackBarOpen] = useState(false);
   
   useEffect(() => {
     dispatch(getApplications());
   }, [dispatch]);
+  
+  useEffect(() => {
+    if (!!applicationsError) setSnackBarOpen(true);
+  }, [applicationsError]);
   
   const applicationsBySearchWord = useCallback(() => {
     return applications.filter(app => app?.hydra_abbon_ls.includes(searchWord) || app?.first_name.toLowerCase().includes(searchWord?.toLowerCase()) || app?.last_name?.toLowerCase().includes(searchWord?.toLowerCase()) || app?.primary_phone.includes(searchWord) || app?.hydra_address?.toLowerCase().includes(searchWord?.toLowerCase()));
@@ -35,8 +42,27 @@ const MyApplications = () => {
     searchWord
   ]);
   
+  const handleSnackBarClose = () => {
+    setSnackBarOpen(false);
+  };
+  
   return (
     <div className='my-applications'>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center'
+        }}
+        open={snackBarOpen}
+        onClose={handleSnackBarClose}
+        message={applicationsError}
+        sx={{
+          '.MuiSnackbarContent-root': {
+            backgroundColor: '#121212',
+            color: 'white',
+          },
+        }}
+      />
       <div
         style={{
           display: 'flex',
@@ -57,7 +83,7 @@ const MyApplications = () => {
         <Button
           variant='outlined'
           color='success'
-          sx={{width: '80px'}}
+          sx={{ width: '80px' }}
         ><AddIcon/></Button>
       </div>
       <TableContainer
