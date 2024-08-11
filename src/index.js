@@ -7,12 +7,13 @@ import { persistor, store } from './app/store';
 import { Provider } from 'react-redux';
 import { addInterceptors } from './axiosApi';
 import { ThemeProvider, createTheme } from '@mui/material';
+import { ruRU } from '@mui/material/locale/';
 
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
   },
-});
+}, ruRU);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

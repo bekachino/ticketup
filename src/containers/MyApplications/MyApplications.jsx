@@ -16,8 +16,10 @@ import {
 } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import './myApplications.css';
+import { useNavigate } from "react-router-dom";
 
 const MyApplications = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {
     applications,
@@ -84,6 +86,7 @@ const MyApplications = () => {
           variant='outlined'
           color='success'
           sx={{ width: '80px' }}
+          onClick={() => navigate('/new-application')}
         ><AddIcon/></Button>
       </div>
       <TableContainer
@@ -131,7 +134,7 @@ const MyApplications = () => {
               applicationsBySearchWord() || []
             )?.map((row) => (
               <TableRow
-                key={row.name}
+                key={row.id}
               >
                 <TableCell align='center'>{row?.hydra_abbon_ls}</TableCell>
                 <TableCell align='center'>{`${row?.first_name} ${row?.last_name}`}</TableCell>

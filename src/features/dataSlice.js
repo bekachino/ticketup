@@ -1,10 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getApplications } from "./dataThunk";
+import { getApplications, getLocationsList, getRegions } from "./dataThunk";
 
 const initialState = {
   applications: [],
+  regions: [],
+  cities: [],
   applicationsLoading: false,
+  regionsLoading: false,
+  citiesLoading: false,
   applicationsError: '',
+  locationsFetchErrorMessage: '',
 };
 
 const DataSlice = createSlice({
@@ -23,6 +28,32 @@ const DataSlice = createSlice({
     builder.addCase(getApplications.rejected, (state, { payload: error }) => {
       state.applicationsLoading = false;
       state.applicationsError = error;
+    });
+    
+    builder.addCase(getRegions.pending, (state) => {
+      state.regionsLoading = true;
+      state.locationsFetchErrorMessage = '';
+    });
+    builder.addCase(getRegions.fulfilled, (state, { payload: res }) => {
+      state.regionsLoading = false;
+      state.regions = res;
+    });
+    builder.addCase(getRegions.rejected, (state, { payload: error }) => {
+      state.regionsLoading = false;
+      state.locationsFetchErrorMessage = error;
+    });
+    
+    builder.addCase(getLocationsList.pending, (state) => {
+      state.citiesLoading = true;
+      state.locationsFetchErrorMessage = '';
+    });
+    builder.addCase(getLocationsList.fulfilled, (state, { payload: res }) => {
+      state.citiesLoading = false;
+      state[res.addressType] = res.data;
+    });
+    builder.addCase(getLocationsList.rejected, (state, { payload: error }) => {
+      state.citiesLoading = false;
+      state.locationsFetchErrorMessage = error;
     });
   },
 });

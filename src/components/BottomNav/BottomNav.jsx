@@ -45,7 +45,7 @@ const BottomNav = () => {
   
   useEffect(() => {
     if (currentTab !== tabs[pathname]) {
-      setCurrentTab(tabs[pathname] || 0);
+      setCurrentTab(tabs[pathname]);
     }
   }, [currentTab, pathname]);
   

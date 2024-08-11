@@ -7,25 +7,38 @@ import './App.css';
 import MyApplications from "./containers/MyApplications/MyApplications";
 import Neactivka from "./containers/Neactivka/Neactivka";
 import Zhaloba from "./containers/Zhaloba/Zhaloba";
+import NewApplication from "./containers/NewApplication/NewApplication";
 
 const App = () => {
   const { user } = useAppSelector((state) => state.userState);
   
   const publicRoutes = (
     <>
-      <Route path='sign-in'
-        element={<SignIn/>}/>
+      <Route
+        path='sign-in'
+        element={<SignIn/>}
+      />
     </>
   );
   
   const privateRoutes = (
     <>
-      <Route path='my-applications'
-        element={<MyApplications/>}/>
-      <Route path='neactivka-list'
-        element={<Neactivka/>}/>
-      <Route path='zhaloba-list'
-        element={<Zhaloba/>}/>
+      <Route
+        path='my-applications'
+        element={<MyApplications/>}
+      />
+      <Route
+        path='neactivka-list'
+        element={<Neactivka/>}
+      />
+      <Route
+        path='zhaloba-list'
+        element={<Zhaloba/>}
+      />
+      <Route
+        path='new-application'
+        element={<NewApplication/>}
+      />
     </>
   );
   
@@ -33,10 +46,16 @@ const App = () => {
     <div className='App'>
       <Toolbar/>
       <Routes>
-        <Route path='*'
-          element={user ? <Navigate to='/my-applications'
-            replace/> : <Navigate to='/sign-in'
-            replace/>}/>
+        <Route
+          path='*'
+          element={user ? <Navigate
+            to='/my-applications'
+            replace
+          /> : <Navigate
+            to='/sign-in'
+            replace
+          />}
+        />
         {user ? privateRoutes : publicRoutes}
       </Routes>
       {user && <BottomNav/>}
