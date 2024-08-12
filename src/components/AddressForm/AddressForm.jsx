@@ -84,44 +84,79 @@ const AddressForm = ({
         renderInput={(params) =>
           <TextField {...params} label='Мкр / Ж-в / Ул. '/>}
       />}
-      {state?.district && (
-        state?.district?.name?.slice(0, 3) !== 'ул.' && !!streets.length
-      ) && <Autocomplete
-        value={state?.street?.name || ''}
-        onChange={(_, value) => {
-          handleChange({
-            target: {
-              name: 'street',
-              value: streets?.find(street => street?.name === value) || null,
-            }
-          });
-        }}
-        options={streets?.map(street => street?.name) || []}
-        loading={streetsLoading}
-        loadingText='Загрузка...'
-        renderInput={(params) => <TextField {...params} label='Улица'/>}
-      />}
-      {addressType === 'flat' && (state?.street || state?.district?.name.slice(0,3 ) === 'ул.') && state?.street?.name?.slice(0, 2) !== 'д.' &&
-        <Autocomplete
-          value={state?.house?.name || ''}
-          onChange={(_, value) => {
-            handleChange({
-              target: {
-                name: 'house',
-                value: (state?.district?.name.slice(0,3 ) === 'ул.' ? streets : houses)?.find(house => house?.name === value) || null,
-              }
-            });
-          }}
-          options={(state?.district?.name.slice(0,3 ) === 'ул.' ? streets : houses)?.map(house => house?.name) || []}
-          loading={housesLoading}
-          loadingText='Загрузка...'
-          renderInput={(params) => <TextField {...params} label='Дом'/>}
-        />}
-      {addressType === 'house' && (
-        state?.street || state?.district?.name?.slice(0, 3) === 'ул.' || (
-          state?.district?.name?.slice(0, 4) === 'мкр.' && !streets.length
-        )
-      ) && <TextField
+      {state?.district &&
+        <>
+          {
+            state?.district?.name?.slice(0, 3) !== 'ул.' &&
+            <Autocomplete
+              value={state?.street?.name || ''}
+              onChange={(_, value) => {
+                handleChange({
+                  target: {
+                    name: 'street',
+                    value: streets?.find(street => street?.name === value) || null,
+                  }
+                });
+              }}
+              options={streets?.map(street => street?.name) || []}
+              loading={streetsLoading}
+              loadingText='Загрузка...'
+              renderInput={(params) => <TextField {...params} label='Улица'/>}
+            />
+          }
+          {
+            state?.street?.name?.slice(0, 2) !== 'д.' && addressType === 'flat' &&
+            <Autocomplete
+              value={state?.house?.name || ''}
+              onChange={(_, value) => {
+                handleChange({
+                  target: {
+                    name: 'house',
+                    value: (
+                      state?.district?.name.slice(0, 3) === 'ул.' ? streets : houses
+                    )?.find(house => house?.name === value) || null,
+                  }
+                });
+              }}
+              options={(
+                state?.district?.name.slice(0, 3) === 'ул.' ? streets : houses
+              )?.map(house => house?.name) || []}
+              loading={housesLoading}
+              loadingText='Загрузка...'
+              renderInput={(params) => <TextField {...params} label='Дом'/>}
+            />
+          }
+          {
+            addressType === 'flat' &&
+            <>
+              <TextField
+                label='Подъезд'
+                type='number'
+                name='entrance'
+                value={state?.entrance}
+                onChange={handleChange}
+                variant='outlined'
+              />
+              <TextField
+                label='Этаж'
+                type='number'
+                name='floor'
+                value={state?.floor}
+                onChange={handleChange}
+                variant='outlined'
+              />
+              <TextField
+                label='Квартира'
+                name='apart'
+                value={state?.apart}
+                onChange={handleChange}
+                variant='outlined'
+              />
+            </>
+          }
+        </>
+      }
+      {addressType === 'house' && state?.district && <TextField
         label='Дом'
         variant='outlined'
         name='exactAddress'

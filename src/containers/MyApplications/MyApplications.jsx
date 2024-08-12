@@ -68,7 +68,7 @@ const MyApplications = () => {
       <div
         style={{
           display: 'flex',
-          justifyContent: 'space-between',
+          flexWrap: 'wrap',
           gap: '10px',
           padding: '15px',
           width: '100%',
@@ -81,13 +81,15 @@ const MyApplications = () => {
           value={searchWord}
           onChange={e => setSearchWord(e.target.value)}
           size='small'
+          sx={{ flexGrow: 1 }}
         />
         <Button
+          className='create-application'
           variant='outlined'
           color='success'
-          sx={{ width: '80px' }}
+          sx={{ ml: 'auto' }}
           onClick={() => navigate('/new-application')}
-        ><AddIcon/></Button>
+        >Создать заявку<AddIcon/></Button>
       </div>
       <TableContainer
         component={Paper}

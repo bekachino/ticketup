@@ -55,7 +55,6 @@ const DataSlice = createSlice({
     });
     builder.addCase(getLocationsList.fulfilled, (state, { payload: res }) => {
       state.citiesLoading = false;
-      console.log(res.addressType)
       state[res.addressType] = res.data;
     });
     builder.addCase(getLocationsList.rejected, (state, { payload: error }) => {
