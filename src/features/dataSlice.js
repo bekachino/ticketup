@@ -5,9 +5,15 @@ const initialState = {
   applications: [],
   regions: [],
   cities: [],
+  districts: [],
+  streets: [],
+  houses: [],
   applicationsLoading: false,
   regionsLoading: false,
   citiesLoading: false,
+  districtsLoading: false,
+  streetsLoading: false,
+  housesLoading: false,
   applicationsError: '',
   locationsFetchErrorMessage: '',
 };
@@ -49,6 +55,7 @@ const DataSlice = createSlice({
     });
     builder.addCase(getLocationsList.fulfilled, (state, { payload: res }) => {
       state.citiesLoading = false;
+      console.log(res.addressType)
       state[res.addressType] = res.data;
     });
     builder.addCase(getLocationsList.rejected, (state, { payload: error }) => {

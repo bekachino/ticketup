@@ -20,7 +20,12 @@ const NewApplication = () => {
   const {
     locationsFetchErrorMessage
   } = useAppSelector(state => state.dataState);
-  const [state, setState] = useState();
+  const [state, setState] = useState({
+    region: null,
+    city: null,
+    district: null,
+    street: null,
+  });
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [addressType, setAddressType] = useState('house');
   
@@ -42,11 +47,63 @@ const NewApplication = () => {
     ));
     
     if (name === 'region') {
+      setState(prevState => (
+        {
+          ...prevState,
+          city: null,
+          district: null,
+          street: null,
+          house: null,
+          exactAddress: '',
+        }
+      ));
       dispatch(getLocationsList({
         addressType: 'cities',
         locationType: addressType,
         parentId: value?.hydra_id
-      }))
+      }));
+    } else if (name === 'city') {
+      setState(prevState => (
+        {
+          ...prevState,
+          district: null,
+          street: null,
+          house: null,
+          exactAddress: '',
+        }
+      ));
+      dispatch(getLocationsList({
+        addressType: 'districts',
+        locationType: addressType,
+        parentId: value?.hydra_id
+      }));
+    } else if (name === 'district') {
+      setState(prevState => (
+        {
+          ...prevState,
+          street: null,
+          house: null,
+          exactAddress: '',
+        }
+      ));
+      dispatch(getLocationsList({
+        addressType: 'streets',
+        locationType: addressType,
+        parentId: value?.hydra_id
+      }));
+    } else if (name === 'street') {
+      setState(prevState => (
+        {
+          ...prevState,
+          house: null,
+          exactAddress: '',
+        }
+      ));
+      dispatch(getLocationsList({
+        addressType: 'houses',
+        locationType: addressType,
+        parentId: value?.hydra_id
+      }));
     }
   };
   
@@ -63,7 +120,7 @@ const NewApplication = () => {
         street: null,
       }
     ));
-  }
+  };
   
   return (
     <div className='new-application'>
