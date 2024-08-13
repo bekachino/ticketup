@@ -40,8 +40,6 @@ const NewApplication = () => {
     dispatch(getBxSquares());
   }, [dispatch]);
   
-  console.log(state);
-  
   const handleChange = (e) => {
     const {
       name,
@@ -80,6 +78,7 @@ const NewApplication = () => {
           street: null,
           house: null,
           exactAddress: '',
+          district2: null,
         }
       ));
       dispatch(getLocationsList({
