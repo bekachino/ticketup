@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getApplications, getLocationsList, getRegions } from "./dataThunk";
+import {
+  getApplications, getLocationsList, getBxSquares, getRegions, getBxRegions
+} from "./dataThunk";
 
 const initialState = {
   applications: [],
@@ -8,12 +10,16 @@ const initialState = {
   districts: [],
   streets: [],
   houses: [],
+  bxRegions: [],
+  bxSquares: [],
   applicationsLoading: false,
   regionsLoading: false,
   citiesLoading: false,
   districtsLoading: false,
   streetsLoading: false,
   housesLoading: false,
+  bxRegionsLoading: false,
+  bxSquaresLoading: false,
   applicationsError: '',
   locationsFetchErrorMessage: '',
 };
@@ -59,6 +65,32 @@ const DataSlice = createSlice({
     });
     builder.addCase(getLocationsList.rejected, (state, { payload: error }) => {
       state.citiesLoading = false;
+      state.locationsFetchErrorMessage = error;
+    });
+    
+    builder.addCase(getBxRegions.pending, (state) => {
+      state.bxRegionsLoading = true;
+      state.locationsFetchErrorMessage = '';
+    });
+    builder.addCase(getBxRegions.fulfilled, (state, { payload: res }) => {
+      state.bxRegionsLoading = false;
+      state.bxRegions = res[0];
+    });
+    builder.addCase(getBxRegions.rejected, (state, { payload: error }) => {
+      state.bxRegionsLoading = false;
+      state.locationsFetchErrorMessage = error;
+    });
+    
+    builder.addCase(getBxSquares.pending, (state) => {
+      state.bxSquaresLoading = true;
+      state.locationsFetchErrorMessage = '';
+    });
+    builder.addCase(getBxSquares.fulfilled, (state, { payload: res }) => {
+      state.bxSquaresLoading = false;
+      state.bxSquares = res;
+    });
+    builder.addCase(getBxSquares.rejected, (state, { payload: error }) => {
+      state.bxSquaresLoading = false;
       state.locationsFetchErrorMessage = error;
     });
   },

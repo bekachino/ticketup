@@ -12,10 +12,13 @@ const AddressForm = ({
   const {
     regions,
     regionsLoading,
+    bxRegionsLoading,
     cities,
     citiesLoading,
     districts,
+    bxSquares,
     districtsLoading,
+    bxSquaresLoading,
     streets,
     streetsLoading,
     houses,
@@ -49,7 +52,7 @@ const AddressForm = ({
           });
         }}
         options={regions?.map(region => region?.name) || []}
-        loading={regionsLoading}
+        loading={regionsLoading || bxRegionsLoading}
         loadingText='Загрузка...'
         renderInput={(params) => <TextField {...params} label='Регион'/>}
       />
@@ -64,7 +67,7 @@ const AddressForm = ({
           });
         }}
         options={cities?.map(city => city?.name) || []}
-        loading={citiesLoading}
+        loading={citiesLoading || bxSquaresLoading}
         loadingText='Загрузка...'
         renderInput={(params) => <TextField {...params} label='Город'/>}
       />}
@@ -162,6 +165,21 @@ const AddressForm = ({
         name='exactAddress'
         value={state?.exactAddress}
         onChange={handleChange}
+      />}
+      {state?.region && <Autocomplete
+        value={state?.district2?.VALUE || ''}
+        onChange={(_, value) => {
+          handleChange({
+            target: {
+              name: 'district2',
+              value: cities?.find(district2 => district2?.VALUE === value) || null,
+            }
+          });
+        }}
+        options={bxSquares[Object.keys(bxSquares).filter(key => state?.region?.name?.toLowerCase()?.includes(key.toLowerCase()))[0]]?.map(district2 => district2?.VALUE) || []}
+        loading={bxSquaresLoading}
+        loadingText='Загрузка...'
+        renderInput={(params) => <TextField {...params} label='Город'/>}
       />}
     </>
   );
