@@ -7,13 +7,13 @@ const FileInput = ({
   removeImage,
   file,
   label,
-  currentImageInput
+  name,
 }) => {
   const inputRef = useRef(null);
   
   const onFileChange = e => {
     if (handleImageChange) {
-      handleImageChange(e, currentImageInput);
+      handleImageChange(e, name);
     }
   };
   
@@ -41,12 +41,16 @@ const FileInput = ({
           item
           xs
         >
-          <Box className='form-images'>
-            {file ? <Typography className='image-labels'>
+          <Box sx={{ color: '#FFFFFF' }}>
+            {file ? <Typography>
               <img
                 src={URL.createObjectURL(file)}
                 alt={label}
                 loading='lazy'
+                style={{
+                  maxWidth: '100px',
+                  maxHeight: '65px'
+                }}
               />
             </Typography> : label}
           </Box>
@@ -69,12 +73,18 @@ const FileInput = ({
           </Button> : <Button
             className='delete-image'
             variant='outlined'
-            startIcon={<DeleteIcon/>}
+            startIcon={<DeleteIcon sx={{ margin: 0 }}/>}
             onClick={() => {
               if (removeImage && inputRef.current) {
-                removeImage(currentImageInput);
+                removeImage(name);
                 inputRef.current.value = '';
               }
+            }}
+            sx={{
+              minWidth: '0',
+              '.MuiButton-startIcon': {
+                margin: 0,
+              },
             }}
           />}
         </Grid>

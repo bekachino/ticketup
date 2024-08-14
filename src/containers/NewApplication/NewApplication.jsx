@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 
 const AddressForm = lazy(() => import('../../components/AddressForm/AddressForm'));
 const ApplicationStatus = lazy(() => import('../../components/ApplicationStatus/ApplicationStatus'));
+const ImageFiles = lazy(() => import('../../components/ImageFiles/ImageFiles'));
 
 const formTabTitles = [
   'Адрес',
@@ -122,6 +123,26 @@ const NewApplication = () => {
         parentId: value?.hydra_id
       }));
     }
+  };
+  
+  const handleImageChange = (e, fieldName) => {
+    if (!e.target.files) return;
+    const file = e.target.files[0];
+    setState(prevState => (
+      {
+        ...prevState,
+        [fieldName]: file,
+      }
+    ));
+  };
+  
+  const removeImage = (key) => {
+    setState(prevState => (
+      {
+        ...prevState,
+        [key]: null,
+      }
+    ));
   };
   
   const handleSnackBarClose = () => setSnackBarOpen(false);
@@ -282,6 +303,13 @@ const NewApplication = () => {
         state={state}
         handleChange={handleChange}
       />
+    </Suspense>,
+    <Suspense fallback={<></>}>
+      <ImageFiles
+        state={state}
+        handleImageChange={handleImageChange}
+        removeImage={removeImage}
+      />
     </Suspense>
   ];
   
@@ -320,7 +348,7 @@ const NewApplication = () => {
           </Button>
           <Button
             type='submit'
-            variant='outlined'
+            variant='contained'
             sx={{ width: '100%' }}
           >
             Создать
