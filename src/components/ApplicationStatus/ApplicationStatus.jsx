@@ -28,7 +28,7 @@ const ApplicationStatus = ({
         }}
         options={orderStatuses?.map(orderStatus => orderStatus?.VALUE) || []}
         loadingText='Загрузка...'
-        renderInput={(params) => <TextField {...params} label='Статус заявки'/>}
+        renderInput={(params) => <TextField {...params} label='Статус оплаты'/>}
       />
       <Autocomplete
         value={state?.routerInstallationType?.VALUE || ''}

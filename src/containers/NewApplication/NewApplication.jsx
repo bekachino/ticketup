@@ -14,6 +14,7 @@ const AddressForm = lazy(() => import('../../components/AddressForm/AddressForm'
 const ApplicationStatus = lazy(() => import('../../components/ApplicationStatus/ApplicationStatus'));
 const ImageFiles = lazy(() => import('../../components/ImageFiles/ImageFiles'));
 const Description = lazy(() => import('../../components/Description/Description'));
+const AboutAbon = lazy(() => import('../../components/AboutAbon/AboutAbon'));
 
 const formTabTitles = [
   'Адрес',
@@ -55,7 +56,11 @@ const NewApplication = () => {
     setState(prevState => (
       {
         ...prevState,
-        [name]: value,
+        [name]: [
+          'userPhoneNumber',
+          'userAdditionalPhoneNumber',
+          'domoPhone',
+        ].includes(name) ? formatPhoneNumber(value) : value,
       }
     ));
     
@@ -290,6 +295,10 @@ const NewApplication = () => {
     if (dist2name === 'с. Кызыл-туу') return dists.filter(bxSquare => bxSquare.VALUE === 'ДА Кызыл-туу')[0];
   };
   
+  const formatPhoneNumber = (phoneNum) => {
+    return phoneNum.replace(/\D/g, '');
+  };
+  
   const onSubmit = async e => {
     e.preventDefault();
     console.log(state);
@@ -319,6 +328,12 @@ const NewApplication = () => {
     </Suspense>,
     <Suspense fallback={<></>}>
       <Description
+        state={state}
+        handleChange={handleChange}
+      />
+    </Suspense>,
+    <Suspense fallback={<></>}>
+      <AboutAbon
         state={state}
         handleChange={handleChange}
       />

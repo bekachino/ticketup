@@ -17,6 +17,7 @@ const initialState = {
   tariffs: [],
   superTvChoices: [],
   routerInstallationTypes: [],
+  providers: [],
   applicationsLoading: false,
   regionsLoading: false,
   citiesLoading: false,
@@ -84,6 +85,7 @@ const DataSlice = createSlice({
       state.routerInstallationTypes = res[2];
       state.tariffs = res[1]?.filter(tariff => availableTariffs.includes(tariff?.VALUE));
       state.superTvChoices = res[5];
+      state.providers = res[4];
     });
     builder.addCase(getBxRegions.rejected, (state, { payload: error }) => {
       state.bxRegionsLoading = false;
