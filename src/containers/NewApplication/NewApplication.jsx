@@ -8,10 +8,12 @@ import {
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import './newApplication.css';
+import Typography from "@mui/material/Typography";
 
 const AddressForm = lazy(() => import('../../components/AddressForm/AddressForm'));
+const ApplicationStatus = lazy(() => import('../../components/ApplicationStatus/ApplicationStatus'));
 
-const formTabs = [
+const formTabTitles = [
   'Адрес',
   'Статус заявки',
   'Загрузка фото',
@@ -276,17 +278,25 @@ const NewApplication = () => {
       />
     </Suspense>,
     <Suspense fallback={<></>}>
-      <AddressForm
+      <ApplicationStatus
         state={state}
         handleChange={handleChange}
-        addressType={addressType}
-        onAddressTypeChange={onAddressTypeChange}
       />
     </Suspense>
   ];
   
   return (
     <div className='new-application'>
+      <Typography
+        component='h5'
+        variant='h5'
+        sx={{
+          m: 0,
+          color: '#FFFFFF',
+          textAlign: 'center',
+          width: '100%',
+        }}
+      >{formTabTitles[currentTab]}</Typography>
       <Box
         component='form'
       >

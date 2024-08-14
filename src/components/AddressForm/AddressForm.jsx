@@ -169,7 +169,7 @@ const AddressForm = ({
         options={bxSquares[Object.keys(bxSquares).filter(key => state?.region?.name?.toLowerCase()?.includes(key.toLowerCase()))[0]]?.map(district2 => district2?.VALUE) || []}
         loading={bxSquaresLoading}
         loadingText='Загрузка...'
-        renderInput={(params) => <TextField {...params} label='Город'/>}
+        renderInput={(params) => <TextField {...params} label='Наименование локации'/>}
       />}
     </>
   );

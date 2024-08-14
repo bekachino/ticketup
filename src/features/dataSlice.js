@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   getApplications, getLocationsList, getBxSquares, getRegions, getBxRegions
 } from "./dataThunk";
+import { availableTariffs } from "../constants";
 
 const initialState = {
   applications: [],
@@ -12,6 +13,10 @@ const initialState = {
   houses: [],
   bxRegions: [],
   bxSquares: [],
+  orderStatuses: [],
+  tariffs: [],
+  superTvChoices: [],
+  routerInstallationTypes: [],
   applicationsLoading: false,
   regionsLoading: false,
   citiesLoading: false,
@@ -75,6 +80,10 @@ const DataSlice = createSlice({
     builder.addCase(getBxRegions.fulfilled, (state, { payload: res }) => {
       state.bxRegionsLoading = false;
       state.bxRegions = res[0];
+      state.orderStatuses = res[3]?.slice(0, 2);
+      state.routerInstallationTypes = res[2];
+      state.tariffs = res[1]?.filter(tariff => availableTariffs.includes(tariff?.VALUE));
+      state.superTvChoices = res[5];
     });
     builder.addCase(getBxRegions.rejected, (state, { payload: error }) => {
       state.bxRegionsLoading = false;
