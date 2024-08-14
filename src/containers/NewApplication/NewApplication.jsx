@@ -3,8 +3,7 @@ import Box from "@mui/material/Box";
 import { Button, Snackbar } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
-  getLocationsList,
-  getRegions, getBxRegions, getBxSquares
+  getLocationsList, getRegions, getBxRegions, getBxSquares
 } from "../../features/dataThunk";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -35,6 +34,7 @@ const NewApplication = () => {
   });
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [addressType, setAddressType] = useState('house');
+  const [currentTab, setCurrentTab] = useState(0);
   
   useEffect(() => {
     dispatch(getRegions());
@@ -266,24 +266,46 @@ const NewApplication = () => {
     if (dist2name === 'с. Кызыл-туу') return dists.filter(bxSquare => bxSquare.VALUE === 'ДА Кызыл-туу')[0];
   };
   
+  const tabs = [
+    <Suspense fallback={<></>}>
+      <AddressForm
+        state={state}
+        handleChange={handleChange}
+        addressType={addressType}
+        onAddressTypeChange={onAddressTypeChange}
+      />
+    </Suspense>,
+    <Suspense fallback={<></>}>
+      <AddressForm
+        state={state}
+        handleChange={handleChange}
+        addressType={addressType}
+        onAddressTypeChange={onAddressTypeChange}
+      />
+    </Suspense>
+  ];
+  
   return (
     <div className='new-application'>
       <Box
         component='form'
       >
-        <Suspense fallback={<></>}>
-          <AddressForm
-            state={state}
-            handleChange={handleChange}
-            addressType={addressType}
-            onAddressTypeChange={onAddressTypeChange}
-          />
-        </Suspense>
+        {tabs[currentTab]}
         <div className='new-application-form-btns'>
-          <Button variant='outlined' sx={{p: '5px 10px 5px 20px'}}>
+          <Button
+            variant='outlined'
+            sx={{ p: '5px 10px 5px 20px' }}
+            onClick={() => setCurrentTab(currentTab - 1)}
+            disabled={currentTab === 0}
+          >
             <ArrowBackIosIcon/>
           </Button>
-          <Button variant='outlined' sx={{p: '5px 14px 5px 16px'}}>
+          <Button
+            variant='outlined'
+            sx={{ p: '5px 14px 5px 16px' }}
+            onClick={() => setCurrentTab(currentTab + 1)}
+            disabled={currentTab === 4}
+          >
             <ArrowForwardIosIcon/>
           </Button>
           <Button

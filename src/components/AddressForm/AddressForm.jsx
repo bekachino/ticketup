@@ -87,78 +87,68 @@ const AddressForm = ({
         renderInput={(params) =>
           <TextField {...params} label='Мкр / Ж-в / Ул. '/>}
       />}
-      {state?.district &&
-        <>
-          {
-            state?.district?.name?.slice(0, 3) !== 'ул.' &&
-            <Autocomplete
-              value={state?.street?.name || ''}
-              onChange={(_, value) => {
-                handleChange({
-                  target: {
-                    name: 'street',
-                    value: streets?.find(street => street?.name === value) || null,
-                  }
-                });
-              }}
-              options={streets?.map(street => street?.name) || []}
-              loading={streetsLoading}
-              loadingText='Загрузка...'
-              renderInput={(params) => <TextField {...params} label='Улица'/>}
-            />
-          }
-          {
-            state?.street?.name?.slice(0, 2) !== 'д.' && addressType === 'flat' &&
-            <Autocomplete
-              value={state?.house?.name || ''}
-              onChange={(_, value) => {
-                handleChange({
-                  target: {
-                    name: 'house',
-                    value: (
-                      state?.district?.name.slice(0, 3) === 'ул.' ? streets : houses
-                    )?.find(house => house?.name === value) || null,
-                  }
-                });
-              }}
-              options={(
-                state?.district?.name.slice(0, 3) === 'ул.' ? streets : houses
-              )?.map(house => house?.name) || []}
-              loading={housesLoading}
-              loadingText='Загрузка...'
-              renderInput={(params) => <TextField {...params} label='Дом'/>}
-            />
-          }
-          {
-            addressType === 'flat' &&
-            <>
-              <TextField
-                label='Подъезд'
-                type='number'
-                name='entrance'
-                value={state?.entrance}
-                onChange={handleChange}
-                variant='outlined'
-              />
-              <TextField
-                label='Этаж'
-                type='number'
-                name='floor'
-                value={state?.floor}
-                onChange={handleChange}
-                variant='outlined'
-              />
-              <TextField
-                label='Квартира'
-                name='apart'
-                value={state?.apart}
-                onChange={handleChange}
-                variant='outlined'
-              />
-            </>
-          }
-        </>
-      }
+      {state?.district && <>
+        {state?.district?.name?.slice(0, 3) !== 'ул.' && <Autocomplete
+          value={state?.street?.name || ''}
+          onChange={(_, value) => {
+            handleChange({
+              target: {
+                name: 'street',
+                value: streets?.find(street => street?.name === value) || null,
+              }
+            });
+          }}
+          options={streets?.map(street => street?.name) || []}
+          loading={streetsLoading}
+          loadingText='Загрузка...'
+          renderInput={(params) => <TextField {...params} label='Улица'/>}
+        />}
+        {state?.street?.name?.slice(0, 2) !== 'д.' && addressType === 'flat' &&
+          <Autocomplete
+            value={state?.house?.name || ''}
+            onChange={(_, value) => {
+              handleChange({
+                target: {
+                  name: 'house',
+                  value: (
+                    state?.district?.name.slice(0, 3) === 'ул.' ? streets : houses
+                  )?.find(house => house?.name === value) || null,
+                }
+              });
+            }}
+            options={(
+              state?.district?.name.slice(0, 3) === 'ул.' ? streets : houses
+            )?.map(house => house?.name) || []}
+            loading={housesLoading}
+            loadingText='Загрузка...'
+            renderInput={(params) => <TextField {...params} label='Дом'/>}
+          />}
+        {addressType === 'flat' && <>
+          <TextField
+            label='Подъезд'
+            type='number'
+            name='entrance'
+            value={state?.entrance}
+            onChange={handleChange}
+            variant='outlined'
+          />
+          <TextField
+            label='Этаж'
+            type='number'
+            name='floor'
+            value={state?.floor}
+            onChange={handleChange}
+            variant='outlined'
+          />
+          <TextField
+            label='Квартира'
+            name='apart'
+            value={state?.apart}
+            onChange={handleChange}
+            variant='outlined'
+          />
+        </>}
+      </>}
       {addressType === 'house' && state?.district && <TextField
         label='Дом'
         variant='outlined'
@@ -172,7 +162,7 @@ const AddressForm = ({
           handleChange({
             target: {
               name: 'district2',
-              value: cities?.find(district2 => district2?.VALUE === value) || null,
+              value: bxSquares[Object.keys(bxSquares).filter(key => state?.region?.name?.toLowerCase()?.includes(key.toLowerCase()))[0]]?.find(district2 => district2?.VALUE === value) || null,
             }
           });
         }}
