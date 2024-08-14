@@ -1,12 +1,14 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import Box from "@mui/material/Box";
-import { Snackbar } from "@mui/material";
-import './newApplication.css';
+import { Button, Snackbar } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   getLocationsList,
   getRegions, getBxRegions, getBxSquares
 } from "../../features/dataThunk";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import './newApplication.css';
 
 const AddressForm = lazy(() => import('../../components/AddressForm/AddressForm'));
 
@@ -107,6 +109,9 @@ const NewApplication = () => {
           ...prevState,
           house: null,
           exactAddress: '',
+          entrance: '',
+          floor: '',
+          apart: '',
         }
       ));
       dispatch(getLocationsList({
@@ -274,6 +279,21 @@ const NewApplication = () => {
             onAddressTypeChange={onAddressTypeChange}
           />
         </Suspense>
+        <div className='new-application-form-btns'>
+          <Button variant='outlined' sx={{p: '5px 10px 5px 20px'}}>
+            <ArrowBackIosIcon/>
+          </Button>
+          <Button variant='outlined' sx={{p: '5px 14px 5px 16px'}}>
+            <ArrowForwardIosIcon/>
+          </Button>
+          <Button
+            type='submit'
+            variant='outlined'
+            sx={{ width: '100%' }}
+          >
+            Создать
+          </Button>
+        </div>
       </Box>
       <Snackbar
         anchorOrigin={{

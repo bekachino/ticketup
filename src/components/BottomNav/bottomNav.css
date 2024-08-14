@@ -3,6 +3,7 @@
   bottom: 0;
   width: 100% !important;
   margin-top: auto;
+  z-index: 1;
 }
 
 .bottom-nav .MuiBottomNavigation-root {
