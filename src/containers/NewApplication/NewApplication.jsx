@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 const AddressForm = lazy(() => import('../../components/AddressForm/AddressForm'));
 const ApplicationStatus = lazy(() => import('../../components/ApplicationStatus/ApplicationStatus'));
 const ImageFiles = lazy(() => import('../../components/ImageFiles/ImageFiles'));
+const Description = lazy(() => import('../../components/Description/Description'));
 
 const formTabTitles = [
   'Адрес',
@@ -289,6 +290,11 @@ const NewApplication = () => {
     if (dist2name === 'с. Кызыл-туу') return dists.filter(bxSquare => bxSquare.VALUE === 'ДА Кызыл-туу')[0];
   };
   
+  const onSubmit = async e => {
+    e.preventDefault();
+    console.log(state);
+  };
+  
   const tabs = [
     <Suspense fallback={<></>}>
       <AddressForm
@@ -310,7 +316,13 @@ const NewApplication = () => {
         handleImageChange={handleImageChange}
         removeImage={removeImage}
       />
-    </Suspense>
+    </Suspense>,
+    <Suspense fallback={<></>}>
+      <Description
+        state={state}
+        handleChange={handleChange}
+      />
+    </Suspense>,
   ];
   
   return (
@@ -327,6 +339,7 @@ const NewApplication = () => {
       >{formTabTitles[currentTab]}</Typography>
       <Box
         component='form'
+        onSubmit={onSubmit}
       >
         {tabs[currentTab]}
         <div className='new-application-form-btns'>
