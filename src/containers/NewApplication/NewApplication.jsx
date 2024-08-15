@@ -10,11 +10,11 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import './newApplication.css';
 import Typography from "@mui/material/Typography";
 
-const AddressForm = lazy(() => import('../../components/AddressForm/AddressForm'));
-const ApplicationStatus = lazy(() => import('../../components/ApplicationStatus/ApplicationStatus'));
-const ImageFiles = lazy(() => import('../../components/ImageFiles/ImageFiles'));
-const Description = lazy(() => import('../../components/Description/Description'));
-const AboutAbon = lazy(() => import('../../components/AboutAbon/AboutAbon'));
+const AddressForm = lazy(() => import('../../components/CreateApplicationFormTabs/AddressForm/AddressForm'));
+const ApplicationStatus = lazy(() => import('../../components/CreateApplicationFormTabs/ApplicationStatus/ApplicationStatus'));
+const ImageFiles = lazy(() => import('../../components/CreateApplicationFormTabs/ImageFiles/ImageFiles'));
+const Description = lazy(() => import('../../components/CreateApplicationFormTabs/Description/Description'));
+const AboutAbon = lazy(() => import('../../components/CreateApplicationFormTabs/AboutAbon/AboutAbon'));
 
 const formTabTitles = [
   'Адрес',

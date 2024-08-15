@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 
-const FileInput = lazy(() => import('../../components/FileInput/FileInput'))
+const FileInput = lazy(() => import('../../FileInput/FileInput'))
 
 const ImageFiles = ({
   state,
