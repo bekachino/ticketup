@@ -50,3 +50,36 @@ export const getBxSquares = createAsyncThunk("data/getBxSquares", async (_, { re
     return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);
   }
 });
+
+export const createApplication = createAsyncThunk("data/createApplication", async (data, { rejectWithValue }) => {
+  try {
+    const assetsFormData = new FormData();
+    assetsFormData.append('file1', data?.passport1);
+    assetsFormData.append('file2', data?.passport2);
+    assetsFormData.append('file3', data?.locationScreenShot);
+    const resFromTelegraph = await axiosApi.post("/upload-passport/", assetsFormData);
+    const telegraphAssetLinks = {
+      passport1: resFromTelegraph.data[0]?.image_path,
+      passport2: resFromTelegraph.data[0]?.image_path,
+      locationScreenShot: resFromTelegraph.data[0]?.image_path,
+    };
+    const createApplicationData = {
+      ...data,
+      address: {
+        region: data?.region,
+        city: data?.city,
+        district: data?.district,
+      },
+      exactAddress: {
+        address: data?.exactAddress,
+      },
+      userPhoneNumber: `996${data?.userPhoneNumber}`,
+      userAdditionalPhoneNumber: data?.userAdditionalPhoneNumber ? `996${data?.userAdditionalPhoneNumber}` : null,
+      assets: telegraphAssetLinks,
+    };
+    const createApplication = await axiosApi.post("/z/", createApplicationData);
+    return createApplication.data;
+  } catch (e) {
+    return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);
+  }
+});
