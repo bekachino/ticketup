@@ -11,8 +11,8 @@ const ImageFiles = ({
     <>
       <Suspense fallback={<></>}>
         <FileInput
-          name='passport'
-          file={state?.passport}
+          name='passport1'
+          file={state?.passport1}
           label='Лицевая сторона паспорта'
           handleImageChange={handleImageChange}
           removeImage={removeImage}

@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import { Button, Snackbar } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
-  getLocationsList, getRegions, getBxRegions, getBxSquares
+  getLocationsList, getRegions, getBxRegions, getBxSquares, createApplication
 } from "../../features/dataThunk";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -27,25 +27,75 @@ const formTabTitles = [
 const NewApplication = () => {
   const dispatch = useAppDispatch();
   const {
-    locationsFetchErrorMessage,
     bxRegions,
     bxSquares,
+    createApplicationErrorMessage,
   } = useAppSelector(state => state.dataState);
   const [state, setState] = useState({
-    region: null,
-    city: null,
-    district: null,
+    region: {
+      id: 77182,
+      name: "Чуйская обл.",
+      hydra_id: 51385501
+    },
+    city: {
+      id: 77183,
+      name: "г. Бишкек",
+      hydra_id: 51386301
+    },
+    district: {
+      id: 77262,
+      name: "мкр. 6-й",
+      hydra_id: 60752591
+    },
     street: null,
+    exactAddress: '9',
+    region2: {
+      ID: "4813",
+      VALUE: "Чуйская"
+    },
+    district2: {
+      ID: "8493",
+      VALUE: "Ст.Ивановка"
+    },
+    orderStatus: {
+      ID: "1867",
+      VALUE: "Без оплаты"
+    },
+    routerInstallationType: {
+      ID: "1920",
+      VALUE: "Да выкуп"
+    },
+    tariff: {
+      ID: "1931",
+      VALUE: "Промо (790)"
+    },
+    superTv: {
+      ID: "1924",
+      VALUE: "Приставка выкуп"
+    },
+    providerFrom: {
+      ID: "1879",
+      VALUE: 'Netline'
+    },
+    username: 'Test',
+    userSirName: 'Testov',
+    userPhoneNumber: '996707777404',
+    userAdditionalPhoneNumber: '996707777404',
   });
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [addressType, setAddressType] = useState('house');
-  const [currentTab, setCurrentTab] = useState(0);
+  const [currentTab, setCurrentTab] = useState(2);
+  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   
   useEffect(() => {
     dispatch(getRegions());
     dispatch(getBxRegions());
     dispatch(getBxSquares());
   }, [dispatch]);
+  
+  useEffect(() => {
+    if (createApplicationErrorMessage) setSnackBarOpen(true);
+  }, [createApplicationErrorMessage]);
   
   const handleChange = (e) => {
     const {
@@ -74,6 +124,7 @@ const NewApplication = () => {
           house: null,
           exactAddress: '',
           region2: bxRegions?.filter(region => value?.name?.toLowerCase()?.includes(region?.VALUE?.toLowerCase()))[0],
+          district2: null,
         }
       ));
       dispatch(getLocationsList({
@@ -299,9 +350,37 @@ const NewApplication = () => {
     return phoneNum.replace(/\D/g, '');
   };
   
+  const addressFormFilled = () => {
+    return Boolean(state?.region && state?.city && state?.district && (
+      addressType === 'flat' ? state?.entrance && state?.floor && state?.apart : state?.exactAddress
+    ) && state?.region2 && state?.district2);
+  };
+  
+  const applicationStatusFormFilled = () => {
+    return Boolean(state?.orderStatus && state?.routerInstallationType && state?.tariff && state?.superTv);
+  };
+  
+  const imagesFormFilled = () => {
+    return Boolean(state?.passport1 && state?.passport2 && state?.locationScreenShot);
+  };
+  
+  const aboutAbonFormFilled = () => {
+    return Boolean(state?.providerFrom && state?.username && state?.userSirName && state?.userPhoneNumber?.length >= 9);
+  };
+  
+  const tabDisabling = [
+    addressFormFilled(),
+    applicationStatusFormFilled(),
+    imagesFormFilled(),
+    true,
+    aboutAbonFormFilled()
+  ];
+  
+  const allTabsFilled = () => addressFormFilled() && applicationStatusFormFilled() && imagesFormFilled() && aboutAbonFormFilled();
+  
   const onSubmit = async e => {
     e.preventDefault();
-    console.log(state);
+    dispatch(createApplication(state));
   };
   
   const tabs = [
@@ -370,7 +449,7 @@ const NewApplication = () => {
             variant='outlined'
             sx={{ p: '5px 14px 5px 16px' }}
             onClick={() => setCurrentTab(currentTab + 1)}
-            disabled={currentTab === 4}
+            disabled={currentTab === 4 || !tabDisabling[currentTab]}
           >
             <ArrowForwardIosIcon/>
           </Button>
@@ -378,6 +457,7 @@ const NewApplication = () => {
             type='submit'
             variant='contained'
             sx={{ width: '100%' }}
+            disabled={!allTabsFilled()}
           >
             Создать
           </Button>
@@ -390,7 +470,7 @@ const NewApplication = () => {
         }}
         open={snackBarOpen}
         onClose={handleSnackBarClose}
-        message={locationsFetchErrorMessage}
+        message={createApplicationErrorMessage}
         sx={{
           '.MuiSnackbarContent-root': {
             backgroundColor: '#121212',

@@ -127,6 +127,7 @@ const AddressForm = ({
           <TextField
             label='Подъезд'
             type='number'
+            inputProps={{ min: 1 }}
             name='entrance'
             value={state?.entrance}
             onChange={handleChange}
@@ -135,6 +136,7 @@ const AddressForm = ({
           <TextField
             label='Этаж'
             type='number'
+            inputProps={{ min: 1 }}
             name='floor'
             value={state?.floor}
             onChange={handleChange}
