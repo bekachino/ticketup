@@ -3,18 +3,24 @@ import Box from "@mui/material/Box";
 import { Button, Snackbar } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
-  getLocationsList, getRegions, getBxRegions, getBxSquares, createApplication
+  createApplication,
+  getBxRegions,
+  getBxSquares,
+  getLocationsList,
+  getRegions
 } from "../../features/dataThunk";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import './newApplication.css';
 import Typography from "@mui/material/Typography";
+import ConfirmApplicationModal
+  from "../../components/CreateApplicationComponents/ConfirmCreateApplicationModal/ConfirmApplicationModal";
 
-const AddressForm = lazy(() => import('../../components/CreateApplicationFormTabs/AddressForm/AddressForm'));
-const ApplicationStatus = lazy(() => import('../../components/CreateApplicationFormTabs/ApplicationStatus/ApplicationStatus'));
-const ImageFiles = lazy(() => import('../../components/CreateApplicationFormTabs/ImageFiles/ImageFiles'));
-const Description = lazy(() => import('../../components/CreateApplicationFormTabs/Description/Description'));
-const AboutAbon = lazy(() => import('../../components/CreateApplicationFormTabs/AboutAbon/AboutAbon'));
+const AddressForm = lazy(() => import('../../components/CreateApplicationComponents/AddressForm/AddressForm'));
+const ApplicationStatus = lazy(() => import('../../components/CreateApplicationComponents/ApplicationStatus/ApplicationStatus'));
+const ImageFiles = lazy(() => import('../../components/CreateApplicationComponents/ImageFiles/ImageFiles'));
+const Description = lazy(() => import('../../components/CreateApplicationComponents/Description/Description'));
+const AboutAbon = lazy(() => import('../../components/CreateApplicationComponents/AboutAbon/AboutAbon'));
 
 const formTabTitles = [
   'Адрес',
@@ -79,8 +85,8 @@ const NewApplication = () => {
     },
     username: 'Test',
     userSirName: 'Testov',
-    userPhoneNumber: '996707777404',
-    userAdditionalPhoneNumber: '996707777404',
+    userPhoneNumber: '707777404',
+    userAdditionalPhoneNumber: '707777404',
   });
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [addressType, setAddressType] = useState('house');
@@ -203,6 +209,8 @@ const NewApplication = () => {
   };
   
   const handleSnackBarClose = () => setSnackBarOpen(false);
+  
+  const handleConfirmModalClose = () => setConfirmModalOpen(false);
   
   const onAddressTypeChange = value => {
     setAddressType(value);
@@ -379,7 +387,10 @@ const NewApplication = () => {
   const allTabsFilled = () => addressFormFilled() && applicationStatusFormFilled() && imagesFormFilled() && aboutAbonFormFilled();
   
   const onSubmit = async e => {
-    e.preventDefault();
+    e?.preventDefault();
+    
+    if (!confirmModalOpen) return setConfirmModalOpen(true);
+    
     dispatch(createApplication(state));
   };
   
@@ -477,6 +488,13 @@ const NewApplication = () => {
             color: 'white',
           },
         }}
+      />
+      <ConfirmApplicationModal
+        state={state}
+        onSubmit={onSubmit}
+        confirmModalOpen={confirmModalOpen}
+        handleConfirmModalClose={handleConfirmModalClose}
+        addressType={addressType}
       />
     </div>
   );

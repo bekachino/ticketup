@@ -1,0 +1,67 @@
+.confirm-application-modal .MuiDialog-paper {
+  width: 90%;
+  margin: 0;
+  max-width: 450px;
+}
+
+.confirm-application-modal-title {
+  position: sticky;
+  top: 0;
+  background-color: #121212;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.16));
+  padding: 15px 0 10px!important;
+  box-shadow: 0 2px 10px -5px #000000;
+}
+
+.application-fields {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  padding: 15px 0;
+}
+
+.application-field {
+  display: flex;
+  gap: 10px;
+  padding: 5px 30px;
+}
+
+.application-field-title {
+  width: 40%;
+  font-weight: bold;
+}
+
+.application-field-value {
+  width: 60%;
+}
+
+.application-field-value img {
+  max-width: 100px;
+  max-height: 65px;
+}
+
+.modal-btns {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  gap: 10px;
+  background-color: #121212;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.16));
+  padding: 10px 15px 15px;
+  box-shadow: 0 -2px 10px -5px #000000;
+}
+
+.modal-btns button {
+  flex-grow: 1;
+}
+
+@media (max-width: 456px) {
+  .modal-btns button {
+    font-size: 11px;
+  }
+  
+  .application-field {
+    padding: 5px 15px;
+  }
+}
