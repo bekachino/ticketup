@@ -58,8 +58,7 @@ const AboutAbon = ({
         name='userAdditionalPhoneNumber'
         onChange={handleChange}
         inputProps={{ maxLength: 9 }}
-        helperText={state?.userAdditionalPhoneNumber && state?.userAdditionalPhoneNumber?.length < 9 ? 'Формат: 700555333' : state?.userAdditionalPhoneNumber && state?.userAdditionalPhoneNumber === state?.userPhoneNumber ? 'Основной и доп. номера не должны быть похожими' : ''}
-        error={state?.userAdditionalPhoneNumber && state?.userAdditionalPhoneNumber?.length > 0 ? state?.userAdditionalPhoneNumber === state?.userPhoneNumber : false}
+        helperText={state?.userAdditionalPhoneNumber && state?.userAdditionalPhoneNumber?.length < 9 && 'Формат: 700555333'}
       />
       <TextField
         label='Лицевой счёт домофона'
