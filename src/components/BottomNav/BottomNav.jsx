@@ -91,7 +91,7 @@ const BottomNav = () => {
         <Box sx={modalStyle}>
           <Typography component='h5'
             variant='h5'
-            sx={{ mb: 2, textAlign: 'center' }}>Выйти из системы?</Typography>
+            sx={{ mb: 2, textAlign: 'center' }}>Выйти из аккаунта?</Typography>
           <Button variant='outlined'
             color='error'
             sx={{ width: '100%' }}

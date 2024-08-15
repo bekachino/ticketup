@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Box from "@mui/material/Box";
 import { Button, Dialog, DialogTitle } from "@mui/material";
 import './confirmApplicationModal.css';
@@ -13,6 +13,9 @@ const ConfirmApplicationModal = ({
   addressType,
 }) => {
   const {createApplicationLoading} = useAppSelector(state => state.dataState);
+  const passport1Url = useMemo(() => state?.passport1 ? URL.createObjectURL(state.passport1) : '', [state?.passport1]);
+  const passport2Url = useMemo(() => state?.passport2 ? URL.createObjectURL(state.passport2) : '', [state?.passport2]);
+  const locationScreenShotUrl = useMemo(() => state?.locationScreenShot ? URL.createObjectURL(state.locationScreenShot) : '', [state?.locationScreenShot]);
   
   return (
     <Dialog
@@ -95,8 +98,8 @@ const ConfirmApplicationModal = ({
           <span className='application-field-title'>Лицевая сторона паспорта</span>
           <span className='application-field-value'>
             <img
-              src={state?.passport1 ? URL.createObjectURL(state.passport1) : ''}
-              alt='passport'
+              src={passport1Url}
+              alt='Лицевая сторона паспорта'
               loading='lazy'
             />
           </span>
@@ -105,8 +108,8 @@ const ConfirmApplicationModal = ({
           <span className='application-field-title'>Обратная сторона паспорта</span>
           <span className='application-field-value'>
             <img
-              src={state?.passport2 ? URL.createObjectURL(state.passport2) : ''}
-              alt='passport'
+              src={passport2Url}
+              alt='Обратная сторона паспорта'
               loading='lazy'
             />
           </span>
@@ -115,8 +118,8 @@ const ConfirmApplicationModal = ({
           <span className='application-field-title'>Скриншот локации</span>
           <span className='application-field-value'>
             <img
-              src={state?.locationScreenShot ? URL.createObjectURL(state.locationScreenShot) : ''}
-              alt='passport'
+              src={locationScreenShotUrl}
+              alt='Скриншот локации'
               loading='lazy'
             />
           </span>

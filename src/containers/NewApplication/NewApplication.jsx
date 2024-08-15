@@ -13,14 +13,13 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import './newApplication.css';
 import Typography from "@mui/material/Typography";
-import ConfirmApplicationModal
-  from "../../components/CreateApplicationComponents/ConfirmCreateApplicationModal/ConfirmApplicationModal";
 
 const AddressForm = lazy(() => import('../../components/CreateApplicationComponents/AddressForm/AddressForm'));
 const ApplicationStatus = lazy(() => import('../../components/CreateApplicationComponents/ApplicationStatus/ApplicationStatus'));
 const ImageFiles = lazy(() => import('../../components/CreateApplicationComponents/ImageFiles/ImageFiles'));
 const Description = lazy(() => import('../../components/CreateApplicationComponents/Description/Description'));
 const AboutAbon = lazy(() => import('../../components/CreateApplicationComponents/AboutAbon/AboutAbon'));
+const ConfirmApplicationModal = lazy(() => import('../../components/CreateApplicationComponents/ConfirmCreateApplicationModal/ConfirmApplicationModal'));
 
 const formTabTitles = [
   'Адрес',
@@ -489,13 +488,15 @@ const NewApplication = () => {
           },
         }}
       />
-      <ConfirmApplicationModal
-        state={state}
-        onSubmit={onSubmit}
-        confirmModalOpen={confirmModalOpen}
-        handleConfirmModalClose={handleConfirmModalClose}
-        addressType={addressType}
-      />
+      <Suspense fallback={<></>}>
+        <ConfirmApplicationModal
+          state={state}
+          onSubmit={onSubmit}
+          confirmModalOpen={confirmModalOpen}
+          handleConfirmModalClose={handleConfirmModalClose}
+          addressType={addressType}
+        />
+      </Suspense>
     </div>
   );
 };
