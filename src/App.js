@@ -4,10 +4,12 @@ import Toolbar from "./components/Toolbar/Toolbar";
 import BottomNav from "./components/BottomNav/BottomNav";
 import SignIn from "./containers/SignIn/SignIn";
 import './App.css';
-import MyApplications from "./containers/MyApplications/MyApplications";
-import Neactivka from "./containers/Neactivka/Neactivka";
-import Zhaloba from "./containers/Zhaloba/Zhaloba";
-import NewApplication from "./containers/NewApplication/NewApplication";
+import { lazy, Suspense } from "react";
+
+const NewApplication = lazy(() => import('./containers/NewApplication/NewApplication'));
+const MyNeactivka = lazy(() => import('./containers/MyNeactivka/MyNeactivka'));
+const MyApplications = lazy(() => import('./containers/MyApplications/MyApplications'));
+const Zhaloba = lazy(() => import('./containers/Zhaloba/Zhaloba'));
 
 const App = () => {
   const { user } = useAppSelector((state) => state.userState);
@@ -25,19 +27,27 @@ const App = () => {
     <>
       <Route
         path='my-applications'
-        element={<MyApplications/>}
+        element={<Suspense fallback={<></>}>
+          <MyApplications/>
+        </Suspense>}
       />
       <Route
         path='neactivka-list'
-        element={<Neactivka/>}
+        element={<Suspense fallback={<></>}>
+          <MyNeactivka/>
+        </Suspense>}
       />
       <Route
         path='zhaloba-list'
-        element={<Zhaloba/>}
+        element={<Suspense fallback={<></>}>
+          <Zhaloba/>
+        </Suspense>}
       />
       <Route
         path='new-application'
-        element={<NewApplication/>}
+        element={<Suspense fallback={<></>}>
+          <NewApplication/>
+        </Suspense>}
       />
     </>
   );

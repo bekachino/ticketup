@@ -83,3 +83,12 @@ export const createApplication = createAsyncThunk("data/createApplication", asyn
     return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);
   }
 });
+
+export const getNeactivka = createAsyncThunk("data/getNeactivka", async (_, { rejectWithValue }) => {
+  try {
+    const req = await axiosApi('zayavkaneaktivka/');
+    return await req.data || [];
+  } catch (e) {
+    return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);
+  }
+});

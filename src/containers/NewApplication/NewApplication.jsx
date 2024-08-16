@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect, useState } from 'react';
+import React, { lazy, Suspense, useCallback, useEffect, useState } from 'react';
 import Box from "@mui/material/Box";
 import { Alert, Button, Snackbar } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -33,7 +33,6 @@ const formTabTitles = [
 
 const NewApplication = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const {
     bxRegions,
     bxSquares,
@@ -41,55 +40,10 @@ const NewApplication = () => {
     applicationRes,
   } = useAppSelector(state => state.dataState);
   const [state, setState] = useState({
-    region: {
-      id: 77182,
-      name: "Чуйская обл.",
-      hydra_id: 51385501
-    },
-    city: {
-      id: 77183,
-      name: "г. Бишкек",
-      hydra_id: 51386301
-    },
-    district: {
-      id: 77262,
-      name: "мкр. 6-й",
-      hydra_id: 60752591
-    },
+    region: null,
+    city: null,
+    district: null,
     street: null,
-    exactAddress: '9',
-    region2: {
-      ID: "4813",
-      VALUE: "Чуйская"
-    },
-    district2: {
-      ID: "8493",
-      VALUE: "Ст.Ивановка"
-    },
-    orderStatus: {
-      ID: "1867",
-      VALUE: "Без оплаты"
-    },
-    routerInstallationType: {
-      ID: "1920",
-      VALUE: "Да выкуп"
-    },
-    tariff: {
-      ID: "1931",
-      VALUE: "Промо (790)"
-    },
-    superTv: {
-      ID: "1924",
-      VALUE: "Приставка выкуп"
-    },
-    providerFrom: {
-      ID: "1879",
-      VALUE: 'Netline'
-    },
-    username: 'Test',
-    userSirName: 'Testov',
-    userPhoneNumber: '707777404',
-    userAdditionalPhoneNumber: '707777404',
   });
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [addressType, setAddressType] = useState('house');
@@ -97,12 +51,17 @@ const NewApplication = () => {
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [applicationResModalOpen, setApplicationResModalOpen] = useState(false);
   
+  const handleSnackBarClose = useCallback(() => {
+    dispatch(resetCreateApplicationErrorMessage());
+    setSnackBarOpen(false);
+  }, [dispatch]);
+  
   useEffect(() => {
     dispatch(getRegions());
     dispatch(getBxRegions());
     dispatch(getBxSquares());
     return () => handleSnackBarClose();
-  }, [dispatch]);
+  }, [dispatch, handleSnackBarClose]);
   
   useEffect(() => {
     if (createApplicationErrorMessage) setSnackBarOpen(true);
@@ -220,17 +179,11 @@ const NewApplication = () => {
     ));
   };
   
-  const handleSnackBarClose = () => {
-    dispatch(resetCreateApplicationErrorMessage());
-    setSnackBarOpen(false);
-  }
-  
   const handleConfirmModalClose = () => setConfirmModalOpen(false);
   
   const handleApplicationResModalClose = () => {
     setApplicationResModalOpen(false);
     dispatch(resetApplicationRes());
-    setState(null);
     setCurrentTab(0);
   }
   

@@ -5,7 +5,7 @@ import {
   getBxSquares,
   getRegions,
   getBxRegions,
-  createApplication
+  createApplication, getNeactivka
 } from "./dataThunk";
 import { availableTariffs } from "../constants";
 
@@ -23,6 +23,7 @@ const initialState = {
   superTvChoices: [],
   routerInstallationTypes: [],
   providers: [],
+  neactivka: [],
   applicationRes: null,
   applicationsLoading: false,
   regionsLoading: false,
@@ -33,7 +34,9 @@ const initialState = {
   bxRegionsLoading: false,
   bxSquaresLoading: false,
   createApplicationLoading: false,
+  neactivkaLoading: false,
   applicationsError: '',
+  neactivkaError: '',
   createApplicationErrorMessage: '',
 };
 
@@ -130,6 +133,19 @@ const DataSlice = createSlice({
     builder.addCase(createApplication.rejected, (state, { payload: error }) => {
       state.createApplicationLoading = false;
       state.createApplicationErrorMessage = error;
+    });
+    
+    builder.addCase(getNeactivka.pending, (state) => {
+      state.neactivkaLoading = true;
+      state.neactivkaError = '';
+    });
+    builder.addCase(getNeactivka.fulfilled, (state, { payload: res }) => {
+      state.neactivkaLoading = false;
+      state.neactivka = res;
+    });
+    builder.addCase(getNeactivka.rejected, (state, { payload: error }) => {
+      state.neactivkaLoading = false;
+      state.neactivkaError = error;
     });
   },
 });
