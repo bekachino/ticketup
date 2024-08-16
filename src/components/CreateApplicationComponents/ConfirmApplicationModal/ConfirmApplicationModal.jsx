@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import Box from "@mui/material/Box";
 import { Button, Dialog, DialogTitle } from "@mui/material";
-import './confirmApplicationModal.css';
 import { useAppSelector } from "../../../app/hooks";
 import { LoadingButton } from "@mui/lab";
+import './confirmApplicationModal.css';
 
 const ConfirmApplicationModal = ({
   state,

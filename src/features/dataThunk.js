@@ -59,9 +59,9 @@ export const createApplication = createAsyncThunk("data/createApplication", asyn
     assetsFormData.append('file3', data?.locationScreenShot);
     const resFromTelegraph = await axiosApi.post("/upload-passport/", assetsFormData);
     const telegraphAssetLinks = {
-      passport1: resFromTelegraph.data[0]?.image_path,
-      passport2: resFromTelegraph.data[0]?.image_path,
-      locationScreenShot: resFromTelegraph.data[0]?.image_path,
+      passport1: resFromTelegraph.data?.data[0]?.image_path,
+      passport2: resFromTelegraph.data?.data[1]?.image_path,
+      locationScreenShot: resFromTelegraph.data?.data[2]?.image_path,
     };
     const createApplicationData = {
       ...data,

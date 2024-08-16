@@ -40,7 +40,11 @@ const initialState = {
 const DataSlice = createSlice({
   name: 'data',
   initialState,
-  reducers: {},
+  reducers: {
+    resetApplicationRes: state => {
+      state.applicationRes = null;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getApplications.pending, (state) => {
       state.applicationsError = '';
@@ -128,4 +132,4 @@ const DataSlice = createSlice({
 });
 
 export const dataReducer = DataSlice.reducer;
-//export const {} = DataSlice.actions;
+export const { resetApplicationRes } = DataSlice.actions;

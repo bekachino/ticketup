@@ -3,23 +3,21 @@ import Box from "@mui/material/Box";
 import { Button, Snackbar } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
-  createApplication,
-  getBxRegions,
-  getBxSquares,
-  getLocationsList,
-  getRegions
+  createApplication, getBxRegions, getBxSquares, getLocationsList, getRegions
 } from "../../features/dataThunk";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import './newApplication.css';
 import Typography from "@mui/material/Typography";
+import './newApplication.css';
+import { resetApplicationRes } from "../../features/dataSlice";
 
 const AddressForm = lazy(() => import('../../components/CreateApplicationComponents/AddressForm/AddressForm'));
 const ApplicationStatus = lazy(() => import('../../components/CreateApplicationComponents/ApplicationStatus/ApplicationStatus'));
 const ImageFiles = lazy(() => import('../../components/CreateApplicationComponents/ImageFiles/ImageFiles'));
 const Description = lazy(() => import('../../components/CreateApplicationComponents/Description/Description'));
 const AboutAbon = lazy(() => import('../../components/CreateApplicationComponents/AboutAbon/AboutAbon'));
-const ConfirmApplicationModal = lazy(() => import('../../components/CreateApplicationComponents/ConfirmCreateApplicationModal/ConfirmApplicationModal'));
+const ConfirmApplicationModal = lazy(() => import('../../components/CreateApplicationComponents/ConfirmApplicationModal/ConfirmApplicationModal'));
+const ApplicationResModal = lazy(() => import('../../components/CreateApplicationComponents/ApplicationResModal/ApplicationResModal'));
 
 const formTabTitles = [
   'Адрес',
@@ -35,6 +33,7 @@ const NewApplication = () => {
     bxRegions,
     bxSquares,
     createApplicationErrorMessage,
+    applicationRes,
   } = useAppSelector(state => state.dataState);
   const [state, setState] = useState({
     region: {
@@ -91,6 +90,7 @@ const NewApplication = () => {
   const [addressType, setAddressType] = useState('house');
   const [currentTab, setCurrentTab] = useState(2);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
+  const [applicationResModalOpen, setApplicationResModalOpen] = useState(false);
   
   useEffect(() => {
     dispatch(getRegions());
@@ -101,6 +101,13 @@ const NewApplication = () => {
   useEffect(() => {
     if (createApplicationErrorMessage) setSnackBarOpen(true);
   }, [createApplicationErrorMessage]);
+  
+  useEffect(() => {
+    if (applicationRes) {
+      handleConfirmModalClose();
+      setApplicationResModalOpen(true);
+    }
+  }, [applicationRes]);
   
   const handleChange = (e) => {
     const {
@@ -210,6 +217,13 @@ const NewApplication = () => {
   const handleSnackBarClose = () => setSnackBarOpen(false);
   
   const handleConfirmModalClose = () => setConfirmModalOpen(false);
+  
+  const handleApplicationResModalClose = () => {
+    setApplicationResModalOpen(false);
+    dispatch(resetApplicationRes());
+    setState(null);
+    setCurrentTab(0);
+  }
   
   const onAddressTypeChange = value => {
     setAddressType(value);
@@ -475,7 +489,7 @@ const NewApplication = () => {
       </Box>
       <Snackbar
         anchorOrigin={{
-          vertical: 'bottom',
+          vertical: 'top',
           horizontal: 'center'
         }}
         open={snackBarOpen}
@@ -495,6 +509,12 @@ const NewApplication = () => {
           confirmModalOpen={confirmModalOpen}
           handleConfirmModalClose={handleConfirmModalClose}
           addressType={addressType}
+        />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <ApplicationResModal
+          applicationResModalOpen={applicationResModalOpen}
+          handleApplicationResModalClose={handleApplicationResModalClose}
         />
       </Suspense>
     </div>
