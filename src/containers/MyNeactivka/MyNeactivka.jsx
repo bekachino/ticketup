@@ -115,7 +115,7 @@ const MyNeactivka = () => {
               >Номер телефона</TableCell>
               <TableCell
                 align='center'
-                sx={{ minWidth: '70px' }}
+                sx={{ minWidth: '150px' }}
               >Причина жалобы</TableCell>
             </TableRow>
           </TableHead>

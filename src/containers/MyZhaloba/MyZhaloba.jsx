@@ -111,11 +111,11 @@ const MyZhaloba = () => {
               >Причина</TableCell>
               <TableCell
                 align='center'
-                sx={{ minWidth: '110px' }}
+                sx={{ minWidth: '130px' }}
               >Номер телефона</TableCell>
               <TableCell
                 align='center'
-                sx={{ minWidth: '95px' }}
+                sx={{ minWidth: '130px' }}
               >Лицевой счёт</TableCell>
             </TableRow>
           </TableHead>

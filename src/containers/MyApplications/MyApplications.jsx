@@ -119,10 +119,6 @@ const MyApplications = () => {
               >Номер телефона</TableCell>
               <TableCell
                 align='center'
-                sx={{ minWidth: '250px' }}
-              >Адрес</TableCell>
-              <TableCell
-                align='center'
                 sx={{ minWidth: '130px' }}
               >Статус</TableCell>
               <TableCell
@@ -141,7 +137,6 @@ const MyApplications = () => {
                 <TableCell align='center'>{row?.hydra_abbon_ls}</TableCell>
                 <TableCell align='center'>{`${row?.first_name} ${row?.last_name}`}</TableCell>
                 <TableCell align='center'>{row?.primary_phone}</TableCell>
-                <TableCell align='center'>{row?.hydra_address}</TableCell>
                 <TableCell align='center'>{row?.status}</TableCell>
                 <TableCell align='center'>{row?.id}</TableCell>
               </TableRow>
