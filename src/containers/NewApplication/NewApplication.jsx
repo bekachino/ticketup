@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import Box from "@mui/material/Box";
-import { Button, Snackbar } from "@mui/material";
+import { Alert, Button, Snackbar } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   createApplication, getBxRegions, getBxSquares, getLocationsList, getRegions
@@ -9,7 +9,11 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Typography from "@mui/material/Typography";
 import './newApplication.css';
-import { resetApplicationRes } from "../../features/dataSlice";
+import {
+  resetApplicationRes,
+  resetCreateApplicationErrorMessage
+} from "../../features/dataSlice";
+import { useNavigate } from "react-router-dom";
 
 const AddressForm = lazy(() => import('../../components/CreateApplicationComponents/AddressForm/AddressForm'));
 const ApplicationStatus = lazy(() => import('../../components/CreateApplicationComponents/ApplicationStatus/ApplicationStatus'));
@@ -29,6 +33,7 @@ const formTabTitles = [
 
 const NewApplication = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const {
     bxRegions,
     bxSquares,
@@ -88,7 +93,7 @@ const NewApplication = () => {
   });
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [addressType, setAddressType] = useState('house');
-  const [currentTab, setCurrentTab] = useState(2);
+  const [currentTab, setCurrentTab] = useState(0);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [applicationResModalOpen, setApplicationResModalOpen] = useState(false);
   
@@ -96,6 +101,7 @@ const NewApplication = () => {
     dispatch(getRegions());
     dispatch(getBxRegions());
     dispatch(getBxSquares());
+    return () => handleSnackBarClose();
   }, [dispatch]);
   
   useEffect(() => {
@@ -214,7 +220,10 @@ const NewApplication = () => {
     ));
   };
   
-  const handleSnackBarClose = () => setSnackBarOpen(false);
+  const handleSnackBarClose = () => {
+    dispatch(resetCreateApplicationErrorMessage());
+    setSnackBarOpen(false);
+  }
   
   const handleConfirmModalClose = () => setConfirmModalOpen(false);
   
@@ -382,7 +391,9 @@ const NewApplication = () => {
   };
   
   const imagesFormFilled = () => {
-    return Boolean(state?.passport1 && state?.passport2 && state?.locationScreenShot);
+    //return Boolean(state?.passport1 && state?.passport2 &&
+    // state?.locationScreenShot);
+    return true;
   };
   
   const aboutAbonFormFilled = () => {
@@ -488,20 +499,21 @@ const NewApplication = () => {
         </div>
       </Box>
       <Snackbar
+        open={snackBarOpen}
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'center'
         }}
-        open={snackBarOpen}
-        onClose={handleSnackBarClose}
-        message={createApplicationErrorMessage}
-        sx={{
-          '.MuiSnackbarContent-root': {
-            backgroundColor: '#121212',
-            color: 'white',
-          },
-        }}
-      />
+      >
+        <Alert
+          onClose={handleSnackBarClose}
+          severity='error'
+          variant='filled'
+          sx={{ width: '100%' }}
+        >
+          {createApplicationErrorMessage}
+        </Alert>
+      </Snackbar>
       <Suspense fallback={<></>}>
         <ConfirmApplicationModal
           state={state}

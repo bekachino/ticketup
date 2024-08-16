@@ -52,7 +52,7 @@ const MyApplications = () => {
     <div className='my-applications'>
       <Snackbar
         anchorOrigin={{
-          vertical: 'bottom',
+          vertical: 'top',
           horizontal: 'center'
         }}
         open={snackBarOpen}

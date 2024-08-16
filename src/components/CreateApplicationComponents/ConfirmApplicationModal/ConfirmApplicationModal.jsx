@@ -56,10 +56,6 @@ const ConfirmApplicationModal = ({
           <span className='application-field-title'>Дом</span>
           <span className='application-field-value'>{state?.house?.name || state?.exactAddress || '-'}</span>
         </div>
-        <div className='application-field'>
-          <span className='application-field-title'>Дом</span>
-          <span className='application-field-value'>{state?.house?.name || state?.exactAddress || '-'}</span>
-        </div>
         {addressType === 'flat' && <>
           <div className='application-field'>
             <span className='application-field-title'>Подъезд</span>

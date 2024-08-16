@@ -41,6 +41,9 @@ const DataSlice = createSlice({
   name: 'data',
   initialState,
   reducers: {
+    resetCreateApplicationErrorMessage: state => {
+      state.createApplicationErrorMessage = '';
+    },
     resetApplicationRes: state => {
       state.applicationRes = null;
     },
@@ -132,4 +135,4 @@ const DataSlice = createSlice({
 });
 
 export const dataReducer = DataSlice.reducer;
-export const { resetApplicationRes } = DataSlice.actions;
+export const { resetApplicationRes, resetCreateApplicationErrorMessage } = DataSlice.actions;
