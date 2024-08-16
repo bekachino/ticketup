@@ -92,3 +92,12 @@ export const getNeactivka = createAsyncThunk("data/getNeactivka", async (_, { re
     return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);
   }
 });
+
+export const getZhaloba = createAsyncThunk("data/getZhaloba", async (_, { rejectWithValue }) => {
+  try {
+    const req = await axiosApi('zhalobalist/');
+    return await req.data || [];
+  } catch (e) {
+    return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);
+  }
+});

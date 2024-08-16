@@ -5,7 +5,9 @@ import {
   getBxSquares,
   getRegions,
   getBxRegions,
-  createApplication, getNeactivka
+  createApplication,
+  getNeactivka,
+  getZhaloba
 } from "./dataThunk";
 import { availableTariffs } from "../constants";
 
@@ -24,6 +26,7 @@ const initialState = {
   routerInstallationTypes: [],
   providers: [],
   neactivka: [],
+  zhaloba: [],
   applicationRes: null,
   applicationsLoading: false,
   regionsLoading: false,
@@ -35,8 +38,10 @@ const initialState = {
   bxSquaresLoading: false,
   createApplicationLoading: false,
   neactivkaLoading: false,
+  zhalobaLoading: false,
   applicationsError: '',
   neactivkaError: '',
+  zhalobaError: '',
   createApplicationErrorMessage: '',
 };
 
@@ -147,8 +152,24 @@ const DataSlice = createSlice({
       state.neactivkaLoading = false;
       state.neactivkaError = error;
     });
+    
+    builder.addCase(getZhaloba.pending, (state) => {
+      state.zhalobaLoading = true;
+      state.zhalobaError = '';
+    });
+    builder.addCase(getZhaloba.fulfilled, (state, { payload: res }) => {
+      state.zhalobaLoading = false;
+      state.zhaloba = res;
+    });
+    builder.addCase(getZhaloba.rejected, (state, { payload: error }) => {
+      state.zhalobaLoading = false;
+      state.zhalobaError = error;
+    });
   },
 });
 
 export const dataReducer = DataSlice.reducer;
-export const { resetApplicationRes, resetCreateApplicationErrorMessage } = DataSlice.actions;
+export const {
+  resetApplicationRes,
+  resetCreateApplicationErrorMessage
+} = DataSlice.actions;

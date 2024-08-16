@@ -6,10 +6,10 @@ export const RU_PATHNAMES = {
   '/new-application': 'Новая заявка',
   '/my-applications': 'Мои заявки',
   '/sign-in': 'Логин',
-  '/neactivka': 'Новая неактивка',
+  '/neactivka': 'Новый неактивный абонент',
   '/zhaloba': 'Новая жалоба',
-  '/zhaloba-list': 'Список жалоб',
-  '/neactivka-list': 'Список неактивок',
+  '/zhaloba-list': 'Жалобы',
+  '/neactivka-list': 'Неактивные абоненты',
 };
 
 export const availableTariffs = [

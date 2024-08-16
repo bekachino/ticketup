@@ -3,13 +3,13 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Toolbar from "./components/Toolbar/Toolbar";
 import BottomNav from "./components/BottomNav/BottomNav";
 import SignIn from "./containers/SignIn/SignIn";
-import './App.css';
 import { lazy, Suspense } from "react";
+import './App.css';
 
 const NewApplication = lazy(() => import('./containers/NewApplication/NewApplication'));
 const MyNeactivka = lazy(() => import('./containers/MyNeactivka/MyNeactivka'));
 const MyApplications = lazy(() => import('./containers/MyApplications/MyApplications'));
-const Zhaloba = lazy(() => import('./containers/Zhaloba/Zhaloba'));
+const MyZhaloba = lazy(() => import('./containers/MyZhaloba/MyZhaloba'));
 
 const App = () => {
   const { user } = useAppSelector((state) => state.userState);
@@ -40,7 +40,7 @@ const App = () => {
       <Route
         path='zhaloba-list'
         element={<Suspense fallback={<></>}>
-          <Zhaloba/>
+          <MyZhaloba/>
         </Suspense>}
       />
       <Route

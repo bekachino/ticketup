@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { getZhaloba } from "../../features/dataThunk";
+import { getNeactivka } from "../../features/dataThunk";
 import {
   Button,
   LinearProgress,
@@ -15,32 +15,32 @@ import {
   TextField
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
+import PeopleIcon from '@mui/icons-material/People';
 import '../MyApplications/myApplications.css';
 
-const MyZhaloba = () => {
+const MyNeactivka = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {
-    zhaloba,
-    zhalobaLoading,
-    zhalobaError,
+    neactivka,
+    neactivkaLoading,
+    neactivkaError,
   } = useAppSelector((state) => state.dataState);
   const [searchWord, setSearchWord] = useState('');
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   
   useEffect(() => {
-    dispatch(getZhaloba());
+    dispatch(getNeactivka());
   }, [dispatch]);
   
   useEffect(() => {
-    if (!!zhalobaError) setSnackBarOpen(true);
-  }, [zhalobaError]);
+    if (!!neactivkaError) setSnackBarOpen(true);
+  }, [neactivkaError]);
   
   const applicationsBySearchWord = useCallback(() => {
-    return zhaloba.filter(zhaloba => zhaloba?.region.toLowerCase().includes(searchWord?.toLowerCase()) || zhaloba?.district.toLowerCase().includes(searchWord?.toLowerCase()) || zhaloba?.street.toLowerCase().includes(searchWord?.toLowerCase()) || zhaloba?.zhaloba_reason.toLowerCase().includes(searchWord?.toLowerCase()) || zhaloba?.personal_account.toLowerCase().includes(searchWord?.toLowerCase()) || zhaloba?.phone_number?.includes(searchWord) || zhaloba?.name.toLowerCase().includes(searchWord?.toLowerCase()) || zhaloba?.surname.toLowerCase().includes(searchWord?.toLowerCase()));
+    return neactivka.filter(neactivka => neactivka?.first_name.toLowerCase().includes(searchWord?.toLowerCase()) || neactivka?.last_name.toLowerCase().includes(searchWord?.toLowerCase()) || neactivka?.primary_phone?.includes(searchWord) || neactivka?.tariff.toLowerCase().includes(searchWord?.toLowerCase()));
   }, [
-    zhaloba,
+    neactivka,
     searchWord
   ]);
   
@@ -57,7 +57,7 @@ const MyZhaloba = () => {
         }}
         open={snackBarOpen}
         onClose={handleSnackBarClose}
-        message={zhalobaError}
+        message={neactivkaError}
         sx={{
           '.MuiSnackbarContent-root': {
             backgroundColor: '#121212',
@@ -89,7 +89,7 @@ const MyZhaloba = () => {
           color='error'
           sx={{ ml: 'auto' }}
           onClick={() => navigate('/new-application')}
-        >Новая жалоба <ThumbDownAltIcon sx={{ml: '5px'}}/></Button>
+        >Создать неактивку <PeopleIcon sx={{ ml: '5px' }}/></Button>
       </div>
       <TableContainer
         component={Paper}
@@ -99,7 +99,7 @@ const MyZhaloba = () => {
           sx={{ minWidth: 650 }}
           aria-label='simple table'
         >
-          {zhalobaLoading && <LinearProgress
+          {neactivkaLoading && <LinearProgress
             color='inherit'
             className='my-applications-progress-bar'
           />}
@@ -107,16 +107,16 @@ const MyZhaloba = () => {
             <TableRow>
               <TableCell
                 align='center'
-                sx={{ minWidth: '180px' }}
-              >Причина</TableCell>
+                sx={{ minWidth: '100px' }}
+              >ФИО</TableCell>
               <TableCell
                 align='center'
-                sx={{ minWidth: '110px' }}
+                sx={{ minWidth: '130px' }}
               >Номер телефона</TableCell>
               <TableCell
                 align='center'
-                sx={{ minWidth: '95px' }}
-              >Лицевой счёт</TableCell>
+                sx={{ minWidth: '70px' }}
+              >Причина жалобы</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -126,9 +126,9 @@ const MyZhaloba = () => {
               <TableRow
                 key={row.id}
               >
-                <TableCell align='center'>{row?.zhaloba_reason}</TableCell>
-                <TableCell align='center'>{row?.phone_number}</TableCell>
-                <TableCell align='center'>{row?.personal_account}</TableCell>
+                <TableCell align='center'>{row?.first_name} {row?.last_name}</TableCell>
+                <TableCell align='center'>{row?.primary_phone}</TableCell>
+                <TableCell align='center'>{row?.reason}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -138,4 +138,4 @@ const MyZhaloba = () => {
   );
 };
 
-export default MyZhaloba;
+export default MyNeactivka;
