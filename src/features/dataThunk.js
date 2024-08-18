@@ -101,3 +101,12 @@ export const getZhaloba = createAsyncThunk("data/getZhaloba", async (_, { reject
     return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);
   }
 });
+
+export const getDataForNewNeactivkaForm = createAsyncThunk("data/getDataForNewNeactivkaForm", async (_, { rejectWithValue }) => {
+  try {
+    const req = await axiosApi('neactivka/');
+    return await req.data || [];
+  } catch (e) {
+    return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);
+  }
+});

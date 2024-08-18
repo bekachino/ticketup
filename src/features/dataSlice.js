@@ -7,7 +7,8 @@ import {
   getBxRegions,
   createApplication,
   getNeactivka,
-  getZhaloba
+  getZhaloba,
+  getDataForNewNeactivkaForm
 } from "./dataThunk";
 import { availableTariffs } from "../constants";
 
@@ -27,6 +28,14 @@ const initialState = {
   providers: [],
   neactivka: [],
   zhaloba: [],
+  neactivkaRegions: [],
+  neactivkaDistricts: [],
+  neactivkaStatuses: [],
+  neactivkaPaymentStatuses: [],
+  neactivkaTariffs: [],
+  neactivkaReasons: [],
+  neactivkaDiscounts: [],
+  neactivkaEquipmentsForFix: [],
   applicationRes: null,
   applicationsLoading: false,
   regionsLoading: false,
@@ -39,10 +48,12 @@ const initialState = {
   createApplicationLoading: false,
   neactivkaLoading: false,
   zhalobaLoading: false,
+  neactivkaFormDataLoading: false,
   applicationsError: '',
   neactivkaError: '',
   zhalobaError: '',
   createApplicationErrorMessage: '',
+  createNeactivkaErrorMessage: '',
 };
 
 const DataSlice = createSlice({
@@ -164,6 +175,26 @@ const DataSlice = createSlice({
     builder.addCase(getZhaloba.rejected, (state, { payload: error }) => {
       state.zhalobaLoading = false;
       state.zhalobaError = error;
+    });
+    
+    builder.addCase(getDataForNewNeactivkaForm.pending, (state) => {
+      state.neactivkaFormDataLoading = true;
+      state.createNeactivkaErrorMessage = '';
+    });
+    builder.addCase(getDataForNewNeactivkaForm.fulfilled, (state, { payload: res }) => {
+      state.neactivkaFormDataLoading = false;
+      state.neactivkaDistricts = res[0];
+      state.neactivkaRegions = res[1];
+      state.neactivkaStatuses = res[2];
+      state.neactivkaPaymentStatuses = res[3];
+      state.neactivkaTariffs = res[4];
+      state.neactivkaReasons = res[5];
+      state.neactivkaDiscounts = res[6];
+      state.neactivkaEquipmentsForFix = res[7];
+    });
+    builder.addCase(getDataForNewNeactivkaForm.rejected, (state, { payload: error }) => {
+      state.neactivkaFormDataLoading = false;
+      state.createNeactivkaErrorMessage = error;
     });
   },
 });
