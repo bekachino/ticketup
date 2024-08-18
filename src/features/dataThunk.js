@@ -110,3 +110,11 @@ export const getDataForNewNeactivkaForm = createAsyncThunk("data/getDataForNewNe
     return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);
   }
 });
+
+export const createNeactivka = createAsyncThunk("data/createNeactivka", async (data, { rejectWithValue }) => {
+  try {
+    await axiosApi.post('create-neactivk/', data);
+  } catch (e) {
+    return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);
+  }
+});

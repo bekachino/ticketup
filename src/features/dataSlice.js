@@ -8,7 +8,7 @@ import {
   createApplication,
   getNeactivka,
   getZhaloba,
-  getDataForNewNeactivkaForm
+  getDataForNewNeactivkaForm, createNeactivka
 } from "./dataThunk";
 import { availableTariffs } from "../constants";
 
@@ -49,6 +49,7 @@ const initialState = {
   neactivkaLoading: false,
   zhalobaLoading: false,
   neactivkaFormDataLoading: false,
+  createNeactivkaLoading: false,
   applicationsError: '',
   neactivkaError: '',
   zhalobaError: '',
@@ -62,6 +63,9 @@ const DataSlice = createSlice({
   reducers: {
     resetCreateApplicationErrorMessage: state => {
       state.createApplicationErrorMessage = '';
+    },
+    resetCreateNeactivkaErrorMessage: state => {
+      state.createNeactivkaErrorMessage = '';
     },
     resetApplicationRes: state => {
       state.applicationRes = null;
@@ -196,11 +200,24 @@ const DataSlice = createSlice({
       state.neactivkaFormDataLoading = false;
       state.createNeactivkaErrorMessage = error;
     });
+    
+    builder.addCase(createNeactivka.pending, (state) => {
+      state.createNeactivkaLoading = true;
+      state.createNeactivkaErrorMessage = '';
+    });
+    builder.addCase(createNeactivka.fulfilled, (state, { payload: res }) => {
+      state.createNeactivkaLoading = false;
+    });
+    builder.addCase(createNeactivka.rejected, (state, { payload: error }) => {
+      state.createNeactivkaLoading = false;
+      state.createNeactivkaErrorMessage = error;
+    });
   },
 });
 
 export const dataReducer = DataSlice.reducer;
 export const {
   resetApplicationRes,
-  resetCreateApplicationErrorMessage
+  resetCreateApplicationErrorMessage,
+  resetCreateNeactivkaErrorMessage,
 } = DataSlice.actions;

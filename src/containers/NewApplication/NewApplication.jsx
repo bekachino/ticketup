@@ -51,16 +51,21 @@ const NewApplication = () => {
   const [applicationResModalOpen, setApplicationResModalOpen] = useState(false);
   
   const handleSnackBarClose = useCallback(() => {
-    dispatch(resetCreateApplicationErrorMessage());
     setSnackBarOpen(false);
-  }, [dispatch]);
+  }, []);
   
   useEffect(() => {
     dispatch(getRegions());
     dispatch(getBxRegions());
     dispatch(getBxSquares());
-    return () => handleSnackBarClose();
-  }, [dispatch, handleSnackBarClose]);
+    return () => {
+      handleSnackBarClose();
+      dispatch(resetCreateApplicationErrorMessage());
+    }
+  }, [
+    dispatch,
+    handleSnackBarClose
+  ]);
   
   useEffect(() => {
     if (createApplicationErrorMessage) setSnackBarOpen(true);
