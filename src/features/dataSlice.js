@@ -205,7 +205,7 @@ const DataSlice = createSlice({
       state.createNeactivkaLoading = true;
       state.createNeactivkaErrorMessage = '';
     });
-    builder.addCase(createNeactivka.fulfilled, (state, { payload: res }) => {
+    builder.addCase(createNeactivka.fulfilled, (state) => {
       state.createNeactivkaLoading = false;
     });
     builder.addCase(createNeactivka.rejected, (state, { payload: error }) => {
