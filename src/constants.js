@@ -6,8 +6,8 @@ export const RU_PATHNAMES = {
   '/new-application': 'Новая заявка',
   '/my-applications': 'Мои заявки',
   '/sign-in': 'Логин',
-  '/neactivka': 'Новый неактивный абонент',
-  '/zhaloba': 'Новая жалоба',
+  '/new-neactivka': 'Новый неактивный абонент',
+  '/new-zhaloba': 'Новая жалоба',
   '/zhaloba-list': 'Жалобы',
   '/neactivka-list': 'Неактивные абоненты',
 };

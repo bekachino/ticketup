@@ -1,0 +1,42 @@
+.new-application {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 15px 15px 0;
+  flex-grow: 1;
+}
+
+.new-application form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 10px;
+  gap: 20px;
+  flex-grow: 1;
+}
+
+.new-application-tabs button {
+  flex-grow: 1;
+  font-size: 12px;
+}
+
+.new-application-form-btns {
+  position: sticky;
+  bottom: 56px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  background-color: #121212;
+  padding: 10px 0;
+  margin-top: auto;
+  z-index: 1;
+}
+
+@media (max-width: 500px) {
+  .new-application {
+    padding: 10px 10px 0;
+  }
+}

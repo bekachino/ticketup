@@ -8,12 +8,11 @@ import {
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Typography from "@mui/material/Typography";
-import './newApplication.css';
 import {
   resetApplicationRes,
   resetCreateApplicationErrorMessage
 } from "../../features/dataSlice";
-import { useNavigate } from "react-router-dom";
+import './newApplication.css';
 
 const AddressForm = lazy(() => import('../../components/CreateApplicationComponents/AddressForm/AddressForm'));
 const ApplicationStatus = lazy(() => import('../../components/CreateApplicationComponents/ApplicationStatus/ApplicationStatus'));

@@ -7,6 +7,7 @@ import { lazy, Suspense } from "react";
 import './App.css';
 
 const NewApplication = lazy(() => import('./containers/NewApplication/NewApplication'));
+const NewNeactivka = lazy(() => import('./containers/NewNeactivka/NewNeactivka'));
 const MyNeactivka = lazy(() => import('./containers/MyNeactivka/MyNeactivka'));
 const MyApplications = lazy(() => import('./containers/MyApplications/MyApplications'));
 const MyZhaloba = lazy(() => import('./containers/MyZhaloba/MyZhaloba'));
@@ -47,6 +48,12 @@ const App = () => {
         path='new-application'
         element={<Suspense fallback={<></>}>
           <NewApplication/>
+        </Suspense>}
+      />
+      <Route
+        path='new-neactivka'
+        element={<Suspense fallback={<></>}>
+          <NewNeactivka/>
         </Suspense>}
       />
     </>

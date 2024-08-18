@@ -86,10 +86,10 @@ const MyNeactivka = () => {
         <Button
           className='create-application'
           variant='outlined'
-          color='error'
+          color='secondary'
           sx={{ ml: 'auto' }}
-          onClick={() => navigate('/new-application')}
-        >Создать неактивку <PeopleIcon sx={{ ml: '5px' }}/></Button>
+          onClick={() => navigate('/new-neactivka')}
+        >Новый неактивный абонент<PeopleIcon sx={{ ml: '5px' }}/></Button>
       </div>
       <TableContainer
         component={Paper}

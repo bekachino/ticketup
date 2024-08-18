@@ -89,7 +89,7 @@ const MyApplications = () => {
           color='success'
           sx={{ ml: 'auto' }}
           onClick={() => navigate('/new-application')}
-        >Создать заявку<AddIcon sx={{ml: '5px'}}/></Button>
+        >Новая заявка<AddIcon sx={{ml: '5px'}}/></Button>
       </div>
       <TableContainer
         component={Paper}
