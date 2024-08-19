@@ -113,7 +113,24 @@ export const getDataForNewNeactivkaForm = createAsyncThunk("data/getDataForNewNe
 
 export const createNeactivka = createAsyncThunk("data/createNeactivka", async (data, { rejectWithValue }) => {
   try {
-    await axiosApi.post('create-neactivk/', data);
+    await axiosApi.post('create-neactivka/', data);
+  } catch (e) {
+    return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);
+  }
+});
+
+export const getDataForNewZhalobaForm = createAsyncThunk("data/getDataForNewZhalobaForm", async (_, { rejectWithValue }) => {
+  try {
+    const req = await axiosApi('zhaloba/');
+    return await req.data || [];
+  } catch (e) {
+    return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);
+  }
+});
+
+export const createZhaloba = createAsyncThunk("data/createZhaloba", async (data, { rejectWithValue }) => {
+  try {
+    await axiosApi.post('create-zhalob/', data);
   } catch (e) {
     return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);
   }

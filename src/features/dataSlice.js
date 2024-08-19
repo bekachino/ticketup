@@ -8,7 +8,10 @@ import {
   createApplication,
   getNeactivka,
   getZhaloba,
-  getDataForNewNeactivkaForm, createNeactivka
+  getDataForNewNeactivkaForm,
+  createNeactivka,
+  getDataForNewZhalobaForm,
+  createZhaloba
 } from "./dataThunk";
 import { availableTariffs } from "../constants";
 
@@ -36,6 +39,9 @@ const initialState = {
   neactivkaReasons: [],
   neactivkaDiscounts: [],
   neactivkaEquipmentsForFix: [],
+  zhalobaRegions: [],
+  zhalobaDistricts: [],
+  zhalobaReasons: [],
   applicationRes: null,
   applicationsLoading: false,
   regionsLoading: false,
@@ -50,11 +56,14 @@ const initialState = {
   zhalobaLoading: false,
   neactivkaFormDataLoading: false,
   createNeactivkaLoading: false,
+  zhalobaFormDataLoading: false,
+  createZhalobaLoading: false,
   applicationsError: '',
   neactivkaError: '',
   zhalobaError: '',
   createApplicationErrorMessage: '',
   createNeactivkaErrorMessage: '',
+  createZhalobaErrorMessage: '',
 };
 
 const DataSlice = createSlice({
@@ -66,6 +75,9 @@ const DataSlice = createSlice({
     },
     resetCreateNeactivkaErrorMessage: state => {
       state.createNeactivkaErrorMessage = '';
+    },
+    resetCreateZhalobaErrorMessage: state => {
+      state.createZhalobaErrorMessage = '';
     },
     resetApplicationRes: state => {
       state.applicationRes = null;
@@ -212,6 +224,33 @@ const DataSlice = createSlice({
       state.createNeactivkaLoading = false;
       state.createNeactivkaErrorMessage = error;
     });
+    
+    builder.addCase(getDataForNewZhalobaForm.pending, (state) => {
+      state.zhalobaFormDataLoading = true;
+      state.createZhalobaErrorMessage = '';
+    });
+    builder.addCase(getDataForNewZhalobaForm.fulfilled, (state, { payload: res }) => {
+      state.zhalobaFormDataLoading = false;
+      state.zhalobaDistricts = res[0];
+      state.zhalobaRegions = res[1];
+      state.zhalobaReasons = res[2];
+    });
+    builder.addCase(getDataForNewZhalobaForm.rejected, (state, { payload: error }) => {
+      state.zhalobaFormDataLoading = false;
+      state.createZhalobaErrorMessage = error;
+    });
+    
+    builder.addCase(createZhaloba.pending, (state) => {
+      state.createZhalobaLoading = true;
+      state.createZhalobaErrorMessage = '';
+    });
+    builder.addCase(createZhaloba.fulfilled, (state) => {
+      state.createZhalobaLoading = false;
+    });
+    builder.addCase(createZhaloba.rejected, (state, { payload: error }) => {
+      state.createZhalobaLoading = false;
+      state.createZhalobaErrorMessage = error;
+    });
   },
 });
 
@@ -220,4 +259,5 @@ export const {
   resetApplicationRes,
   resetCreateApplicationErrorMessage,
   resetCreateNeactivkaErrorMessage,
+  resetCreateZhalobaErrorMessage,
 } = DataSlice.actions;

@@ -3,27 +3,23 @@ import Box from "@mui/material/Box";
 import { Alert, Snackbar, TextField } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
-  createNeactivka, getDataForNewNeactivkaForm
+  createZhaloba,
+  getDataForNewZhalobaForm
 } from "../../features/dataThunk";
 import Autocomplete from "@mui/material/Autocomplete";
-import { resetCreateNeactivkaErrorMessage } from "../../features/dataSlice";
+import { resetCreateZhalobaErrorMessage } from "../../features/dataSlice";
 import { LoadingButton } from "@mui/lab";
 import '../NewApplication/newApplication.css';
 
 const NewZhaloba = () => {
   const dispatch = useAppDispatch();
   const {
-    neactivkaDistricts,
-    neactivkaRegions,
-    neactivkaStatuses,
-    neactivkaPaymentStatuses,
-    neactivkaTariffs,
-    neactivkaReasons,
-    neactivkaDiscounts,
-    neactivkaEquipmentsForFix,
-    neactivkaFormDataLoading,
-    createNeactivkaLoading,
-    createNeactivkaErrorMessage,
+    zhalobaDistricts,
+    zhalobaRegions,
+    zhalobaReasons,
+    zhalobaFormDataLoading,
+    createZhalobaLoading,
+    createZhalobaErrorMessage,
   } = useAppSelector(state => state.dataState);
   const [state, setState] = useState({
     district: {
@@ -34,6 +30,7 @@ const NewZhaloba = () => {
       ID: "11802",
       VALUE: "Ждет тв"
     },
+    street: 'test address',
     personalAccount: "1234",
     phoneNumber: "707777404",
     region: {
@@ -50,14 +47,14 @@ const NewZhaloba = () => {
   }, []);
   
   useEffect(() => {
-    if (createNeactivkaErrorMessage) setSnackBarOpen(true);
-  }, [createNeactivkaErrorMessage]);
+    if (createZhalobaErrorMessage) setSnackBarOpen(true);
+  }, [createZhalobaErrorMessage]);
   
   useEffect(() => {
-    dispatch(getDataForNewNeactivkaForm());
+    dispatch(getDataForNewZhalobaForm());
     return () => {
       handleSnackBarClose();
-      dispatch(resetCreateNeactivkaErrorMessage());
+      dispatch(resetCreateZhalobaErrorMessage());
     };
   }, [
     dispatch,
@@ -96,7 +93,7 @@ const NewZhaloba = () => {
   
   const onSubmit = async e => {
     e?.preventDefault();
-    await dispatch(createNeactivka(state));
+    await dispatch(createZhaloba(state));
   };
   
   return (
@@ -111,12 +108,12 @@ const NewZhaloba = () => {
             handleChange({
               target: {
                 name: 'region',
-                value: neactivkaRegions?.find(region => region?.VALUE === value) || null,
+                value: zhalobaRegions?.find(region => region?.VALUE === value) || null,
               }
             });
           }}
-          options={neactivkaRegions?.map(region => region?.VALUE) || []}
-          loading={neactivkaFormDataLoading}
+          options={zhalobaRegions?.map(region => region?.VALUE) || []}
+          loading={zhalobaFormDataLoading}
           loadingText='Загрузка...'
           renderInput={(params) => <TextField {...params} label='Регион'
             required
@@ -128,12 +125,12 @@ const NewZhaloba = () => {
             handleChange({
               target: {
                 name: 'district',
-                value: neactivkaDistricts?.find(district => district?.VALUE === value) || null,
+                value: zhalobaDistricts?.find(district => district?.VALUE === value) || null,
               }
             });
           }}
-          options={neactivkaDistricts?.map(district => district?.VALUE) || []}
-          loading={neactivkaFormDataLoading}
+          options={zhalobaDistricts?.map(district => district?.VALUE) || []}
+          loading={zhalobaFormDataLoading}
           loadingText='Загрузка...'
           renderInput={(params) => <TextField {...params} label='Локация'
             required
@@ -153,12 +150,12 @@ const NewZhaloba = () => {
             handleChange({
               target: {
                 name: 'zhalobaReason',
-                value: neactivkaTariffs?.find(tariff => tariff?.VALUE === value) || null,
+                value: zhalobaReasons?.find(reason => reason?.VALUE === value) || null,
               }
             });
           }}
-          options={neactivkaTariffs?.map(tariff => tariff?.VALUE) || []}
-          loading={neactivkaFormDataLoading}
+          options={zhalobaReasons?.map(reason => reason?.VALUE) || []}
+          loading={zhalobaFormDataLoading}
           loadingText='Загрузка...'
           renderInput={(params) => <TextField {...params} label='Причина жалобы'
             required
@@ -201,7 +198,7 @@ const NewZhaloba = () => {
         <div className='new-application-form-btns'>
           <LoadingButton
             type='submit'
-            loading={createNeactivkaLoading}
+            loading={createZhalobaLoading}
             sx={{ width: '100%' }}
             variant='contained'
           >
@@ -222,7 +219,7 @@ const NewZhaloba = () => {
           variant='filled'
           sx={{ width: '100%' }}
         >
-          {createNeactivkaErrorMessage}
+          {createZhalobaErrorMessage}
         </Alert>
       </Snackbar>
     </div>
