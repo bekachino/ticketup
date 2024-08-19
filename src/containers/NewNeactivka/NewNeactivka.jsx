@@ -3,15 +3,18 @@ import Box from "@mui/material/Box";
 import { Alert, Snackbar, TextField } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
-  createNeactivka,
-  getDataForNewNeactivkaForm
+  createNeactivka, getDataForNewNeactivkaForm
 } from "../../features/dataThunk";
 import Autocomplete from "@mui/material/Autocomplete";
-import { resetCreateNeactivkaErrorMessage } from "../../features/dataSlice";
+import {
+  resetCreateNeactivkaErrorMessage, resetFormSuccess
+} from "../../features/dataSlice";
 import { LoadingButton } from "@mui/lab";
 import '../NewApplication/newApplication.css';
+import { useNavigate } from "react-router-dom";
 
 const NewNeactivka = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {
     neactivkaDistricts,
@@ -25,6 +28,7 @@ const NewNeactivka = () => {
     neactivkaFormDataLoading,
     createNeactivkaLoading,
     createNeactivkaErrorMessage,
+    formSuccess,
   } = useAppSelector(state => state.dataState);
   const [state, setState] = useState({
     additionalPhoneNumber: "1234",
@@ -86,6 +90,17 @@ const NewNeactivka = () => {
   }, [
     dispatch,
     handleSnackBarClose
+  ]);
+  
+  useEffect(() => {
+    if (formSuccess) {
+      dispatch(resetFormSuccess());
+      navigate('/neactivka-list')
+    }
+  }, [
+    dispatch,
+    formSuccess,
+    navigate
   ]);
   
   const handleChange = (e) => {

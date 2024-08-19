@@ -59,6 +59,7 @@ const initialState = {
   zhalobaFormDataLoading: false,
   createZhalobaLoading: false,
   applicationsError: '',
+  formSuccess: false,
   neactivkaError: '',
   zhalobaError: '',
   createApplicationErrorMessage: '',
@@ -81,6 +82,9 @@ const DataSlice = createSlice({
     },
     resetApplicationRes: state => {
       state.applicationRes = null;
+    },
+    resetFormSuccess: state => {
+      state.formSuccess = false;
     },
   },
   extraReducers: (builder) => {
@@ -161,6 +165,7 @@ const DataSlice = createSlice({
     builder.addCase(createApplication.fulfilled, (state, { payload: res }) => {
       state.createApplicationLoading = false;
       state.applicationRes = res;
+      state.formSuccess = true;
     });
     builder.addCase(createApplication.rejected, (state, { payload: error }) => {
       state.createApplicationLoading = false;
@@ -219,6 +224,7 @@ const DataSlice = createSlice({
     });
     builder.addCase(createNeactivka.fulfilled, (state) => {
       state.createNeactivkaLoading = false;
+      state.formSuccess = true;
     });
     builder.addCase(createNeactivka.rejected, (state, { payload: error }) => {
       state.createNeactivkaLoading = false;
@@ -246,6 +252,7 @@ const DataSlice = createSlice({
     });
     builder.addCase(createZhaloba.fulfilled, (state) => {
       state.createZhalobaLoading = false;
+      state.formSuccess = true;
     });
     builder.addCase(createZhaloba.rejected, (state, { payload: error }) => {
       state.createZhalobaLoading = false;
@@ -260,4 +267,5 @@ export const {
   resetCreateApplicationErrorMessage,
   resetCreateNeactivkaErrorMessage,
   resetCreateZhalobaErrorMessage,
+  resetFormSuccess,
 } = DataSlice.actions;

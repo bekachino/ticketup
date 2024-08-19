@@ -38,7 +38,7 @@ const MyNeactivka = () => {
   }, [neactivkaError]);
   
   const applicationsBySearchWord = useCallback(() => {
-    return neactivka.filter(neactivka => neactivka?.first_name.toLowerCase().includes(searchWord?.toLowerCase()) || neactivka?.last_name.toLowerCase().includes(searchWord?.toLowerCase()) || neactivka?.primary_phone?.includes(searchWord) || neactivka?.tariff.toLowerCase().includes(searchWord?.toLowerCase()));
+    return neactivka?.filter(neactivka => neactivka?.first_name.toLowerCase().includes(searchWord?.toLowerCase()) || neactivka?.last_name.toLowerCase().includes(searchWord?.toLowerCase()) || neactivka?.primary_phone?.includes(searchWord) || neactivka?.tariff.toLowerCase().includes(searchWord?.toLowerCase()));
   }, [
     neactivka,
     searchWord

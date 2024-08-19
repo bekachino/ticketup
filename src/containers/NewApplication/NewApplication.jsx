@@ -10,9 +10,10 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Typography from "@mui/material/Typography";
 import {
   resetApplicationRes,
-  resetCreateApplicationErrorMessage
+  resetCreateApplicationErrorMessage, resetFormSuccess
 } from "../../features/dataSlice";
 import './newApplication.css';
+import { useNavigate } from "react-router-dom";
 
 const AddressForm = lazy(() => import('../../components/CreateApplicationComponents/AddressForm/AddressForm'));
 const ApplicationStatus = lazy(() => import('../../components/CreateApplicationComponents/ApplicationStatus/ApplicationStatus'));
@@ -31,12 +32,14 @@ const formTabTitles = [
 ];
 
 const NewApplication = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {
     bxRegions,
     bxSquares,
     createApplicationErrorMessage,
     applicationRes,
+    formSuccess,
   } = useAppSelector(state => state.dataState);
   const [state, setState] = useState({
     region: null,
@@ -77,6 +80,17 @@ const NewApplication = () => {
       setApplicationResModalOpen(true);
     }
   }, [applicationRes]);
+  
+  useEffect(() => {
+    if (formSuccess) {
+      dispatch(resetFormSuccess());
+      navigate('/my-applications')
+    }
+  }, [
+    dispatch,
+    formSuccess,
+    navigate
+  ]);
   
   const handleChange = (e) => {
     const {

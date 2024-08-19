@@ -38,7 +38,7 @@ const MyZhaloba = () => {
   }, [zhalobaError]);
   
   const applicationsBySearchWord = useCallback(() => {
-    return zhaloba.filter(zhaloba => zhaloba?.region.toLowerCase().includes(searchWord?.toLowerCase()) || zhaloba?.district.toLowerCase().includes(searchWord?.toLowerCase()) || zhaloba?.street.toLowerCase().includes(searchWord?.toLowerCase()) || zhaloba?.zhaloba_reason.toLowerCase().includes(searchWord?.toLowerCase()) || zhaloba?.personal_account.toLowerCase().includes(searchWord?.toLowerCase()) || zhaloba?.phone_number?.includes(searchWord) || zhaloba?.name.toLowerCase().includes(searchWord?.toLowerCase()) || zhaloba?.surname.toLowerCase().includes(searchWord?.toLowerCase()));
+    return zhaloba?.filter(zhaloba => zhaloba?.region.toLowerCase().includes(searchWord?.toLowerCase()) || zhaloba?.district.toLowerCase().includes(searchWord?.toLowerCase()) || zhaloba?.street.toLowerCase().includes(searchWord?.toLowerCase()) || zhaloba?.zhaloba_reason.toLowerCase().includes(searchWord?.toLowerCase()) || zhaloba?.personal_account.toLowerCase().includes(searchWord?.toLowerCase()) || zhaloba?.phone_number?.includes(searchWord) || zhaloba?.name.toLowerCase().includes(searchWord?.toLowerCase()) || zhaloba?.surname.toLowerCase().includes(searchWord?.toLowerCase()));
   }, [
     zhaloba,
     searchWord

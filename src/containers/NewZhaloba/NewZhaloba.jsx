@@ -3,15 +3,19 @@ import Box from "@mui/material/Box";
 import { Alert, Snackbar, TextField } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
-  createZhaloba,
-  getDataForNewZhalobaForm
+  createZhaloba, getDataForNewZhalobaForm
 } from "../../features/dataThunk";
 import Autocomplete from "@mui/material/Autocomplete";
-import { resetCreateZhalobaErrorMessage } from "../../features/dataSlice";
+import {
+  resetCreateZhalobaErrorMessage,
+  resetFormSuccess
+} from "../../features/dataSlice";
 import { LoadingButton } from "@mui/lab";
 import '../NewApplication/newApplication.css';
+import { useNavigate } from "react-router-dom";
 
 const NewZhaloba = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {
     zhalobaDistricts,
@@ -20,6 +24,7 @@ const NewZhaloba = () => {
     zhalobaFormDataLoading,
     createZhalobaLoading,
     createZhalobaErrorMessage,
+    formSuccess,
   } = useAppSelector(state => state.dataState);
   const [state, setState] = useState({
     district: {
@@ -59,6 +64,17 @@ const NewZhaloba = () => {
   }, [
     dispatch,
     handleSnackBarClose
+  ]);
+  
+  useEffect(() => {
+    if (formSuccess) {
+      dispatch(resetFormSuccess());
+      navigate('/zhaloba-list')
+    }
+  }, [
+    dispatch,
+    formSuccess,
+    navigate
   ]);
   
   const handleChange = (e) => {

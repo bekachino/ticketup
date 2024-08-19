@@ -130,7 +130,7 @@ export const getDataForNewZhalobaForm = createAsyncThunk("data/getDataForNewZhal
 
 export const createZhaloba = createAsyncThunk("data/createZhaloba", async (data, { rejectWithValue }) => {
   try {
-    await axiosApi.post('create-zhalob/', data);
+    await axiosApi.post('create-zhaloba/', data);
   } catch (e) {
     return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);
   }
