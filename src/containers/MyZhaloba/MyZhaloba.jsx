@@ -88,7 +88,7 @@ const MyZhaloba = () => {
           variant='outlined'
           color='error'
           sx={{ ml: 'auto' }}
-          onClick={() => navigate('/new-application')}
+          onClick={() => navigate('/new-zhaloba')}
         >Новая жалоба <ThumbDownAltIcon sx={{ml: '5px'}}/></Button>
       </div>
       <TableContainer

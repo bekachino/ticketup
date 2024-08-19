@@ -5,6 +5,7 @@ import BottomNav from "./components/BottomNav/BottomNav";
 import SignIn from "./containers/SignIn/SignIn";
 import { lazy, Suspense } from "react";
 import './App.css';
+import NewZhaloba from "./containers/NewZhaloba/NewZhaloba";
 
 const NewApplication = lazy(() => import('./containers/NewApplication/NewApplication'));
 const NewNeactivka = lazy(() => import('./containers/NewNeactivka/NewNeactivka'));
@@ -54,6 +55,12 @@ const App = () => {
         path='new-neactivka'
         element={<Suspense fallback={<></>}>
           <NewNeactivka/>
+        </Suspense>}
+      />
+      <Route
+        path='new-zhaloba'
+        element={<Suspense fallback={<></>}>
+          <NewZhaloba/>
         </Suspense>}
       />
     </>
