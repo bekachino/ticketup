@@ -52,7 +52,7 @@ const NewApplication = () => {
   });
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [addressType, setAddressType] = useState('house');
-  const [currentTab, setCurrentTab] = useState(0);
+  const [currentTab, setCurrentTab] = useState(1);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [applicationResModalOpen, setApplicationResModalOpen] = useState(false);
   
@@ -352,9 +352,7 @@ const NewApplication = () => {
   };
   
   const applicationStatusFormFilled = () => {
-    return Boolean(state?.orderStatus && state?.routerInstallationType && state?.tariff && state?.superTv && state?.discount && (
-      state?.discount?.VALUE === 'Приведи друга' ? state?.discount_ls : true
-    ));
+    return Boolean(state?.orderStatus && state?.routerInstallationType && state?.tariff && state?.superTv);
   };
   
   const imagesFormFilled = () => {
