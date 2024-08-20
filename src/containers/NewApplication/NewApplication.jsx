@@ -52,7 +52,7 @@ const NewApplication = () => {
   });
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [addressType, setAddressType] = useState('house');
-  const [currentTab, setCurrentTab] = useState(1);
+  const [currentTab, setCurrentTab] = useState(0);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [applicationResModalOpen, setApplicationResModalOpen] = useState(false);
   
