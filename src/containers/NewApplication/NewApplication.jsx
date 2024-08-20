@@ -360,7 +360,7 @@ const NewApplication = () => {
   };
   
   const aboutAbonFormFilled = () => {
-    return Boolean(state?.providerFrom && state?.username && state?.userSirName && state?.userPhoneNumber?.length >= 9);
+    return Boolean(state?.providerFrom && state?.username && state?.userSirName && state?.userPhoneNumber?.length >= 9 && state?.userAdditionalPhoneNumber?.length >= 9);
   };
   
   const tabDisabling = [

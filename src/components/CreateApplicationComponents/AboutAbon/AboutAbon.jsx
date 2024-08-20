@@ -45,7 +45,7 @@ const AboutAbon = ({
       <TextField
         id='outlined-multiline-flexible'
         value={state?.userPhoneNumber}
-        label='Основной номер телефона'
+        label='Мобильный номер телефона'
         name='userPhoneNumber'
         onChange={handleChange}
         inputProps={{ maxLength: 9 }}
@@ -54,7 +54,7 @@ const AboutAbon = ({
       <TextField
         id='outlined-multiline-flexible'
         value={state?.userAdditionalPhoneNumber}
-        label='Доп. номер телефона'
+        label='Домашний номер телефона'
         name='userAdditionalPhoneNumber'
         onChange={handleChange}
         inputProps={{ maxLength: 9 }}
