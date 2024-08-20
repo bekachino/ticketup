@@ -4,8 +4,8 @@ import Toolbar from "./components/Toolbar/Toolbar";
 import BottomNav from "./components/BottomNav/BottomNav";
 import SignIn from "./containers/SignIn/SignIn";
 import { lazy, Suspense } from "react";
-import './App.css';
 import NewZhaloba from "./containers/NewZhaloba/NewZhaloba";
+import './App.css';
 
 const NewApplication = lazy(() => import('./containers/NewApplication/NewApplication'));
 const NewNeactivka = lazy(() => import('./containers/NewNeactivka/NewNeactivka'));

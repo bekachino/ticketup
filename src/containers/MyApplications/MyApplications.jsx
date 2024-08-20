@@ -17,6 +17,7 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import './myApplications.css';
 import { useNavigate } from "react-router-dom";
+import SingleView from "../../components/SingleView/SingleView";
 
 const MyApplications = () => {
   const navigate = useNavigate();
@@ -28,6 +29,8 @@ const MyApplications = () => {
   } = useAppSelector((state) => state.dataState);
   const [searchWord, setSearchWord] = useState('');
   const [snackBarOpen, setSnackBarOpen] = useState(false);
+  const [singleViewOpen, setSingleViewOpen] = useState(false);
+  const [currentApplication, setCurrentApplication] = useState(null);
   
   useEffect(() => {
     dispatch(getApplications());
@@ -46,6 +49,15 @@ const MyApplications = () => {
   
   const handleSnackBarClose = () => {
     setSnackBarOpen(false);
+  };
+  
+  const handleSingleViewOpen = (item) => {
+    setSingleViewOpen(true);
+    setCurrentApplication(item);
+  };
+  
+  const handleSingleViewCloe = () => {
+    setSingleViewOpen(false);
   };
   
   return (
@@ -89,7 +101,7 @@ const MyApplications = () => {
           color='success'
           sx={{ ml: 'auto' }}
           onClick={() => navigate('/new-application')}
-        >Новая заявка<AddIcon sx={{ml: '5px'}}/></Button>
+        >Новая заявка<AddIcon sx={{ ml: '5px' }}/></Button>
       </div>
       <TableContainer
         component={Paper}
@@ -133,6 +145,7 @@ const MyApplications = () => {
             )?.map((row) => (
               <TableRow
                 key={row.id}
+                onClick={() => handleSingleViewOpen(row)}
               >
                 <TableCell align='center'>{row?.hydra_abbon_ls}</TableCell>
                 <TableCell align='center'>{`${row?.first_name} ${row?.last_name}`}</TableCell>
@@ -144,6 +157,48 @@ const MyApplications = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <SingleView
+        open={singleViewOpen}
+        handleClose={handleSingleViewCloe}
+        label='Просмотр абонента'
+      >
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+        >
+          <TableCell align='left'>Гидра ЛС</TableCell>
+          <TableCell align='left'>{currentApplication?.hydra_abbon_ls}</TableCell>
+        </TableRow>
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+        >
+          <TableCell align='left'>Договор</TableCell>
+          <TableCell align='left'>{currentApplication?.hydra_dogovor}</TableCell>
+        </TableRow>
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+        >
+          <TableCell align='left'>ФИО</TableCell>
+          <TableCell align='left'>{`${currentApplication?.first_name} ${currentApplication?.last_name}`}</TableCell>
+        </TableRow>
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+        >
+          <TableCell align='left'>Номер телефона</TableCell>
+          <TableCell align='left'>{currentApplication?.primary_phone}</TableCell>
+        </TableRow>
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+        >
+          <TableCell align='left'>Адрес</TableCell>
+          <TableCell align='left'>{currentApplication?.hydra_address}</TableCell>
+        </TableRow>
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+        >
+          <TableCell align='left'>Статус</TableCell>
+          <TableCell align='left'>{currentApplication?.status}</TableCell>
+        </TableRow>
+      </SingleView>
     </div>
   );
 };
