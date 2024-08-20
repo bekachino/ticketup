@@ -17,6 +17,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import PeopleIcon from '@mui/icons-material/People';
 import '../MyApplications/myApplications.css';
+import SingleView from "../../components/SingleView/SingleView";
 
 const MyNeactivka = () => {
   const navigate = useNavigate();
@@ -28,6 +29,8 @@ const MyNeactivka = () => {
   } = useAppSelector((state) => state.dataState);
   const [searchWord, setSearchWord] = useState('');
   const [snackBarOpen, setSnackBarOpen] = useState(false);
+  const [singleViewOpen, setSingleViewOpen] = useState(false);
+  const [currentNeactivka, setCurrentNeactivka] = useState(null);
   
   useEffect(() => {
     dispatch(getNeactivka());
@@ -46,6 +49,15 @@ const MyNeactivka = () => {
   
   const handleSnackBarClose = () => {
     setSnackBarOpen(false);
+  };
+  
+  const handleSingleViewOpen = (item) => {
+    setSingleViewOpen(true);
+    setCurrentNeactivka(item);
+  };
+  
+  const handleSingleViewCloe = () => {
+    setSingleViewOpen(false);
   };
   
   return (
@@ -125,6 +137,7 @@ const MyNeactivka = () => {
             )?.map((row) => (
               <TableRow
                 key={row.id}
+                onClick={() => handleSingleViewOpen(row)}
               >
                 <TableCell align='center'>{row?.first_name} {row?.last_name}</TableCell>
                 <TableCell align='center'>{row?.primary_phone}</TableCell>
@@ -134,6 +147,48 @@ const MyNeactivka = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <SingleView
+        open={singleViewOpen}
+        handleClose={handleSingleViewCloe}
+        label='Просмотр абонента'
+      >
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+        >
+          <TableCell align='left'>ФИО</TableCell>
+          <TableCell align='left'>{`${currentNeactivka?.first_name} ${currentNeactivka?.last_name}`}</TableCell>
+        </TableRow>
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+        >
+          <TableCell align='left'>Номер телефона</TableCell>
+          <TableCell align='left'>{currentNeactivka?.primary_phone}</TableCell>
+        </TableRow>
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+        >
+          <TableCell align='left'>Причина</TableCell>
+          <TableCell align='left'>{currentNeactivka?.reason}</TableCell>
+        </TableRow>
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+        >
+          <TableCell align='left'>Статус</TableCell>
+          <TableCell align='left'>{currentNeactivka?.status}</TableCell>
+        </TableRow>
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+        >
+          <TableCell align='left'>Тариф</TableCell>
+          <TableCell align='left'>{currentNeactivka?.tariff}</TableCell>
+        </TableRow>
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+        >
+          <TableCell align='left'>Акция</TableCell>
+          <TableCell align='left'>{currentNeactivka?.sales}</TableCell>
+        </TableRow>
+      </SingleView>
     </div>
   );
 };
