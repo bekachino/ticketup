@@ -59,15 +59,15 @@ const ConfirmApplicationModal = ({
         {addressType === 'flat' && <>
           <div className='application-field'>
             <span className='application-field-title'>Подъезд</span>
-            <span className='application-field-value'>{state?.entrance?.name || '-'}</span>
+            <span className='application-field-value'>{state?.entrance || '-'}</span>
           </div>
           <div className='application-field'>
             <span className='application-field-title'>Этаж</span>
-            <span className='application-field-value'>{state?.floor?.name || '-'}</span>
+            <span className='application-field-value'>{state?.floor || '-'}</span>
           </div>
           <div className='application-field'>
             <span className='application-field-title'>Квартира</span>
-            <span className='application-field-value'>{state?.apart?.name || '-'}</span>
+            <span className='application-field-value'>{state?.apart || '-'}</span>
           </div>
         </>}
         <div className='application-field'>

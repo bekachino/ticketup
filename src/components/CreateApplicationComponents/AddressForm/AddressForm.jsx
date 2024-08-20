@@ -38,7 +38,7 @@ const AddressForm = ({
         />
         <Tab
           value='flat'
-          label='Квартира'
+          label='Этажка'
         />
       </Tabs>
       <Autocomplete
