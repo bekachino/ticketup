@@ -22,6 +22,7 @@ export const getRegions = createAsyncThunk("data/getRegions", async (_, { reject
 
 export const getLocationsList = createAsyncThunk("data/getLocationsList", async (data, { rejectWithValue }) => {
   try {
+    if (!data?.parentId) return;
     const req = await axiosApi(`get_child_${data?.locationType}?parent_id=${data?.parentId}`);
     const res = await req.data;
     return {

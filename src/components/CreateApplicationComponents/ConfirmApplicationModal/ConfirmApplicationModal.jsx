@@ -12,7 +12,7 @@ const ConfirmApplicationModal = ({
   handleConfirmModalClose,
   addressType,
 }) => {
-  const {createApplicationLoading} = useAppSelector(state => state.dataState);
+  const { createApplicationLoading } = useAppSelector(state => state.dataState);
   const passport1Url = useMemo(() => state?.passport1 ? URL.createObjectURL(state.passport1) : '', [state?.passport1]);
   const passport2Url = useMemo(() => state?.passport2 ? URL.createObjectURL(state.passport2) : '', [state?.passport2]);
   const locationScreenShotUrl = useMemo(() => state?.locationScreenShot ? URL.createObjectURL(state.locationScreenShot) : '', [state?.locationScreenShot]);
@@ -91,6 +91,15 @@ const ConfirmApplicationModal = ({
           <span className='application-field-value'>{state?.superTv?.VALUE || '-'}</span>
         </div>
         <div className='application-field'>
+          <span className='application-field-title'>Акция</span>
+          <span className='application-field-value'>{state?.discount?.VALUE || '-'}</span>
+        </div>
+        {state?.discount?.VALUE === 'Приведи друга' &&
+          <div className='application-field'>
+            <span className='application-field-title'>ЛС друга</span>
+            <span className='application-field-value'>{state?.discount_ls || '-'}</span>
+          </div>}
+        <div className='application-field'>
           <span className='application-field-title'>Лицевая сторона паспорта</span>
           <span className='application-field-value'>
             <img
@@ -158,7 +167,11 @@ const ConfirmApplicationModal = ({
         >
           Изменить данные
         </Button>
-        <LoadingButton loading={createApplicationLoading} variant="contained" onClick={onSubmit}>
+        <LoadingButton
+          loading={createApplicationLoading}
+          variant='contained'
+          onClick={onSubmit}
+        >
           Подтвердить
         </LoadingButton>
       </Box>

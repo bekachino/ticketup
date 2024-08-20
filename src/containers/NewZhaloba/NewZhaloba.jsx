@@ -26,25 +26,7 @@ const NewZhaloba = () => {
     createZhalobaErrorMessage,
     formSuccess,
   } = useAppSelector(state => state.dataState);
-  const [state, setState] = useState({
-    district: {
-      ID: "9261",
-      VALUE: "Кара-Балта"
-    },
-    zhalobaReason: {
-      ID: "11802",
-      VALUE: "Ждет тв"
-    },
-    street: 'test address',
-    personalAccount: "1234",
-    phoneNumber: "707777404",
-    region: {
-      ID: "4813",
-      VALUE: "Чуйская"
-    },
-    name: "test",
-    surname: "testov",
-  });
+  const [state, setState] = useState(null);
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   
   const handleSnackBarClose = useCallback(() => {

@@ -30,47 +30,7 @@ const NewNeactivka = () => {
     createNeactivkaErrorMessage,
     formSuccess,
   } = useAppSelector(state => state.dataState);
-  const [state, setState] = useState({
-    additionalPhoneNumber: "1234",
-    address: "1234",
-    comment: "1234",
-    discount: {
-      ID: "16996",
-      VALUE: "Приведи друга"
-    },
-    district: {
-      ID: "9261",
-      VALUE: "Кара-Балта"
-    },
-    fixEquipment: {
-      ID: "11001",
-      VALUE: "Медиаконвертер"
-    },
-    nonActivePaymentStatus: {
-      ID: "10127",
-      VALUE: "Оплата на руки агенту"
-    },
-    nonActiveReason: {
-      ID: "11802",
-      VALUE: "Ждет тв"
-    },
-    nonActiveStatus: {
-      ID: "10124",
-      VALUE: "Отказ"
-    },
-    personalAccount: "1234",
-    phoneNumber: "1234",
-    region: {
-      ID: "4813",
-      VALUE: "Чуйская"
-    },
-    tariff: {
-      ID: "1930",
-      VALUE: "Sky (790)"
-    },
-    userName: "test",
-    userSirName: "Testov",
-  });
+  const [state, setState] = useState(null);
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   
   const handleSnackBarClose = useCallback(() => {

@@ -29,6 +29,7 @@ const initialState = {
   superTvChoices: [],
   routerInstallationTypes: [],
   providers: [],
+  discounts: [],
   neactivka: [],
   zhaloba: [],
   neactivkaRegions: [],
@@ -120,7 +121,7 @@ const DataSlice = createSlice({
     });
     builder.addCase(getLocationsList.fulfilled, (state, { payload: res }) => {
       state.citiesLoading = false;
-      state[res.addressType] = res.data;
+      state[res?.addressType] = res?.data;
     });
     builder.addCase(getLocationsList.rejected, (state, { payload: error }) => {
       state.citiesLoading = false;
@@ -134,11 +135,12 @@ const DataSlice = createSlice({
     builder.addCase(getBxRegions.fulfilled, (state, { payload: res }) => {
       state.bxRegionsLoading = false;
       state.bxRegions = res[0];
-      state.orderStatuses = res[3]?.slice(0, 2);
-      state.routerInstallationTypes = res[2];
       state.tariffs = res[1]?.filter(tariff => availableTariffs.includes(tariff?.VALUE));
-      state.superTvChoices = res[5];
+      state.routerInstallationTypes = res[2];
+      state.orderStatuses = res[3]?.slice(0, 2);
       state.providers = res[4];
+      state.superTvChoices = res[5];
+      state.discounts = res[6];
     });
     builder.addCase(getBxRegions.rejected, (state, { payload: error }) => {
       state.bxRegionsLoading = false;

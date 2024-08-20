@@ -12,6 +12,7 @@ const ApplicationStatus = ({
     routerInstallationTypes,
     tariffs,
     superTvChoices,
+    discounts,
   } = useAppSelector(state => state.dataState);
   
   return (
@@ -74,6 +75,27 @@ const ApplicationStatus = ({
         renderInput={(params) =>
           <TextField {...params} label='Установка SuperTV'/>}
       />
+      <Autocomplete
+        value={state?.discount?.VALUE || ''}
+        onChange={(_, value) => {
+          handleChange({
+            target: {
+              name: 'discount',
+              value: discounts?.find(discount => discount?.VALUE === value) || null,
+            }
+          });
+        }}
+        options={discounts?.map(discount => discount?.VALUE) || []}
+        loadingText='Загрузка...'
+        renderInput={(params) => <TextField {...params} label='Акция'/>}
+      />
+      {state?.discount?.VALUE === 'Приведи друга' && <TextField
+        label='ЛС друга'
+        name='discount_ls'
+        value={state?.discount_ls}
+        onChange={handleChange}
+        variant='outlined'
+      />}
     </>
   );
 };

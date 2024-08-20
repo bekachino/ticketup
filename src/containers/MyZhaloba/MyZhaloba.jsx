@@ -17,6 +17,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import '../MyApplications/myApplications.css';
+import SingleView from "../../components/SingleView/SingleView";
 
 const MyZhaloba = () => {
   const navigate = useNavigate();
@@ -28,6 +29,8 @@ const MyZhaloba = () => {
   } = useAppSelector((state) => state.dataState);
   const [searchWord, setSearchWord] = useState('');
   const [snackBarOpen, setSnackBarOpen] = useState(false);
+  const [singleViewOpen, setSingleViewOpen] = useState(false);
+  const [currentZhaloba, setCurrentZhaloba] = useState(null);
   
   useEffect(() => {
     dispatch(getZhaloba());
@@ -46,6 +49,15 @@ const MyZhaloba = () => {
   
   const handleSnackBarClose = () => {
     setSnackBarOpen(false);
+  };
+  
+  const handleSingleViewOpen = (item) => {
+    setSingleViewOpen(true);
+    setCurrentZhaloba(item);
+  };
+  
+  const handleSingleViewCloe = () => {
+    setSingleViewOpen(false);
   };
   
   return (
@@ -89,7 +101,7 @@ const MyZhaloba = () => {
           color='error'
           sx={{ ml: 'auto' }}
           onClick={() => navigate('/new-zhaloba')}
-        >Новая жалоба <ThumbDownAltIcon sx={{ml: '5px'}}/></Button>
+        >Новая жалоба <ThumbDownAltIcon sx={{ ml: '5px' }}/></Button>
       </div>
       <TableContainer
         component={Paper}
@@ -125,6 +137,7 @@ const MyZhaloba = () => {
             )?.map((row) => (
               <TableRow
                 key={row.id}
+                onClick={() => handleSingleViewOpen(row)}
               >
                 <TableCell align='center'>{row?.zhaloba_reason}</TableCell>
                 <TableCell align='center'>{row?.phone_number}</TableCell>
@@ -134,6 +147,54 @@ const MyZhaloba = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <SingleView
+        open={singleViewOpen}
+        handleClose={handleSingleViewCloe}
+        label='Просмотр жалобы'
+      >
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+        >
+          <TableCell align='left'>ФИО</TableCell>
+          <TableCell align='left'>{`${currentZhaloba?.name} ${currentZhaloba?.surname}`}</TableCell>
+        </TableRow>
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+        >
+          <TableCell align='left'>Номер телефона</TableCell>
+          <TableCell align='left'>{currentZhaloba?.phone_number}</TableCell>
+        </TableRow>
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+        >
+          <TableCell align='left'>Регион</TableCell>
+          <TableCell align='left'>{currentZhaloba?.region}</TableCell>
+        </TableRow>
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+        >
+          <TableCell align='left'>Локация</TableCell>
+          <TableCell align='left'>{currentZhaloba?.district}</TableCell>
+        </TableRow>
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+        >
+          <TableCell align='left'>Лицевой счёт</TableCell>
+          <TableCell align='left'>{currentZhaloba?.personal_account}</TableCell>
+        </TableRow>
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+        >
+          <TableCell align='left'>Причина жалобы</TableCell>
+          <TableCell align='left'>{currentZhaloba?.zhaloba_reason}</TableCell>
+        </TableRow>
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+        >
+          <TableCell align='left'>Агент</TableCell>
+          <TableCell align='left'>{currentZhaloba?.agent}</TableCell>
+        </TableRow>
+      </SingleView>
     </div>
   );
 };

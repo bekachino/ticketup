@@ -3,14 +3,18 @@ import Box from "@mui/material/Box";
 import { Alert, Button, Snackbar } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
-  createApplication, getBxRegions, getBxSquares, getLocationsList, getRegions
+  createApplication,
+  getBxRegions,
+  getBxSquares,
+  getLocationsList,
+  getRegions
 } from "../../features/dataThunk";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Typography from "@mui/material/Typography";
 import {
   resetApplicationRes,
-  resetCreateApplicationErrorMessage, resetFormSuccess
+  resetCreateApplicationErrorMessage
 } from "../../features/dataSlice";
 import './newApplication.css';
 import { useNavigate } from "react-router-dom";
@@ -39,7 +43,6 @@ const NewApplication = () => {
     bxSquares,
     createApplicationErrorMessage,
     applicationRes,
-    formSuccess,
   } = useAppSelector(state => state.dataState);
   const [state, setState] = useState({
     region: null,
@@ -81,17 +84,6 @@ const NewApplication = () => {
     }
   }, [applicationRes]);
   
-  useEffect(() => {
-    if (formSuccess) {
-      dispatch(resetFormSuccess());
-      navigate('/my-applications')
-    }
-  }, [
-    dispatch,
-    formSuccess,
-    navigate
-  ]);
-  
   const handleChange = (e) => {
     const {
       name,
@@ -105,6 +97,7 @@ const NewApplication = () => {
           'userPhoneNumber',
           'userAdditionalPhoneNumber',
           'domoPhone',
+          'diccount_ls',
         ].includes(name) ? formatPhoneNumber(value) : value,
       }
     ));
@@ -203,6 +196,7 @@ const NewApplication = () => {
     setApplicationResModalOpen(false);
     dispatch(resetApplicationRes());
     setCurrentTab(0);
+    navigate('/my-applications');
   }
   
   const onAddressTypeChange = value => {
@@ -358,13 +352,13 @@ const NewApplication = () => {
   };
   
   const applicationStatusFormFilled = () => {
-    return Boolean(state?.orderStatus && state?.routerInstallationType && state?.tariff && state?.superTv);
+    return Boolean(state?.orderStatus && state?.routerInstallationType && state?.tariff && state?.superTv && state?.discount && (
+      state?.discount?.VALUE === 'Приведи друга' ? state?.discount_ls : true
+    ));
   };
   
   const imagesFormFilled = () => {
-    //return Boolean(state?.passport1 && state?.passport2 &&
-    // state?.locationScreenShot);
-    return true;
+    return Boolean(state?.passport1 && state?.passport2 && state?.locationScreenShot);
   };
   
   const aboutAbonFormFilled = () => {

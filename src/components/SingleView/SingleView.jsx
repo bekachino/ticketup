@@ -32,7 +32,10 @@ const SingleView = ({
         },
       }}
     >
-      <DialogTitle id='alert-dialog-title'>{label}</DialogTitle>
+      <DialogTitle
+        id='alert-dialog-title'
+        sx={{ p: '10px 20px' }}
+      >{label}</DialogTitle>
       <DialogContent sx={{ p: '0 5px 20px' }}>
         <DialogContentText id='alert-dialog-description'>
           <TableContainer component={Paper}>
