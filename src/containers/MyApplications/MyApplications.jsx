@@ -18,6 +18,7 @@ import AddIcon from '@mui/icons-material/Add';
 import './myApplications.css';
 import { useNavigate } from "react-router-dom";
 import SingleView from "../../components/SingleView/SingleView";
+import { formatDate } from "../../constants";
 
 const MyApplications = () => {
   const navigate = useNavigate();
@@ -137,6 +138,10 @@ const MyApplications = () => {
                 align='center'
                 sx={{ minWidth: '70px' }}
               >ID</TableCell>
+              <TableCell
+                align='center'
+                sx={{ minWidth: '150px' }}
+              >Дата создания</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -147,11 +152,12 @@ const MyApplications = () => {
                 key={row.id}
                 onClick={() => handleSingleViewOpen(row)}
               >
-                <TableCell align='center'>{row?.hydra_abbon_ls}</TableCell>
-                <TableCell align='center'>{`${row?.first_name} ${row?.last_name}`}</TableCell>
-                <TableCell align='center'>{row?.primary_phone}</TableCell>
-                <TableCell align='center'>{row?.status}</TableCell>
-                <TableCell align='center'>{row?.id}</TableCell>
+                <TableCell align='center'>{row?.hydra_abbon_ls || '-'}</TableCell>
+                <TableCell align='center'>{`${row?.first_name || '-'} ${row?.last_name || '-'}`}</TableCell>
+                <TableCell align='center'>{row?.primary_phone || '-'}</TableCell>
+                <TableCell align='center'>{row?.status || '-'}</TableCell>
+                <TableCell align='center'>{row?.id || '-'}</TableCell>
+                <TableCell align='center'>{row?.created_at ? formatDate(row?.created_at, true) : '-'}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -197,6 +203,12 @@ const MyApplications = () => {
         >
           <TableCell align='left'>Статус</TableCell>
           <TableCell align='left'>{currentApplication?.status}</TableCell>
+        </TableRow>
+        <TableRow
+          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+        >
+          <TableCell align='left'>Дата создания</TableCell>
+          <TableCell align='left'>{currentApplication?.created_at ? formatDate(currentApplication?.created_at, true) : '-'}</TableCell>
         </TableRow>
       </SingleView>
     </div>
