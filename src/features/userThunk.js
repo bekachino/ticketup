@@ -10,3 +10,21 @@ export const signIn = createAsyncThunk("user/signIn", async (userData, { rejectW
     return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);
   }
 });
+
+export const signUp = createAsyncThunk("user/signUp", async (userData, { rejectWithValue }) => {
+  try {
+    const response = await axiosApi.post('register/', userData);
+    return response.data;
+  } catch (e) {
+    return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);
+  }
+});
+
+export const getSupervisors = createAsyncThunk("user/getSupervisors", async (_, { rejectWithValue }) => {
+  try {
+    const response = await axiosApi('register/');
+    return response.data || [];
+  } catch (e) {
+    return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);
+  }
+});

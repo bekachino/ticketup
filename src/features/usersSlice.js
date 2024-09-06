@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { signIn } from "./userThunk";
+import { getSupervisors, signIn } from "./userThunk";
 
 const initialState = {
   user: '',
+  supervisors: [],
   signInLoading: false,
+  supervisorsLoading: false,
   signInError: '',
+  supervisorsError: '',
 };
 
 const UsersSlice = createSlice({
@@ -28,6 +31,19 @@ const UsersSlice = createSlice({
     builder.addCase(signIn.rejected, (state, { payload: error }) => {
       state.signInLoading = false;
       state.signInError = error;
+    });
+    
+    builder.addCase(getSupervisors.pending, (state) => {
+      state.supervisorsError = '';
+      state.supervisorsLoading = true;
+    });
+    builder.addCase(getSupervisors.fulfilled, (state, { payload: res }) => {
+      state.supervisorsLoading = false;
+      state.supervisors = res || '';
+    });
+    builder.addCase(getSupervisors.rejected, (state, { payload: error }) => {
+      state.supervisorsLoading = false;
+      state.supervisorsError = error;
     });
   },
 });

@@ -6,6 +6,7 @@ import SignIn from "./containers/SignIn/SignIn";
 import { lazy, Suspense } from "react";
 import NewZhaloba from "./containers/NewZhaloba/NewZhaloba";
 import './App.css';
+import SignUp from "./containers/SignUp/SignUp";
 
 const NewApplication = lazy(() => import('./containers/NewApplication/NewApplication'));
 const NewNeactivka = lazy(() => import('./containers/NewNeactivka/NewNeactivka'));
@@ -21,6 +22,10 @@ const App = () => {
       <Route
         path='sign-in'
         element={<SignIn/>}
+      />
+      <Route
+        path='sign-up'
+        element={<SignUp/>}
       />
     </>
   );
