@@ -7,8 +7,10 @@ import LockIcon from '@mui/icons-material/Lock';
 import { deepPurple } from "@mui/material/colors";
 import './signUp.css';
 import Autocomplete from "@mui/material/Autocomplete";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {
     supervisors,
@@ -39,7 +41,8 @@ const SignUp = () => {
   
   const submitFormHandler = async (e) => {
     e.preventDefault();
-    dispatch(signUp(state));
+    await dispatch(signUp(state));
+    navigate('/my-applications');
   };
   
   return (
