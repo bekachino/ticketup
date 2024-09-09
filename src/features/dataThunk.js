@@ -70,6 +70,7 @@ export const createApplication = createAsyncThunk("data/createApplication", asyn
         region: data?.region,
         city: data?.city,
         district: data?.district,
+        street: data?.street,
       },
       exactAddress: {
         address: data?.exactAddress,
