@@ -158,7 +158,7 @@ const SignUp = () => {
       <Grid container justifyContent="flex-end">
         <Grid item>
           <Link href="/sign-in">
-            Нет аккаунта? Регистрация
+            Уже есть аккаунт? Авторизуйтесь
           </Link>
         </Grid>
       </Grid>
