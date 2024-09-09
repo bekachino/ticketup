@@ -376,6 +376,8 @@ const NewApplication = () => {
   const onSubmit = async e => {
     e?.preventDefault();
     
+    setSnackBarOpen(false);
+    
     if (!confirmModalOpen) return setConfirmModalOpen(true);
     
     dispatch(createApplication(state));
