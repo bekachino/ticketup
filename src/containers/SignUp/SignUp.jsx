@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Avatar, Container, TextField, Typography } from '@mui/material';
+import {
+  Alert,
+  Avatar,
+  Container,
+  Grid, Link,
+  TextField,
+  Typography
+} from '@mui/material';
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { getSupervisors, signUp } from "../../features/userThunk";
 import { LoadingButton } from "@mui/lab";
@@ -148,6 +155,13 @@ const SignUp = () => {
       >
         Логин
       </LoadingButton>
+      <Grid container justifyContent="flex-end">
+        <Grid item>
+          <Link href="/sign-in">
+            Нет аккаунта? Регистрация
+          </Link>
+        </Grid>
+      </Grid>
     </Container>
   );
 };
