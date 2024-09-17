@@ -3,10 +3,11 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Toolbar from "./components/Toolbar/Toolbar";
 import BottomNav from "./components/BottomNav/BottomNav";
 import SignIn from "./containers/SignIn/SignIn";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import NewZhaloba from "./containers/NewZhaloba/NewZhaloba";
-import './App.css';
 import SignUp from "./containers/SignUp/SignUp";
+import { checkVersionAndClearCache } from "./utility";
+import './App.css';
 
 const NewApplication = lazy(() => import('./containers/NewApplication/NewApplication'));
 const NewNeactivka = lazy(() => import('./containers/NewNeactivka/NewNeactivka'));
@@ -16,6 +17,10 @@ const MyZhaloba = lazy(() => import('./containers/MyZhaloba/MyZhaloba'));
 
 const App = () => {
   const { user } = useAppSelector((state) => state.userState);
+  
+  useEffect(() => {
+    checkVersionAndClearCache();
+  }, []);
   
   const publicRoutes = (
     <>
