@@ -11,7 +11,7 @@
 }
 
 .bottom-nav .MuiBottomNavigation-root button {
-  max-width: unset!important;
+  max-width: unset !important;
 }
 
 @media (max-width: 220px) {

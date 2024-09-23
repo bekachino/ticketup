@@ -1,33 +1,29 @@
 import React, { lazy, Suspense } from 'react';
 
-const FileInput = lazy(() => import('../../FileInput/FileInput'))
+const FileInput = lazy(() => import('../../FileInput/FileInput'));
 
-const ImageFiles = ({
-  state,
-  handleImageChange,
-  removeImage,
-}) => {
+const ImageFiles = ({ state, handleImageChange, removeImage }) => {
   return (
     <>
       <Suspense fallback={<></>}>
         <FileInput
-          name='passport1'
+          name="passport1"
           file={state?.passport1}
-          label='Лицевая сторона паспорта'
+          label="Лицевая сторона паспорта"
           handleImageChange={handleImageChange}
           removeImage={removeImage}
         />
         <FileInput
-          name='passport2'
+          name="passport2"
           file={state?.passport2}
-          label='Обратная сторона паспорта'
+          label="Обратная сторона паспорта"
           handleImageChange={handleImageChange}
           removeImage={removeImage}
         />
         <FileInput
-          name='locationScreenShot'
+          name="locationScreenShot"
           file={state?.locationScreenShot}
-          label='Скриншот локации'
+          label="Скриншот локации"
           handleImageChange={handleImageChange}
           removeImage={removeImage}
         />

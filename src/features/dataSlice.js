@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 import {
   getApplications,
   getLocationsList,
@@ -11,9 +11,9 @@ import {
   getDataForNewNeactivkaForm,
   createNeactivka,
   getDataForNewZhalobaForm,
-  createZhaloba
-} from "./dataThunk";
-import { availableTariffs } from "../constants";
+  createZhaloba,
+} from './dataThunk';
+import { availableTariffs } from '../constants';
 
 const initialState = {
   applications: [],
@@ -72,19 +72,19 @@ const DataSlice = createSlice({
   name: 'data',
   initialState,
   reducers: {
-    resetCreateApplicationErrorMessage: state => {
+    resetCreateApplicationErrorMessage: (state) => {
       state.createApplicationErrorMessage = '';
     },
-    resetCreateNeactivkaErrorMessage: state => {
+    resetCreateNeactivkaErrorMessage: (state) => {
       state.createNeactivkaErrorMessage = '';
     },
-    resetCreateZhalobaErrorMessage: state => {
+    resetCreateZhalobaErrorMessage: (state) => {
       state.createZhalobaErrorMessage = '';
     },
-    resetApplicationRes: state => {
+    resetApplicationRes: (state) => {
       state.applicationRes = null;
     },
-    resetFormSuccess: state => {
+    resetFormSuccess: (state) => {
       state.formSuccess = false;
     },
   },
@@ -101,7 +101,7 @@ const DataSlice = createSlice({
       state.applicationsLoading = false;
       state.applicationsError = error;
     });
-    
+
     builder.addCase(getRegions.pending, (state) => {
       state.regionsLoading = true;
       state.createApplicationErrorMessage = '';
@@ -114,7 +114,7 @@ const DataSlice = createSlice({
       state.regionsLoading = false;
       state.createApplicationErrorMessage = error;
     });
-    
+
     builder.addCase(getLocationsList.pending, (state) => {
       state.citiesLoading = true;
       state.createApplicationErrorMessage = '';
@@ -127,7 +127,7 @@ const DataSlice = createSlice({
       state.citiesLoading = false;
       state.createApplicationErrorMessage = error;
     });
-    
+
     builder.addCase(getBxRegions.pending, (state) => {
       state.bxRegionsLoading = true;
       state.createApplicationErrorMessage = '';
@@ -135,7 +135,9 @@ const DataSlice = createSlice({
     builder.addCase(getBxRegions.fulfilled, (state, { payload: res }) => {
       state.bxRegionsLoading = false;
       state.bxRegions = res[0];
-      state.tariffs = res[1]?.filter(tariff => availableTariffs.includes(tariff?.VALUE));
+      state.tariffs = res[1]?.filter((tariff) =>
+        availableTariffs.includes(tariff?.VALUE)
+      );
       state.routerInstallationTypes = res[2];
       state.orderStatuses = res[3]?.slice(0, 2);
       state.providers = res[4];
@@ -146,7 +148,7 @@ const DataSlice = createSlice({
       state.bxRegionsLoading = false;
       state.createApplicationErrorMessage = error;
     });
-    
+
     builder.addCase(getBxSquares.pending, (state) => {
       state.bxSquaresLoading = true;
       state.createApplicationErrorMessage = '';
@@ -159,7 +161,7 @@ const DataSlice = createSlice({
       state.bxSquaresLoading = false;
       state.createApplicationErrorMessage = error;
     });
-    
+
     builder.addCase(createApplication.pending, (state) => {
       state.createApplicationLoading = true;
       state.createApplicationErrorMessage = '';
@@ -173,7 +175,7 @@ const DataSlice = createSlice({
       state.createApplicationLoading = false;
       state.createApplicationErrorMessage = error;
     });
-    
+
     builder.addCase(getNeactivka.pending, (state) => {
       state.neactivkaLoading = true;
       state.neactivkaError = '';
@@ -186,7 +188,7 @@ const DataSlice = createSlice({
       state.neactivkaLoading = false;
       state.neactivkaError = error;
     });
-    
+
     builder.addCase(getZhaloba.pending, (state) => {
       state.zhalobaLoading = true;
       state.zhalobaError = '';
@@ -199,27 +201,33 @@ const DataSlice = createSlice({
       state.zhalobaLoading = false;
       state.zhalobaError = error;
     });
-    
+
     builder.addCase(getDataForNewNeactivkaForm.pending, (state) => {
       state.neactivkaFormDataLoading = true;
       state.createNeactivkaErrorMessage = '';
     });
-    builder.addCase(getDataForNewNeactivkaForm.fulfilled, (state, { payload: res }) => {
-      state.neactivkaFormDataLoading = false;
-      state.neactivkaDistricts = res[0];
-      state.neactivkaRegions = res[1];
-      state.neactivkaStatuses = res[2];
-      state.neactivkaPaymentStatuses = res[3];
-      state.neactivkaTariffs = res[4];
-      state.neactivkaReasons = res[5];
-      state.neactivkaDiscounts = res[6];
-      state.neactivkaEquipmentsForFix = res[7];
-    });
-    builder.addCase(getDataForNewNeactivkaForm.rejected, (state, { payload: error }) => {
-      state.neactivkaFormDataLoading = false;
-      state.createNeactivkaErrorMessage = error;
-    });
-    
+    builder.addCase(
+      getDataForNewNeactivkaForm.fulfilled,
+      (state, { payload: res }) => {
+        state.neactivkaFormDataLoading = false;
+        state.neactivkaDistricts = res[0];
+        state.neactivkaRegions = res[1];
+        state.neactivkaStatuses = res[2];
+        state.neactivkaPaymentStatuses = res[3];
+        state.neactivkaTariffs = res[4];
+        state.neactivkaReasons = res[5];
+        state.neactivkaDiscounts = res[6];
+        state.neactivkaEquipmentsForFix = res[7];
+      }
+    );
+    builder.addCase(
+      getDataForNewNeactivkaForm.rejected,
+      (state, { payload: error }) => {
+        state.neactivkaFormDataLoading = false;
+        state.createNeactivkaErrorMessage = error;
+      }
+    );
+
     builder.addCase(createNeactivka.pending, (state) => {
       state.createNeactivkaLoading = true;
       state.createNeactivkaErrorMessage = '';
@@ -232,22 +240,28 @@ const DataSlice = createSlice({
       state.createNeactivkaLoading = false;
       state.createNeactivkaErrorMessage = error;
     });
-    
+
     builder.addCase(getDataForNewZhalobaForm.pending, (state) => {
       state.zhalobaFormDataLoading = true;
       state.createZhalobaErrorMessage = '';
     });
-    builder.addCase(getDataForNewZhalobaForm.fulfilled, (state, { payload: res }) => {
-      state.zhalobaFormDataLoading = false;
-      state.zhalobaDistricts = res[0];
-      state.zhalobaRegions = res[1];
-      state.zhalobaReasons = res[2];
-    });
-    builder.addCase(getDataForNewZhalobaForm.rejected, (state, { payload: error }) => {
-      state.zhalobaFormDataLoading = false;
-      state.createZhalobaErrorMessage = error;
-    });
-    
+    builder.addCase(
+      getDataForNewZhalobaForm.fulfilled,
+      (state, { payload: res }) => {
+        state.zhalobaFormDataLoading = false;
+        state.zhalobaDistricts = res[0];
+        state.zhalobaRegions = res[1];
+        state.zhalobaReasons = res[2];
+      }
+    );
+    builder.addCase(
+      getDataForNewZhalobaForm.rejected,
+      (state, { payload: error }) => {
+        state.zhalobaFormDataLoading = false;
+        state.createZhalobaErrorMessage = error;
+      }
+    );
+
     builder.addCase(createZhaloba.pending, (state) => {
       state.createZhalobaLoading = true;
       state.createZhalobaErrorMessage = '';

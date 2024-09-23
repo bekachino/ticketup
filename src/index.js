@@ -9,22 +9,27 @@ import { addInterceptors } from './axiosApi';
 import { ThemeProvider, createTheme } from '@mui/material';
 import { ruRU } from '@mui/material/locale/';
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
+const darkTheme = createTheme(
+  {
+    palette: {
+      mode: 'dark',
+    },
   },
-}, ruRU);
+  ruRU
+);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 addInterceptors(store);
 
-root.render(<ThemeProvider theme={darkTheme}>
-  <PersistGate persistor={persistor}>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App/>
-      </BrowserRouter>
-    </Provider>
-  </PersistGate>
-</ThemeProvider>);
+root.render(
+  <ThemeProvider theme={darkTheme}>
+    <PersistGate persistor={persistor}>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </PersistGate>
+  </ThemeProvider>
+);

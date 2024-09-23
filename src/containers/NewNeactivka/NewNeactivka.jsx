@@ -1,17 +1,19 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import Box from "@mui/material/Box";
-import { Alert, Snackbar, TextField } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import Box from '@mui/material/Box';
+import { Alert, Snackbar, TextField } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
-  createNeactivka, getDataForNewNeactivkaForm
-} from "../../features/dataThunk";
-import Autocomplete from "@mui/material/Autocomplete";
+  createNeactivka,
+  getDataForNewNeactivkaForm,
+} from '../../features/dataThunk';
+import Autocomplete from '@mui/material/Autocomplete';
 import {
-  resetCreateNeactivkaErrorMessage, resetFormSuccess
-} from "../../features/dataSlice";
-import { LoadingButton } from "@mui/lab";
+  resetCreateNeactivkaErrorMessage,
+  resetFormSuccess,
+} from '../../features/dataSlice';
+import { LoadingButton } from '@mui/lab';
 import '../NewApplication/newApplication.css';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const NewNeactivka = () => {
   const navigate = useNavigate();
@@ -29,98 +31,85 @@ const NewNeactivka = () => {
     createNeactivkaLoading,
     createNeactivkaErrorMessage,
     formSuccess,
-  } = useAppSelector(state => state.dataState);
+  } = useAppSelector((state) => state.dataState);
   const [state, setState] = useState(null);
   const [snackBarOpen, setSnackBarOpen] = useState(false);
-  
+
   const handleSnackBarClose = useCallback(() => {
     setSnackBarOpen(false);
   }, []);
-  
+
   useEffect(() => {
     if (createNeactivkaErrorMessage) setSnackBarOpen(true);
   }, [createNeactivkaErrorMessage]);
-  
+
   useEffect(() => {
     dispatch(getDataForNewNeactivkaForm());
     return () => {
       handleSnackBarClose();
       dispatch(resetCreateNeactivkaErrorMessage());
     };
-  }, [
-    dispatch,
-    handleSnackBarClose
-  ]);
-  
+  }, [dispatch, handleSnackBarClose]);
+
   useEffect(() => {
     if (formSuccess) {
       dispatch(resetFormSuccess());
-      navigate('/neactivka-list')
+      navigate('/neactivka-list');
     }
-  }, [
-    dispatch,
-    formSuccess,
-    navigate
-  ]);
-  
+  }, [dispatch, formSuccess, navigate]);
+
   const handleChange = (e) => {
-    const {
-      name,
-      value,
-    } = e.target;
-    
-    setState(prevState => (
-      {
-        ...prevState,
-        [name]: [
-          'phoneNumber',
-          'additionalPhoneNumber',
-          'personalAccount',
-        ].includes(name) ? formatPhoneNumber(value) : value,
-      }
-    ));
-    
+    const { name, value } = e.target;
+
+    setState((prevState) => ({
+      ...prevState,
+      [name]: [
+        'phoneNumber',
+        'additionalPhoneNumber',
+        'personalAccount',
+      ].includes(name)
+        ? formatPhoneNumber(value)
+        : value,
+    }));
+
     if (name === 'region') {
-      setState(prevState => (
-        {
-          ...prevState,
-          district: null,
-        }
-      ));
+      setState((prevState) => ({
+        ...prevState,
+        district: null,
+      }));
     }
   };
-  
+
   const formatPhoneNumber = (phoneNum) => {
     return phoneNum.replace(/\D/g, '');
   };
-  
-  const onSubmit = async e => {
+
+  const onSubmit = async (e) => {
     e?.preventDefault();
     await dispatch(createNeactivka(state));
   };
-  
+
   return (
-    <div className='new-application'>
-      <Box
-        component='form'
-        onSubmit={onSubmit}
-      >
+    <div className="new-application">
+      <Box component="form" onSubmit={onSubmit}>
         <Autocomplete
           value={state?.region?.VALUE || ''}
           onChange={(_, value) => {
             handleChange({
               target: {
                 name: 'region',
-                value: neactivkaRegions?.find(region => region?.VALUE === value) || null,
-              }
+                value:
+                  neactivkaRegions?.find((region) => region?.VALUE === value) ||
+                  null,
+              },
             });
           }}
-          options={neactivkaRegions?.map(region => region?.VALUE) || []}
+          options={neactivkaRegions?.map((region) => region?.VALUE) || []}
           loading={neactivkaFormDataLoading}
-          loadingText='Загрузка...'
-          renderInput={(params) => <TextField {...params} label='Регион'
-            required
-          />}
+          loadingText="Загрузка..."
+          renderInput={(params) => (
+            <TextField {...params} label="Регион" required />
+          )}
         />
         <Autocomplete
           value={state?.district?.VALUE || ''}
@@ -128,16 +117,19 @@ const NewNeactivka = () => {
             handleChange({
               target: {
                 name: 'district',
-                value: neactivkaDistricts?.find(district => district?.VALUE === value) || null,
-              }
+                value:
+                  neactivkaDistricts?.find(
+                    (district) => district?.VALUE === value
+                  ) || null,
+              },
             });
           }}
-          options={neactivkaDistricts?.map(district => district?.VALUE) || []}
+          options={neactivkaDistricts?.map((district) => district?.VALUE) || []}
           loading={neactivkaFormDataLoading}
-          loadingText='Загрузка...'
-          renderInput={(params) => <TextField {...params} label='Локация'
-            required
-          />}
+          loadingText="Загрузка..."
+          renderInput={(params) => (
+            <TextField {...params} label="Локация" required />
+          )}
         />
         <Autocomplete
           value={state?.nonActiveStatus?.VALUE || ''}
@@ -145,17 +137,23 @@ const NewNeactivka = () => {
             handleChange({
               target: {
                 name: 'nonActiveStatus',
-                value: neactivkaStatuses?.find(nonActiveStatus => nonActiveStatus?.VALUE === value) || null,
-              }
+                value:
+                  neactivkaStatuses?.find(
+                    (nonActiveStatus) => nonActiveStatus?.VALUE === value
+                  ) || null,
+              },
             });
           }}
-          options={neactivkaStatuses?.map(nonActiveStatus => nonActiveStatus?.VALUE) || []}
+          options={
+            neactivkaStatuses?.map(
+              (nonActiveStatus) => nonActiveStatus?.VALUE
+            ) || []
+          }
           loading={neactivkaFormDataLoading}
-          loadingText='Загрузка...'
-          renderInput={(params) =>
-            <TextField {...params} label='Статус неактивки'
-              required
-            />}
+          loadingText="Загрузка..."
+          renderInput={(params) => (
+            <TextField {...params} label="Статус неактивки" required />
+          )}
         />
         <Autocomplete
           value={state?.nonActivePaymentStatus?.VALUE || ''}
@@ -163,24 +161,31 @@ const NewNeactivka = () => {
             handleChange({
               target: {
                 name: 'nonActivePaymentStatus',
-                value: neactivkaPaymentStatuses?.find(nonActivePaymentStatus => nonActivePaymentStatus?.VALUE === value) || null,
-              }
+                value:
+                  neactivkaPaymentStatuses?.find(
+                    (nonActivePaymentStatus) =>
+                      nonActivePaymentStatus?.VALUE === value
+                  ) || null,
+              },
             });
           }}
-          options={neactivkaPaymentStatuses?.map(nonActivePaymentStatus => nonActivePaymentStatus?.VALUE) || []}
+          options={
+            neactivkaPaymentStatuses?.map(
+              (nonActivePaymentStatus) => nonActivePaymentStatus?.VALUE
+            ) || []
+          }
           loading={neactivkaFormDataLoading}
-          loadingText='Загрузка...'
-          renderInput={(params) =>
-            <TextField {...params} label='Статус оплаты неактивки'
-              required
-            />}
+          loadingText="Загрузка..."
+          renderInput={(params) => (
+            <TextField {...params} label="Статус оплаты неактивки" required />
+          )}
         />
         <TextField
-          label='Адрес в формате: ул. Фрунзе 1'
-          name='address'
+          label="Адрес в формате: ул. Фрунзе 1"
+          name="address"
           value={state?.address}
           onChange={handleChange}
-          variant='outlined'
+          variant="outlined"
           required
         />
         <Autocomplete
@@ -189,59 +194,69 @@ const NewNeactivka = () => {
             handleChange({
               target: {
                 name: 'tariff',
-                value: neactivkaTariffs?.find(tariff => tariff?.VALUE === value) || null,
-              }
+                value:
+                  neactivkaTariffs?.find((tariff) => tariff?.VALUE === value) ||
+                  null,
+              },
             });
           }}
-          options={neactivkaTariffs?.map(tariff => tariff?.VALUE) || []}
+          options={neactivkaTariffs?.map((tariff) => tariff?.VALUE) || []}
           loading={neactivkaFormDataLoading}
-          loadingText='Загрузка...'
-          renderInput={(params) => <TextField {...params} label='Тариф'
-            required
-          />}
+          loadingText="Загрузка..."
+          renderInput={(params) => (
+            <TextField {...params} label="Тариф" required />
+          )}
         />
         <TextField
-          label='Имя абонента'
-          name='userName'
+          label="Имя абонента"
+          name="userName"
           value={state?.userName}
           onChange={handleChange}
-          variant='outlined'
+          variant="outlined"
           required
         />
         <TextField
-          label='Фамилия абонента'
-          name='userSirName'
+          label="Фамилия абонента"
+          name="userSirName"
           value={state?.userSirName}
           onChange={handleChange}
-          variant='outlined'
+          variant="outlined"
           required
         />
         <TextField
-          label='Лицевой счёт'
-          name='personalAccount'
+          label="Лицевой счёт"
+          name="personalAccount"
           value={state?.personalAccount}
           onChange={handleChange}
-          variant='outlined'
+          variant="outlined"
           required
         />
         <TextField
-          id='outlined-multiline-flexible'
+          id="outlined-multiline-flexible"
           value={state?.phoneNumber}
-          label='Основной номер телефона'
-          name='phoneNumber'
+          label="Основной номер телефона"
+          name="phoneNumber"
           onChange={handleChange}
           inputProps={{ maxLength: 9 }}
-          helperText={state?.userPhoneNumber && state?.userPhoneNumber?.length < 9 && 'Формат: 700555333'}
+          helperText={
+            state?.userPhoneNumber &&
+            state?.userPhoneNumber?.length < 9 &&
+            'Формат: 700555333'
+          }
           required
         />
         <TextField
-          id='outlined-multiline-flexible'
+          id="outlined-multiline-flexible"
           value={state?.additionalPhoneNumber}
-          label='Доп. номер телефона'
-          name='additionalPhoneNumber'
+          label="Доп. номер телефона"
+          name="additionalPhoneNumber"
           onChange={handleChange}
           inputProps={{ maxLength: 9 }}
-          helperText={state?.userAdditionalPhoneNumber && state?.userAdditionalPhoneNumber?.length < 9 && 'Формат: 700555333'}
+          helperText={
+            state?.userAdditionalPhoneNumber &&
+            state?.userAdditionalPhoneNumber?.length < 9 &&
+            'Формат: 700555333'
+          }
           required
         />
         <Autocomplete
@@ -250,16 +265,23 @@ const NewNeactivka = () => {
             handleChange({
               target: {
                 name: 'nonActiveReason',
-                value: neactivkaReasons?.find(nonActiveReason => nonActiveReason?.VALUE === value) || null,
-              }
+                value:
+                  neactivkaReasons?.find(
+                    (nonActiveReason) => nonActiveReason?.VALUE === value
+                  ) || null,
+              },
             });
           }}
-          options={neactivkaReasons?.map(nonActiveReason => nonActiveReason?.VALUE) || []}
+          options={
+            neactivkaReasons?.map(
+              (nonActiveReason) => nonActiveReason?.VALUE
+            ) || []
+          }
           loading={neactivkaFormDataLoading}
-          loadingText='Загрузка...'
-          renderInput={(params) => <TextField {...params} label='Причина'
-            required
-          />}
+          loadingText="Загрузка..."
+          renderInput={(params) => (
+            <TextField {...params} label="Причина" required />
+          )}
         />
         <Autocomplete
           value={state?.discount?.VALUE || ''}
@@ -267,16 +289,19 @@ const NewNeactivka = () => {
             handleChange({
               target: {
                 name: 'discount',
-                value: neactivkaDiscounts?.find(discount => discount?.VALUE === value) || null,
-              }
+                value:
+                  neactivkaDiscounts?.find(
+                    (discount) => discount?.VALUE === value
+                  ) || null,
+              },
             });
           }}
-          options={neactivkaDiscounts?.map(discount => discount?.VALUE) || []}
+          options={neactivkaDiscounts?.map((discount) => discount?.VALUE) || []}
           loading={neactivkaFormDataLoading}
-          loadingText='Загрузка...'
-          renderInput={(params) => <TextField {...params} label='Акция'
-            required
-          />}
+          loadingText="Загрузка..."
+          renderInput={(params) => (
+            <TextField {...params} label="Акция" required />
+          )}
         />
         <Autocomplete
           value={state?.fixEquipment?.VALUE || ''}
@@ -284,33 +309,43 @@ const NewNeactivka = () => {
             handleChange({
               target: {
                 name: 'fixEquipment',
-                value: neactivkaEquipmentsForFix?.find(fixEquipment => fixEquipment?.VALUE === value) || null,
-              }
+                value:
+                  neactivkaEquipmentsForFix?.find(
+                    (fixEquipment) => fixEquipment?.VALUE === value
+                  ) || null,
+              },
             });
           }}
-          options={neactivkaEquipmentsForFix?.map(fixEquipment => fixEquipment?.VALUE) || []}
+          options={
+            neactivkaEquipmentsForFix?.map(
+              (fixEquipment) => fixEquipment?.VALUE
+            ) || []
+          }
           loading={neactivkaFormDataLoading}
-          loadingText='Загрузка...'
-          renderInput={(params) =>
-            <TextField {...params} label='Демонтируемое оборудование'
+          loadingText="Загрузка..."
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Демонтируемое оборудование"
               required
-            />}
+            />
+          )}
         />
         <TextField
-          id='outlined-multiline-static'
-          label='Комментарий'
-          name='comment'
+          id="outlined-multiline-static"
+          label="Комментарий"
+          name="comment"
           value={state?.comment}
           onChange={handleChange}
           multiline
           minRows={5}
         />
-        <div className='new-application-form-btns'>
+        <div className="new-application-form-btns">
           <LoadingButton
-            type='submit'
+            type="submit"
             loading={createNeactivkaLoading}
             sx={{ width: '100%' }}
-            variant='contained'
+            variant="contained"
           >
             Создать
           </LoadingButton>
@@ -320,13 +355,13 @@ const NewNeactivka = () => {
         open={snackBarOpen}
         anchorOrigin={{
           vertical: 'top',
-          horizontal: 'center'
+          horizontal: 'center',
         }}
       >
         <Alert
           onClose={handleSnackBarClose}
-          severity='error'
-          variant='filled'
+          severity="error"
+          variant="filled"
           sx={{ width: '100%' }}
         >
           {createNeactivkaErrorMessage}

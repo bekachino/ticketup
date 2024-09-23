@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getSupervisors, signIn } from "./userThunk";
+import { createSlice } from '@reduxjs/toolkit';
+import { getSupervisors, signIn } from './userThunk';
 
 const initialState = {
   user: '',
@@ -32,7 +32,7 @@ const UsersSlice = createSlice({
       state.signInLoading = false;
       state.signInError = error;
     });
-    
+
     builder.addCase(getSupervisors.pending, (state) => {
       state.supervisorsError = '';
       state.supervisorsLoading = true;

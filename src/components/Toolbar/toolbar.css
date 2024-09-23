@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  flex-grow: unset!important;
+  flex-grow: unset !important;
 }
 
 .toolbar header {
@@ -11,5 +11,5 @@
 }
 
 .nav-link {
-  font-size: 12px!important;
+  font-size: 12px !important;
 }
