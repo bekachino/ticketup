@@ -115,6 +115,13 @@ const NewApplication = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
+    if (
+      name === 'district2' &&
+      !state.city?.name?.includes('Бишкек') &&
+      value?.VALUE?.includes('Бишкек')
+    )
+      return;
+
     setState((prevState) => ({
       ...prevState,
       [name]: [
