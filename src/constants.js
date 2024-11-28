@@ -31,6 +31,8 @@ export const availableTariffs = [
   'Интер+ ТВ 100',
   'inter (200)',
   'Закрытый (780)',
+  'Интер 300',
+  'Интер 500',
 ];
 
 export const formatDate = (date, showTime) => {
