@@ -336,7 +336,7 @@ const NewApplication = () => {
         (bxSquare) => bxSquare.VALUE === 'Комсомольское Чуй'
       )[0];
     if (dist2name === 'с. Манас')
-      return dists.filter((bxSquare) => bxSquare.VALUE === 'Манас чуй')[0];
+      return dists.filter((bxSquare) => bxSquare.VALUE === 'Село Манас')[0];
     if (dist2name === 'с. Беш-Кунгей')
       return dists.filter((bxSquare) => bxSquare.VALUE === 'Беш-Кунгей Чуй')[0];
     if (dist2name === 'ж/м. Аламединский рынок')
