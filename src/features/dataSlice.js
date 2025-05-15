@@ -11,13 +11,14 @@ import {
   getDataForNewNeactivkaForm,
   createNeactivka,
   getDataForNewZhalobaForm,
-  createZhaloba,
+  createZhaloba, createSupervizer, getRegionsList,
 } from './dataThunk';
 import { availableTariffs } from '../constants';
 
 const initialState = {
   applications: [],
   regions: [],
+  regionsList: [],
   cities: [],
   districts: [],
   streets: [],
@@ -45,6 +46,8 @@ const initialState = {
   zhalobaReasons: [],
   applicationRes: null,
   applicationsLoading: false,
+  createSupervizerLoading: false,
+  regionsListLoading: false,
   regionsLoading: false,
   citiesLoading: false,
   districtsLoading: false,
@@ -100,6 +103,17 @@ const DataSlice = createSlice({
     builder.addCase(getApplications.rejected, (state, { payload: error }) => {
       state.applicationsLoading = false;
       state.applicationsError = error;
+    });
+
+    builder.addCase(getRegionsList.pending, (state) => {
+      state.regionsListLoading = true;
+    });
+    builder.addCase(getRegionsList.fulfilled, (state, { payload: res }) => {
+      state.regionsListLoading = false;
+      state.regionsList = res;
+    });
+    builder.addCase(getRegionsList.rejected, (state) => {
+      state.regionsListLoading = false;
     });
 
     builder.addCase(getRegions.pending, (state) => {
@@ -273,6 +287,15 @@ const DataSlice = createSlice({
     builder.addCase(createZhaloba.rejected, (state, { payload: error }) => {
       state.createZhalobaLoading = false;
       state.createZhalobaErrorMessage = error;
+    });
+    builder.addCase(createSupervizer.pending, (state) => {
+      state.createSupervizerLoading = true;
+    });
+    builder.addCase(createSupervizer.fulfilled, (state) => {
+      state.createSupervizerLoading = false;
+    });
+    builder.addCase(createSupervizer.rejected, (state) => {
+      state.createSupervizerLoading = false;
     });
   },
 });

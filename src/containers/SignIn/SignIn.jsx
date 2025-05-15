@@ -60,15 +60,17 @@ const SignIn = () => {
         name="username"
         label="Имя пользователя"
         variant="outlined"
+        autoComplete="username"
         value={state.username}
         onChange={onChange}
       />
       <TextField
-        id="username"
+        id="password"
         type="password"
         name="password"
         label="Пароль"
         variant="outlined"
+        autoComplete="current-password"
         value={state.password}
         onChange={onChange}
       />
@@ -85,7 +87,7 @@ const SignIn = () => {
       </LoadingButton>
       <Grid container justifyContent="flex-end">
         <Grid item>
-          <Link href="/sign-up">Нет аккаунта? Регистрация</Link>
+          <Link href={'/sign-up'}>Нет аккаунта? Регистрация</Link>
         </Grid>
       </Grid>
     </Container>

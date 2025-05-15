@@ -1,4 +1,5 @@
-export const apiUrl = 'https://ticketup.skynet.kg/api/';
+// export const apiUrl = 'https://ticketup.skynet.kg/api/';
+export const apiUrl = 'http://10.1.5.93:8000/api/';
 
 export const SMTH_WENT_WRONG = 'Что-то пошло не так, попробуйте позже';
 

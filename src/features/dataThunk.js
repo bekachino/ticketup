@@ -14,6 +14,18 @@ export const getApplications = createAsyncThunk(
   }
 );
 
+export const getRegionsList = createAsyncThunk(
+  'data/getRegionsList',
+  async (_, { rejectWithValue }) => {
+    try {
+      const req = await axiosApi('super_register/');
+      return (await req.data) || [];
+    } catch (e) {
+      return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);
+    }
+  }
+);
+
 export const getRegions = createAsyncThunk(
   'data/getRegions',
   async (_, { rejectWithValue }) => {
@@ -178,6 +190,17 @@ export const createZhaloba = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       await axiosApi.post('create-zhaloba/', data);
+    } catch (e) {
+      return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);
+    }
+  }
+);
+
+export const createSupervizer = createAsyncThunk(
+  'data/createSupervizer',
+  async (data, { rejectWithValue }) => {
+    try {
+      await axiosApi.post('super_register/', data);
     } catch (e) {
       return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);
     }

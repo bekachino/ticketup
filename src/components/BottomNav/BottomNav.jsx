@@ -1,16 +1,13 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { useAppDispatch } from '../../app/hooks';
-import { logout } from '../../features/usersSlice';
 import Box from '@mui/material/Box';
-import { Button, Modal } from '@mui/material';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import PeopleIcon from '@mui/icons-material/People';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
-import LogoutIcon from '@mui/icons-material/Logout';
-import Typography from '@mui/material/Typography';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import SupervisorAccountIcon from '@mui/icons-material/ManageAccounts';
 import './bottomNav.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -18,30 +15,14 @@ const tabs = {
   '/my-applications': 0,
   '/neactivka-list': 1,
   '/zhaloba-list': 2,
-};
-
-const modalStyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -60%)',
-  width: '90%',
-  maxWidth: 400,
-  bgcolor: '#222222',
-  color: '#FFFFFF',
-  p: '20px 35px',
-  borderRadius: '12px',
+  '/sign-up': 3,
+  '/create-supervizer': 4,
 };
 
 const BottomNav = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const [currentTab, setCurrentTab] = useState();
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     if (currentTab !== tabs[pathname]) {
@@ -55,9 +36,6 @@ const BottomNav = () => {
         showLabels
         value={currentTab}
         onChange={(event, newValue) => {
-          if (newValue === 3) {
-            return handleOpen();
-          }
           setCurrentTab(newValue);
         }}
       >
@@ -76,32 +54,17 @@ const BottomNav = () => {
           icon={<ThumbDownAltIcon />}
           onClick={() => navigate('/zhaloba-list')}
         />
-        <BottomNavigationAction label="Выйти" icon={<LogoutIcon />} />
+        <BottomNavigationAction
+          label="Новый пользователь"
+          icon={<PersonAddIcon />}
+          onClick={() => navigate('/sign-up')}
+        />
+        <BottomNavigationAction
+          label="Новый супервайзер"
+          icon={<SupervisorAccountIcon />}
+          onClick={() => navigate('/create-supervizer')}
+        />
       </BottomNavigation>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={modalStyle}>
-          <Typography
-            component="h5"
-            variant="h5"
-            sx={{ mb: 2, textAlign: 'center' }}
-          >
-            Выйти из аккаунта?
-          </Typography>
-          <Button
-            variant="outlined"
-            color="error"
-            sx={{ width: '100%' }}
-            onClick={() => dispatch(logout())}
-          >
-            Выйти
-          </Button>
-        </Box>
-      </Modal>
     </Box>
   );
 };

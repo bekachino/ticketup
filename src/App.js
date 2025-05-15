@@ -1,5 +1,5 @@
 import { useAppSelector } from './app/hooks';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Toolbar from './components/Toolbar/Toolbar';
 import BottomNav from './components/BottomNav/BottomNav';
 import SignIn from './containers/SignIn/SignIn';
@@ -8,6 +8,8 @@ import NewZhaloba from './containers/NewZhaloba/NewZhaloba';
 import SignUp from './containers/SignUp/SignUp';
 import { checkVersionAndClearCache } from './utility';
 import './App.css';
+import NewSupervizer from './containers/NewSupervizer/NewSupervizer';
+import { useOnePercentChance } from './hooks/useOnePercentChange';
 
 const NewApplication = lazy(
   () => import('./containers/NewApplication/NewApplication')
@@ -31,12 +33,13 @@ const App = () => {
   const publicRoutes = (
     <>
       <Route path="sign-in" element={<SignIn />} />
-      <Route path="sign-up" element={<SignUp />} />
     </>
   );
 
   const privateRoutes = (
     <>
+      <Route path="sign-up" element={<SignUp />} />
+      <Route path="create-supervizer" element={<NewSupervizer />} />
       <Route
         path="my-applications"
         element={
@@ -87,9 +90,12 @@ const App = () => {
       />
     </>
   );
-
+  const isVisible = useOnePercentChance(1000);
   return (
     <div className="App">
+      {isVisible &&
+        <img src='/TylerDurden.png' alt="Tyler" className={"tyler-image"}/>
+      }
       <Toolbar />
       <Routes>
         <Route
