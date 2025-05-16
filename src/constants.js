@@ -11,6 +11,8 @@ export const RU_PATHNAMES = {
   '/new-zhaloba': 'Новая жалоба',
   '/zhaloba-list': 'Жалобы',
   '/neactivka-list': 'Неактивные абоненты',
+  '/sign-up': 'Создание нового агента',
+  '/create-supervizer': 'Создание нового супервайзера',
 };
 
 export const availableTariffs = [

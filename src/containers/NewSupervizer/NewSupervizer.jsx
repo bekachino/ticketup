@@ -171,7 +171,7 @@ const NewSupervizer = () => {
             !state.region
           }
         >
-          Логин
+          Сохранить
         </LoadingButton>
       </Container>
     </>

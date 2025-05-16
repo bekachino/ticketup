@@ -10,6 +10,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import SupervisorAccountIcon from '@mui/icons-material/ManageAccounts';
 import './bottomNav.css';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../app/hooks';
 
 const tabs = {
   '/my-applications': 0,
@@ -23,6 +24,7 @@ const BottomNav = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState();
+  const { user } = useAppSelector((state)=>state.userState);
 
   useEffect(() => {
     if (currentTab !== tabs[pathname]) {
@@ -54,16 +56,24 @@ const BottomNav = () => {
           icon={<ThumbDownAltIcon />}
           onClick={() => navigate('/zhaloba-list')}
         />
-        <BottomNavigationAction
-          label="Новый пользователь"
-          icon={<PersonAddIcon />}
-          onClick={() => navigate('/sign-up')}
-        />
-        <BottomNavigationAction
-          label="Новый супервайзер"
-          icon={<SupervisorAccountIcon />}
-          onClick={() => navigate('/create-supervizer')}
-        />
+        {user.role === "admin" && (
+            <BottomNavigationAction
+              key={"create-supervizer"}
+              label="Новый супервайзер"
+              icon={<SupervisorAccountIcon />}
+              onClick={() => navigate('/create-supervizer')}
+            />
+          )
+        }
+        {user.role === "supervizer" && (
+          <BottomNavigationAction
+            key={"sign-up"}
+            label="Новый пользователь"
+            icon={<PersonAddIcon />}
+            onClick={() => navigate('/sign-up')}
+          />
+        )
+        }
       </BottomNavigation>
     </Box>
   );

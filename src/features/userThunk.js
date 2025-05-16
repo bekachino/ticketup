@@ -18,7 +18,7 @@ export const signUp = createAsyncThunk(
   'user/signUp',
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axiosApi.post('register/', userData);
+      const response = await axiosApi.post('agent_register/', userData);
       return response.data;
     } catch (e) {
       return rejectWithValue(e.response.data?.error || SMTH_WENT_WRONG);

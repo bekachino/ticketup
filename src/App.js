@@ -38,8 +38,6 @@ const App = () => {
 
   const privateRoutes = (
     <>
-      <Route path="sign-up" element={<SignUp />} />
-      <Route path="create-supervizer" element={<NewSupervizer />} />
       <Route
         path="my-applications"
         element={
@@ -90,7 +88,7 @@ const App = () => {
       />
     </>
   );
-  const isVisible = useOnePercentChance(1000);
+  const isVisible = useOnePercentChance(10);
   return (
     <div className="App">
       {isVisible &&
@@ -109,6 +107,12 @@ const App = () => {
           }
         />
         {user ? privateRoutes : publicRoutes}
+        {user?.role === 'supervizer' ? (
+            <Route path="sign-up" element={<SignUp />} />
+        ) : null}
+        {user?.role === 'admin' ? (
+          <Route path="create-supervizer" element={<NewSupervizer />} />
+        ) : null}
       </Routes>
       {user && <BottomNav />}
     </div>

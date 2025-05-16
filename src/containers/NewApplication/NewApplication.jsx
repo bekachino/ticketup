@@ -394,8 +394,6 @@ const NewApplication = () => {
     dispatch(createApplication(finalData));
   };
   
-  console.log(state);
-  
   const tabs = [
     <Suspense fallback={<></>}>
       <AddressForm

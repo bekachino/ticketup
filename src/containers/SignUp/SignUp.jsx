@@ -156,7 +156,7 @@ const SignUp = () => {
       }}
       disabled={!state.username || !state.surname || !state.password || !state.confirmPassword || !state.hydra_id_sales || !state.supervizer}
     >
-      Логин
+      Сохранить
     </LoadingButton>
   </Container>);
 };
