@@ -65,7 +65,7 @@ const BottomNav = () => {
             />
           )
         }
-        {user.role === "supervizer" && (
+        {(user.role === "supervizer" || user.role === "admin") && (
           <BottomNavigationAction
             key={"sign-up"}
             label="Новый пользователь"

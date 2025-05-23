@@ -206,3 +206,14 @@ export const createSupervizer = createAsyncThunk(
     }
   }
 );
+
+export const postAddresses = createAsyncThunk(
+  'data/postAddresses',
+  async () => {
+    try {
+      await axiosApi.post('addresses/');
+    } catch (e) {
+      console.log(e);
+    }
+  }
+);

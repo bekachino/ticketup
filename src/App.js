@@ -107,7 +107,7 @@ const App = () => {
           }
         />
         {user ? privateRoutes : publicRoutes}
-        {user?.role === 'supervizer' ? (
+        {(user?.role === 'supervizer' || user?.role === 'admin') ? (
             <Route path="sign-up" element={<SignUp />} />
         ) : null}
         {user?.role === 'admin' ? (

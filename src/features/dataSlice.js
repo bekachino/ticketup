@@ -11,7 +11,7 @@ import {
   getDataForNewNeactivkaForm,
   createNeactivka,
   getDataForNewZhalobaForm,
-  createZhaloba, createSupervizer, getRegionsList,
+  createZhaloba, createSupervizer, getRegionsList, postAddresses,
 } from './dataThunk';
 import { availableTariffs } from '../constants';
 
@@ -69,6 +69,7 @@ const initialState = {
   createApplicationErrorMessage: '',
   createNeactivkaErrorMessage: '',
   createZhalobaErrorMessage: '',
+  postAddressesLoading: false,
 };
 
 const DataSlice = createSlice({
@@ -104,6 +105,17 @@ const DataSlice = createSlice({
       state.applicationsLoading = false;
       state.applicationsError = error;
     });
+
+    builder.addCase(postAddresses.pending, (state) => {
+      state.postAddressesLoading = true;
+    });
+    builder.addCase(postAddresses.fulfilled, (state) => {
+      state.postAddressesLoading = false;
+    });
+    builder.addCase(postAddresses.rejected, (state) => {
+      state.postAddressesLoading = false;
+    });
+
 
     builder.addCase(getRegionsList.pending, (state) => {
       state.regionsListLoading = true;

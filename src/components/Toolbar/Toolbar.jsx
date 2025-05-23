@@ -12,6 +12,8 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { logout } from '../../features/usersSlice';
 import Lottie from 'lottie-react';
 import Animation from '../../assets/profile-animation.json';
+import { LoadingButton } from '@mui/lab';
+import { postAddresses } from '../../features/dataThunk';
 
 const modalStyle = {
   position: 'absolute',
@@ -30,6 +32,7 @@ const modalStyle = {
 const AppToolbar = () => {
   const location = useLocation();
   const { user } = useAppSelector((state)=>state.userState);
+  const { postAddressesLoading } = useAppSelector((state) => state.dataState);
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
   const [hovered, setHovered] = useState(false)
@@ -53,12 +56,16 @@ const AppToolbar = () => {
   return (
     <Box sx={{ flexGrow: 1 }} className="toolbar">
       <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Toolbar sx={{
+          justifyContent: 'space-between'
+        }}>
+          <Typography variant="h6" component="div">
             {RU_PATHNAMES[location.pathname]}
           </Typography>
           {user?.surname ? (
-            <Grid>
+            <Grid sx={{
+              ml: 'auto'
+            }}>
               <Button
                 size="large"
                 aria-label="account of current user"
@@ -159,6 +166,15 @@ const AppToolbar = () => {
               </Modal>
             </Grid>
           ) : null}
+          {user?.role === 'admin' && (
+            <LoadingButton variant={"outlined"} loading={postAddressesLoading} color={"info"} onClick={async ()=> {
+              await dispatch(postAddresses())
+            }} sx={{
+              ml: 3,
+            }}>
+              Стянуть адреса
+            </LoadingButton>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
