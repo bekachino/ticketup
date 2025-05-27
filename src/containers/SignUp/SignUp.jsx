@@ -150,7 +150,7 @@ const SignUp = () => {
     <TextField
       id="square"
       name="square"
-      label="Квадрать"
+      label="Квадрат"
       variant="outlined"
       value={state.square}
       onChange={onChange}
