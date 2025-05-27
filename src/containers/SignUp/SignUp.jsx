@@ -27,7 +27,7 @@ const SignUp = () => {
   }, [supervisorsError]);
 
   const [state, setState] = useState({
-    username: '', password: '', hydra_id_sales: '', supervizer: '', surname: '', confirmPassword: '',
+    username: '', password: '', hydra_id_sales: '', supervizer: '', surname: '', confirmPassword: '', square: "",
   });
 
   useEffect(() => {
@@ -50,6 +50,7 @@ const SignUp = () => {
         hydra_id_sales: state.username.trim(),
         supervizer: state.supervizer,
         surname: state.surname.trim(),
+        square_for_planup: state.square.trim(),
       };
 
       await dispatch(signUp(userMutation));
@@ -145,6 +146,14 @@ const SignUp = () => {
       })}
       renderInput={(params) => (<TextField {...params} label="Супервайзер" required />)}
       loading={supervisorsLoading}
+    />
+    <TextField
+      id="square"
+      name="square"
+      label="Квадрать"
+      variant="outlined"
+      value={state.square}
+      onChange={onChange}
     />
     <LoadingButton
       loading={signUpLoading}
