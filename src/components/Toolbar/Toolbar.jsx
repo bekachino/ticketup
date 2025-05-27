@@ -9,11 +9,11 @@ import './toolbar.css';
 import { Button, Grid, Menu, MenuItem, Modal } from '@mui/material';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { logout } from '../../features/usersSlice';
 import Lottie from 'lottie-react';
 import Animation from '../../assets/profile-animation.json';
 import { LoadingButton } from '@mui/lab';
 import { postAddresses } from '../../features/dataThunk';
+import { logout } from '../../features/userThunk';
 
 const modalStyle = {
   position: 'absolute',
@@ -31,7 +31,7 @@ const modalStyle = {
 
 const AppToolbar = () => {
   const location = useLocation();
-  const { user } = useAppSelector((state)=>state.userState);
+  const { user, logoutLoading } = useAppSelector((state)=>state.userState);
   const { postAddressesLoading } = useAppSelector((state) => state.dataState);
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -62,7 +62,7 @@ const AppToolbar = () => {
           <Typography variant="h6" component="div">
             {RU_PATHNAMES[location.pathname]}
           </Typography>
-          {user?.surname ? (
+          {user?.token ? (
             <Grid sx={{
               ml: 'auto'
             }}>
@@ -100,7 +100,7 @@ const AppToolbar = () => {
                   textWrap: 'nowrap',
                   transitionDelay: hovered ? "0ms" : '200ms'
                 }}>
-                  {user?.surname}
+                  {user?.surname ? user?.surname : user?.username}
                 </Typography>
                 <Lottie animationData={Animation} loop={(!!anchorEl || hovered)} style={{
                   minWidth: '24px',
@@ -141,7 +141,8 @@ const AppToolbar = () => {
                   >
                     Выйти из аккаунта?
                   </Typography>
-                  <Button
+                  <LoadingButton
+                    loading={logoutLoading}
                     variant="outlined"
                     color="error"
                     sx={{ width: '100%' }}
@@ -151,7 +152,7 @@ const AppToolbar = () => {
                     }}
                   >
                     Выйти
-                  </Button>
+                  </LoadingButton>
                   <Button
                     variant="outlined"
                     color="primary"

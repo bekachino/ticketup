@@ -1,8 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getSupervisors, signIn, signUp } from './userThunk';
+import { getSupervisors, logout, signIn, signUp } from './userThunk';
 
 const initialState = {
-  user: null,
+  user: {
+    token: 'dwdwa',
+    username: 'dwdwa',
+    role: "admin",
+  },
   supervisors: [],
   signInLoading: false,
   signUpLoading: false,
@@ -14,11 +18,7 @@ const initialState = {
 const UsersSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-    logout: (state) => {
-      state.user = '';
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(signIn.pending, (state) => {
       state.user = null;
@@ -39,6 +39,19 @@ const UsersSlice = createSlice({
     builder.addCase(signIn.rejected, (state, { payload: error }) => {
       state.signInLoading = false;
       state.signInError = error;
+    });
+
+    builder.addCase(logout.pending, (state) => {
+      state.logoutLoading = true;
+    });
+    builder.addCase(logout.fulfilled, (state, { payload: res }) => {
+      if(res === 200){
+        state.user = null;
+      }
+      state.logoutLoading = false;
+    });
+    builder.addCase(logout.rejected, (state, { payload: error }) => {
+      state.logoutLoading = false;
     });
 
     builder.addCase(signUp.pending, (state) => {
@@ -68,4 +81,3 @@ const UsersSlice = createSlice({
 });
 
 export const userReducer = UsersSlice.reducer;
-export const { logout } = UsersSlice.actions;

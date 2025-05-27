@@ -56,15 +56,6 @@ const BottomNav = () => {
           icon={<ThumbDownAltIcon />}
           onClick={() => navigate('/zhaloba-list')}
         />
-        {user.role === "admin" && (
-            <BottomNavigationAction
-              key={"create-supervizer"}
-              label="Новый супервайзер"
-              icon={<SupervisorAccountIcon />}
-              onClick={() => navigate('/create-supervizer')}
-            />
-          )
-        }
         {(user.role === "supervizer" || user.role === "admin") && (
           <BottomNavigationAction
             key={"sign-up"}
@@ -73,6 +64,15 @@ const BottomNav = () => {
             onClick={() => navigate('/sign-up')}
           />
         )
+        }
+        {user.role === "admin" && (
+            <BottomNavigationAction
+              key={"create-supervizer"}
+              label="Новый супервайзер"
+              icon={<SupervisorAccountIcon />}
+              onClick={() => navigate('/create-supervizer')}
+            />
+          )
         }
       </BottomNavigation>
     </Box>
