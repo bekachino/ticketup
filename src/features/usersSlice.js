@@ -2,11 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getSupervisors, logout, signIn, signUp } from './userThunk';
 
 const initialState = {
-  user: {
-    token: 'dwdwa',
-    username: 'dwdwa',
-    role: "admin",
-  },
+  user: null,
   supervisors: [],
   signInLoading: false,
   signUpLoading: false,
