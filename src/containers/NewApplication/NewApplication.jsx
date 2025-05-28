@@ -354,7 +354,7 @@ const NewApplication = () => {
   
   const addressFormFilled = () => {
     return Boolean(state?.region && state?.city && state?.district && (
-      addressType === 'flat' ? state?.house?.name && state?.entrance && state?.floor && state?.apart : state?.exactAddress
+      addressType === 'flat' ? state?.entrance && state?.floor && state?.apart : state?.exactAddress
     ) && state?.region2 && state?.district2);
   };
   
