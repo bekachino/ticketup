@@ -129,7 +129,7 @@ const NewSupervizer = () => {
         <TextField
           id="hydra_id"
           name="hydra_id"
-          label="Гидра ID"
+          label="Битрикс ID"
           variant="outlined"
           value={state.hydra_id}
           onChange={onChange}
