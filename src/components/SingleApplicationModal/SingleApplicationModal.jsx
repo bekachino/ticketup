@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import { Dialog, DialogTitle } from '@mui/material';
-import { useAppSelector } from '../../../app/hooks';
+import { useAppSelector } from '../../app/hooks';
 import { LoadingButton } from '@mui/lab';
 import './singleApplicationModal.css';
 

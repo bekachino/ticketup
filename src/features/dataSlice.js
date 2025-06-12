@@ -11,7 +11,10 @@ import {
   getDataForNewNeactivkaForm,
   createNeactivka,
   getDataForNewZhalobaForm,
-  createZhaloba, createSupervizer, getRegionsList, postAddresses,
+  createZhaloba,
+  createSupervizer,
+  getRegionsList,
+  postAddresses,
 } from './dataThunk';
 import { availableTariffs } from '../constants';
 
@@ -115,7 +118,6 @@ const DataSlice = createSlice({
     builder.addCase(postAddresses.rejected, (state) => {
       state.postAddressesLoading = false;
     });
-
 
     builder.addCase(getRegionsList.pending, (state) => {
       state.regionsListLoading = true;

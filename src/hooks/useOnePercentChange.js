@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-export const useOnePercentChance = (showTime)=> {
+export const useOnePercentChance = (showTime) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -20,4 +20,4 @@ export const useOnePercentChance = (showTime)=> {
   }, [showTime]);
 
   return isVisible;
-}
+};

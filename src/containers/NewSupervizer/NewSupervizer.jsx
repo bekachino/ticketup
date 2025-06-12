@@ -9,13 +9,11 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { createSupervizer, getRegionsList } from '../../features/dataThunk';
 
 const NewSupervizer = () => {
-
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [error, setError] = useState('');
-  const { regionsList, regionsListLoading, createSupervizerLoading } = useAppSelector(
-    (state) => state.dataState,
-  );
+  const { regionsList, regionsListLoading, createSupervizerLoading } =
+    useAppSelector((state) => state.dataState);
 
   const [state, setState] = useState({
     username: '',
@@ -55,7 +53,6 @@ const NewSupervizer = () => {
       setError('Пароли не совпадают!');
     }
   };
-
 
   return (
     <>

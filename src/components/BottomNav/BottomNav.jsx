@@ -24,7 +24,7 @@ const BottomNav = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState();
-  const { user } = useAppSelector((state)=>state.userState);
+  const { user } = useAppSelector((state) => state.userState);
 
   useEffect(() => {
     if (currentTab !== tabs[pathname]) {
@@ -56,24 +56,22 @@ const BottomNav = () => {
           icon={<ThumbDownAltIcon />}
           onClick={() => navigate('/zhaloba-list')}
         />
-        {(user.role === "supervizer" || user.role === "admin") && (
+        {(user.role === 'supervizer' || user.role === 'admin') && (
           <BottomNavigationAction
-            key={"sign-up"}
+            key={'sign-up'}
             label="Новый пользователь"
             icon={<PersonAddIcon />}
             onClick={() => navigate('/sign-up')}
           />
-        )
-        }
-        {user.role === "admin" && (
-            <BottomNavigationAction
-              key={"create-supervizer"}
-              label="Новый супервайзер"
-              icon={<SupervisorAccountIcon />}
-              onClick={() => navigate('/create-supervizer')}
-            />
-          )
-        }
+        )}
+        {user.role === 'admin' && (
+          <BottomNavigationAction
+            key={'create-supervizer'}
+            label="Новый супервайзер"
+            icon={<SupervisorAccountIcon />}
+            onClick={() => navigate('/create-supervizer')}
+          />
+        )}
       </BottomNavigation>
     </Box>
   );

@@ -41,12 +41,12 @@ const UsersSlice = createSlice({
       state.logoutLoading = true;
     });
     builder.addCase(logout.fulfilled, (state, { payload: res }) => {
-      if(res === 200){
+      if (res === 200) {
         state.user = null;
       }
       state.logoutLoading = false;
     });
-    builder.addCase(logout.rejected, (state, { payload: error }) => {
+    builder.addCase(logout.rejected, (state) => {
       state.logoutLoading = false;
     });
 
@@ -54,10 +54,10 @@ const UsersSlice = createSlice({
       state.signUpError = '';
       state.signUpLoading = true;
     });
-    builder.addCase(signUp.fulfilled, (state, { payload: res }) => {
+    builder.addCase(signUp.fulfilled, (state) => {
       state.signUpLoading = false;
     });
-    builder.addCase(signUp.rejected, (state, { payload: error }) => {
+    builder.addCase(signUp.rejected, (state) => {
       state.signUpLoading = false;
     });
 

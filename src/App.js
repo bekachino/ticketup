@@ -91,9 +91,9 @@ const App = () => {
   const isVisible = useOnePercentChance(10);
   return (
     <div className="App">
-      {isVisible &&
-        <img src='/TylerDurden.png' alt="Tyler" className={"tyler-image"}/>
-      }
+      {isVisible && (
+        <img src="/TylerDurden.png" alt="Tyler" className={'tyler-image'} />
+      )}
       <Toolbar />
       <Routes>
         <Route
@@ -107,8 +107,8 @@ const App = () => {
           }
         />
         {user ? privateRoutes : publicRoutes}
-        {(user?.role === 'supervizer' || user?.role === 'admin') ? (
-            <Route path="sign-up" element={<SignUp />} />
+        {user?.role === 'supervizer' || user?.role === 'admin' ? (
+          <Route path="sign-up" element={<SignUp />} />
         ) : null}
         {user?.role === 'admin' ? (
           <Route path="create-supervizer" element={<NewSupervizer />} />

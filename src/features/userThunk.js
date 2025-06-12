@@ -14,18 +14,15 @@ export const signIn = createAsyncThunk(
   }
 );
 
-export const logout = createAsyncThunk(
-  'user/logout',
-  async () => {
-    try {
-      const logout= await axiosApi.post('/logout/');
+export const logout = createAsyncThunk('user/logout', async () => {
+  try {
+    const logout = await axiosApi.post('/logout/');
 
-      return logout?.status;
-    } catch (e) {
-      console.log(e);
-    }
+    return logout?.status;
+  } catch (e) {
+    console.log(e);
   }
-);
+});
 
 export const signUp = createAsyncThunk(
   'user/signUp',

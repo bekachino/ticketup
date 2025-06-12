@@ -28,25 +28,24 @@ const modalStyle = {
   borderRadius: '12px',
 };
 
-
 const AppToolbar = () => {
   const location = useLocation();
-  const { user, logoutLoading } = useAppSelector((state)=>state.userState);
+  const { user, logoutLoading } = useAppSelector((state) => state.userState);
   const { postAddressesLoading } = useAppSelector((state) => state.dataState);
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [hovered, setHovered] = useState(false)
+  const [hovered, setHovered] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const [open, setOpen] = useState(false);
-
   const handleOpen = () => {
     handleClose();
     setOpen(true);
   };
+
   const handleCloseModal = () => setOpen(false);
 
   const handleClose = () => {
@@ -56,16 +55,20 @@ const AppToolbar = () => {
   return (
     <Box sx={{ flexGrow: 1 }} className="toolbar">
       <AppBar position="static">
-        <Toolbar sx={{
-          justifyContent: 'space-between'
-        }}>
+        <Toolbar
+          sx={{
+            justifyContent: 'space-between',
+          }}
+        >
           <Typography variant="h6" component="div">
             {RU_PATHNAMES[location.pathname]}
           </Typography>
           {user?.token ? (
-            <Grid sx={{
-              ml: 'auto'
-            }}>
+            <Grid
+              sx={{
+                ml: 'auto',
+              }}
+            >
               <Button
                 size="large"
                 aria-label="account of current user"
@@ -73,14 +76,14 @@ const AppToolbar = () => {
                 aria-haspopup="true"
                 onClick={handleMenu}
                 color="info"
-                variant={"outlined"}
-                onMouseEnter={()=>setHovered(true)}
-                onMouseLeave={()=>setHovered(false)}
+                variant={'outlined'}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
                 sx={{
-                  width: (anchorEl || hovered) ? "100%" : '44px',
+                  width: anchorEl || hovered ? '100%' : '44px',
                   height: '44px',
                   minWidth: '0',
-                  p: "10px",
+                  p: '10px',
                   borderRadius: '22px',
                   position: 'relative',
                   overflow: 'hidden',
@@ -94,21 +97,27 @@ const AppToolbar = () => {
                   },
                 }}
               >
-                <Typography sx={{
-                  color: (anchorEl || hovered) ? "inherit" : 'transparent',
-                  transition: '200ms',
-                  textWrap: 'nowrap',
-                  transitionDelay: hovered ? "0ms" : '200ms'
-                }}>
+                <Typography
+                  sx={{
+                    color: anchorEl || hovered ? 'inherit' : 'transparent',
+                    transition: '200ms',
+                    textWrap: 'nowrap',
+                    transitionDelay: hovered ? '0ms' : '200ms',
+                  }}
+                >
                   {user?.surname ? user?.surname : user?.username}
                 </Typography>
-                <Lottie animationData={Animation} loop={(!!anchorEl || hovered)} style={{
-                  minWidth: '24px',
-                  width: '24px',
-                  height: '24px',
-                  position: 'sticky',
-                  right: '0',
-                }}/>
+                <Lottie
+                  animationData={Animation}
+                  loop={!!anchorEl || hovered}
+                  style={{
+                    minWidth: '24px',
+                    width: '24px',
+                    height: '24px',
+                    position: 'sticky',
+                    right: '0',
+                  }}
+                />
               </Button>
               <Menu
                 id="menu-appbar"
@@ -156,7 +165,7 @@ const AppToolbar = () => {
                   <Button
                     variant="outlined"
                     color="primary"
-                    sx={{ width: '100%', mt: 1}}
+                    sx={{ width: '100%', mt: 1 }}
                     onClick={async () => {
                       handleCloseModal();
                     }}
@@ -168,11 +177,17 @@ const AppToolbar = () => {
             </Grid>
           ) : null}
           {user?.role === 'admin' && (
-            <LoadingButton variant={"outlined"} loading={postAddressesLoading} color={"info"} onClick={async ()=> {
-              await dispatch(postAddresses())
-            }} sx={{
-              ml: 3,
-            }}>
+            <LoadingButton
+              variant={'outlined'}
+              loading={postAddressesLoading}
+              color={'info'}
+              onClick={async () => {
+                await dispatch(postAddresses());
+              }}
+              sx={{
+                ml: 3,
+              }}
+            >
               Стянуть адреса
             </LoadingButton>
           )}
