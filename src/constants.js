@@ -35,6 +35,10 @@ export const availableTariffs = [
   'Закрытый (780)',
   'Интер 300',
   'Интер 500',
+  'Новый_Промо 300',
+  'Новый_Промо 500',
+  'Скай300',
+  'Агент'
 ];
 
 export const formatDate = (date, showTime) => {
