@@ -38,7 +38,8 @@ export const availableTariffs = [
   'Новый_Промо 300',
   'Новый_Промо 500',
   'Скай300',
-  'Агент'
+  'Агент',
+  'FastNet'
 ];
 
 export const formatDate = (date, showTime) => {
